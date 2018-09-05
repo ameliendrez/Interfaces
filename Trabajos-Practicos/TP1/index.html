@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <title>Digital Draw</title>
     <link href="images/favicon.png" rel="shortcut icon" />
 
@@ -15,163 +14,122 @@
 
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-
             <div class="row header">
-
                 <div class="logo col-md-offset-1 col-md-4">
                     <img class="img-responsive" src="images/logo.png" alt="Digital Draw Logo">
                 </div>
 
                 <div class="accionesHeader col-md-5">
-
                     <a class="accionesArchivos" id="descargarProyecto" href="#">
-
-                        <!-- <span class="glyphicon glyphicon-floppy-save"></span>                 -->
                         <span class="far fa-save"></span>
                     </a>
-                    
-                    <!--
-                        fa-palette
-                        fa-chalkboard 
-                        fa-clipboard
-                        fa-square
-                        fa-undo
-                        fa-cloud-download-alt 
-                    -->
+
                     <form class="imageUpload">
                         <input id="addImage" type="file" accept="image/*" >
                     </form>
-                    <a class="accionesArchivos" id="subirImagen" href="#">
 
-                        <!-- <i class="material-icons">add_photo_alternate</i> -->
-                        
-                        <!-- <span class="glyphicon glyphicon-picture"></span> -->
+                    <a class="accionesArchivos" id="subirImagen" href="#">
                         <span class="far fa-file-image"></span>
                     </a>
 
                     <a class="accionesArchivos" id="nuevoProyecto" href="#">
-
-                        <!-- <span class="glyphicon glyphicon-file"></span> -->
                         <span class="far fa-file"></span>
-
                     </a>
-
                 </div>
-
             </div>
 
         </div>
     </div>
 
     <div class="row">
-
         <div class="sidebar-left col-md-1 col-md-offset-1">
-            <!-- <i class="fa fa-pencil-alt" style="font-size:60px;color:black;text-shadow:2px 2px 4px #b3adad;"></i> -->
-
             <div class="row">
                 <div class="col-md-12 accionesDibujar">
                     <a id="seleccionar-lapiz" href="#">
-
-                        <!-- <i class="material-icons">brush</i> -->
-
-                        <!-- <span class="glyphicon glyphicon-pencil"></span> -->
                         <span class="fa fa-pencil-alt"></span>
-
                     </a>
                 </div>
             </div>
 
             <div class="row">
-                    <div class="col-md-12 accionesDibujar">
-                        <a id="seleccionar-borrar" href="#">
-    
-                            <!-- <span class="glyphicon glyphicon-erase"></span> -->
-                            <!-- <form>
-                                <input type="range">
-                            </form> -->
-                            <span class="fa fa-eraser"></span>
-    
-                        </a>
-                    </div>
+                <div class="col-md-12 accionesDibujar">
+                    <a id="seleccionar-borrar" href="#">
+                        <!-- <form>
+                            <input type="range">
+                        </form> -->
+                        <span class="fa fa-eraser"></span>
+                    </a>
                 </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-12 accionesDibujar">
                     <a id="ver-colores" href="#">
-
-                        <!-- <i class="material-icons">palette</i> -->
-                        <!-- <form>
-                            <input type="range">
-                        </form> -->
                         <span class="fa fa-palette"></span>
-
                     </a>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12 accionesDibujar">
-                    <a id="mostrar-filtros" href="#">
-
-                        <!-- <span class="glyphicon glyphicon-filter"></span> -->
+                    <a id="ver-filtros" href="#">
                         <span class="fa fa-filter"></span>
-                        <!--
-                            far fa-images
-                        -->
                     </a>
                 </div>
             </div>
-    
         </div>
 
         <div class="sidebar-left  infoAdiccional oculto col-md-1">
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 blanco colores"></div>
+                <div class="col-md-10 col-md-offset-1 blanco colores oculto"></div>
             </div>                    
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 negro colores"></div>
+                <div class="col-md-10 col-md-offset-1 negro colores oculto"></div>
             </div>                  
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 marron colores"></div>
+                <div class="col-md-10 col-md-offset-1 marron colores oculto"></div>
             </div>            
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 rojo colores"></div>
+                <div class="col-md-10 col-md-offset-1 rojo colores oculto"></div>
             </div>   
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 naranja colores"></div>
+                <div class="col-md-10 col-md-offset-1 naranja colores oculto"></div>
             </div>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 amarillo colores"></div>
+                <div class="col-md-10 col-md-offset-1 amarillo colores oculto"></div>
             </div>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 verde colores"></div>
+                <div class="col-md-10 col-md-offset-1 verde colores oculto"></div>
             </div>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 celeste colores"></div>
+                <div class="col-md-10 col-md-offset-1 celeste colores oculto"></div>
             </div>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 azul colores"></div>
-            </div>
-      
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 rosa colores"></div>
+                <div class="col-md-10 col-md-offset-1 azul colores oculto"></div>
             </div>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 violeta colores"></div>
+                <div class="col-md-10 col-md-offset-1 rosa colores oculto"></div>
             </div>
-      
-          
-        
-   
-  
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 violeta colores oculto"></div>
+            </div>
 
+            <div class="row">
+                <div id="sepia" class="col-md-10 col-md-offset-1 filtros oculto"></div>
+            </div>
+            <div class="row">
+                <div id="negativo" class="col-md-10 col-md-offset-1 filtros oculto"></div>
+            </div>
+            <div class="row">
+                <div id="escala-grises" class="col-md-10 col-md-offset-1 filtros oculto"></div>
+            </div>
         </div>
+
+
         <div class='editor-canvas col-md-8 col-md-offset-1'>
-            <canvas></canvas>
+            <canvas id="lienzo"></canvas>
         </div>
     </div>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
