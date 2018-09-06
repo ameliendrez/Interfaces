@@ -12,17 +12,44 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var infoAdicional = document.getElementsByClassName('infoAdiccional');
     var posicionCanvas = document.getElementsByClassName('editor-canvas');
     var lienzo = document.getElementById('lienzo');
+    var ctxLienzo = lienzo.getContext('2d');
+    var pintando = false;
+    var posicionCursor;
     var filtros = document.getElementsByClassName('filtros');
     var selectorFiltro = document.getElementsByClassName('filtrosCanvas');
     var imagen = new Image();
 
-
     preparePreventDefault();
     prepareColoresClick();
     prepareSelectoresFiltro();
+    prepareCanvas();
 
     subir.onclick = function (e) {
         btnUpload.click();
+    }
+
+    paginaBlanco.onclick = function(e) {
+        imagen = new Image();
+        ocultarFiltros();
+        ctx = lienzo.getContext('2d');
+        width = lienzo.width;
+        height = lienzo.height;
+        modifyImage(ctx, width, height, 'vacio');
+    }
+
+    descargar.onclick = function(e){
+        let nombreArchivo = prompt("Seleccione nombre del archivo","");
+        if (nombreArchivo === null){
+            return false;
+        }
+        else if (nombreArchivo === ""){
+            this.download = "My Digital Draw.png";
+            this.href = lienzo.toDataURL("image/png");
+        }
+        else{
+            this.download = nombreArchivo+".png";
+            this.href = lienzo.toDataURL("image/png");
+        }
     }
 
     btnUpload.onchange = function (e) {
@@ -50,6 +77,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     mostrarFiltros.onclick = function (e) {
+        if (seleccionarLapiz.classList.contains('active'))
+            seleccionarLapiz.classList.remove('active');
         if (mostrarSeleccionarColor.classList.contains('activo')){
             mostrarSeleccionarColor.classList.remove('activo');    
             if(infoAdicional[0].classList.contains('oculto'))
@@ -63,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     seleccionarLapiz.onclick = function (e) {
+        this.classList.add('active');
         mostrarFiltroColores();
         mostrarColores();
         ocultarFiltros();
@@ -304,9 +334,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
             'b' : Math.floor((gris.r * .272) + (gris.g *.534) + (gris.b * .131))
         }
         var binario = {
-            'r' : (Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3) > (255/2)) ? 255 : 0,
-            'g' : (Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3) > (255/2)) ? 255 : 0,
-            'b' : (Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3) > (255/2)) ? 255 : 0
+            'r' : (gris.r > (255/2)) ? 255 : 0,
+            'g' : (gris.g > (255/2)) ? 255 : 0,
+            'b' : (gris.b > (255/2)) ? 255 : 0
+        }
+
+        var vacio = {
+            'r' : 255,
+            'g' : 255,
+            'b' : 255
         }
 
 
@@ -322,12 +358,105 @@ document.addEventListener("DOMContentLoaded", function(event) {
             return sepia;
         else if (filtro === 'binario')
             return binario;
+        else if (filtro === 'vacio')
+            return vacio;
         else 
             return ninguno;
     }
 
+    
+	function prepareCanvas(){
+        //canvasLimites=lienzo.getBoundingClientRect(); // obtenemos los limites del canvas
+		lienzo.addEventListener('mousedown',cambiarEstado,false);
+        lienzo.addEventListener('mouseup',cambiarEstado,false);
+		lienzo.addEventListener('mousemove',pintarLinea,false);
+		//lienzo.style.cursor="hand";
+		//borrador=document.getElementById("borrador");
+		//borrador.addEventListener('click',erase,false);
+	}
+
+	function cambiarEstado(){
+        if (seleccionarLapiz.classList.contains('active')){
+            pintando = true;
+            posicionCursor=obtenerCoordenadas(event);
+        }
+        else{
+            pintando = false;
+            posicionCursor.x = -1;
+            posicionCursor.y = -1;
+        }          
+	}
+
+	function pintarLinea(event){
+		if(pintando){
+            var color = getColorActivo();
+            var coordenadas=obtenerCoordenadas(event);
+			ctxLienzo.beginPath(); // comenzamos a dibujar
+			ctxLienzo.moveTo(posicionCursor.x, posicionCursor.y); // ubicamos el cursor en la posicion (10,10)
+            ctxLienzo.lineTo(coordenadas.x,coordenadas.y);
+            ctxLienzo.closePath();
+			posicionCursor.x = coordenadas.x;
+			posicionCursor.y = coordenadas.y;
+            ctxLienzo.lineCap = 'round';
+            ctxLienzo.lineJoin = 'round';
+            ctxLienzo.lineWidth = 5;
+			ctxLienzo.strokeStyle = color; // color de la linea
+            ctxLienzo.stroke(); // dibujamos la linea
+		}
+    }
+    
+    function getColorActivo() {
+        var color = 'negro';
+        for (let i = 0; i < colores.length; i++) {
+            if(colores[i].classList.contains('active')){
+                color = colores[i].id;
+            }   
+        }
+
+        var coloresHash = {
+            'verde' : '#16cf0a',
+            'rojo' : '#f10202',
+            'amarillo' : '#f1ef44',
+            'violeta' : '#ca0cdb', 
+            'azul' : '#170acf',
+            'celeste' : '#0ee2e2',
+            'naranja' : '#f35f1a', 
+            'rosa' : '#fc4fe5', 
+            'negro' : '#000000',
+            'marron' : '#692803',
+            'blanco' : '#ffffff'
+        }
+
+        return coloresHash[color];
+    }
+
+	function obtenerCoordenadas(event){
+
+		var posX = event.layerX - lienzo.offsetLeft;
+        var posY = event.layerY - lienzo.offsetTop;
+
+        
+            //     var x = event.layerX+offsetx;
+    //     var y = event.layerY+offsety;
+
+		// if (event.pageX || event.pageY) {
+		// 	posX = event.pageX- canvasLimites.left;
+		// 	posY = event.pageY- canvasLimites.top;
+		// }else{
+		// 	posX = event.layerX-lienzo.offsetLeft;//event.clientX -lienzo.offsetLeft;// - canvasLimites.left;
+		// 	posY = event.layerY-lienzo.offsetLeft//event.clientY - lienzo.offsetTop;// canvasLimites.top;
+        // }        
 
 
+		return {x:posX,
+			y:posY
+		};
+    }
+    
+
+	function erase(){
+		contexto.clearRect(0, 0, lienzo.width, lienzo.height);
+	}
 
 
 
@@ -340,16 +469,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-function dibujarLinea() {
-    var canvas = document.getElementById('canvas');
-    if (canvas.getContext){
-      var ctx = canvas.getContext('2d');
-  
-      ctx.beginPath();
-      ctx.moveTo(75,50);
-      ctx.lineTo(100,75);
-      ctx.lineTo(100,25);
-      ctx.closePath();
-      ctx.fill();
-    }
-  }
+
