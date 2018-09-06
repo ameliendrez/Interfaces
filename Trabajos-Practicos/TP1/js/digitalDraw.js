@@ -114,10 +114,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
             selectorFiltro[i].onclick = function(e){
                 removeFiltroActive();
                 var filtro = selectorFiltro[i].id;
-                var ctx = lienzo.getContext('2d');
-                var width = lienzo.width;
-                var height = lienzo.height;
-                modifyImage(ctx, width, height, filtro);
+
+                if(filtro !== 'inicial') {
+                    var ctx = lienzo.getContext('2d');
+                    var width = lienzo.width;
+                    var height = lienzo.height;
+                    modifyImage(ctx, width, height, filtro);
+                }
+                else
+                    myDrawImageMod(imagen);		
                 selectorFiltro[i].classList.add('active');
             }
         }
@@ -210,16 +215,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         var img = image;
 
+        pasteFiltro (img, 'inicial');
         pasteFiltro (img, 'sepia');
         pasteFiltro (img, 'negativo');
         pasteFiltro (img, 'escalaGrises');
+        pasteFiltro (img, 'binario');
 
-        var width = document.getElementById("lienzo").width;
-        var height = document.getElementById("lienzo").height;
+        var width = lienzo.width;
+        var height = lienzo.height;
         ctx.drawImage(image, 0, 0, width, height);
     }
 
-    function pasteFiltro(img, filtro) {
+    function pasteFiltro(img, filtro=null) {
         var imagenNueva = new Image();
         imagenNueva = img;
 
@@ -228,7 +235,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var width = tmp.width;
         var height = tmp.height;
         ctx.drawImage(imagenNueva, 0, 0, width, height);
-        modifyImage(ctx, width, height, filtro);
+
+        if(filtro !== 'inicial')
+            modifyImage(ctx, width, height, filtro);
+        else{
+            tmp.classList.add('active');
+        }
     }
 
     
@@ -241,9 +253,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             for (let y = 0; y < height; y++) {
     
                 var variables = getFiltro(filtro, imageData, x, y);
-                r = variables.r;
-                g = variables.g;
-                b = variables.b;
+                r = (variables.r > 255) ? 255: (variables.r < 0) ? 0 : variables.r;
+                g = (variables.g > 255) ? 255: (variables.g < 0) ? 0 : variables.g;
+                b = (variables.b > 255) ? 255: (variables.b < 0) ? 0 : variables.b;
                 setPixel(imageData, x, y, r, g, b, 255);
             }
         }
@@ -261,15 +273,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
         index = (x + y * imageData.width) * 4;			
 
         var verde = {
-            'r' : imageData.data[index+0] - 100,
-            'g' : imageData.data[index+0] + 25,
-            'b' : imageData.data[index+0] - 60
+            'r' : Math.floor(imageData.data[index+0] - 100),
+            'g' : Math.floor(imageData.data[index+0] + 25),
+            'b' : Math.floor(imageData.data[index+0] - 60)
         };
 
         var rojo = {
-            'r' : imageData.data[index+0] + 100,
-            'g' : imageData.data[index+1] -60,
-            'b' : imageData.data[index+2] -60
+            'r' : Math.floor(imageData.data[index+0] + 100),
+            'g' : Math.floor(imageData.data[index+1] -60),
+            'b' : Math.floor(imageData.data[index+2] -60)
         };
         var ninguno = {
             'r' : imageData.data[index+0],
@@ -277,19 +289,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
             'b' : imageData.data[index+2]
         };
         var gris = {
-            'r' : (imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3,
-            'g' : (imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3,
-            'b' : (imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3
+            'r' : Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3),
+            'g' : Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3),
+            'b' : Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3)
         }
         var negativo = {
-            'r' : 255 - imageData.data[index+0],
-            'g' : 255 - imageData.data[index+1],
-            'b' : 255 - imageData.data[index+2]
+            'r' : Math.floor(255 - imageData.data[index+0]),
+            'g' : Math.floor(255 - imageData.data[index+1]),
+            'b' : Math.floor(255 - imageData.data[index+2])
         }
         var sepia = {
-            'r' : (gris.r * .393) + (gris.g *.769) + (gris.b * .189) ,
-            'g' : (gris.r * .349) + (gris.g *.686) + (gris.b * .168),
-            'b' : (gris.r * .272) + (gris.g *.534) + (gris.b * .131)
+            'r' : Math.floor((gris.r * .393) + (gris.g *.769) + (gris.b * .189)) ,
+            'g' : Math.floor((gris.r * .349) + (gris.g *.686) + (gris.b * .168)),
+            'b' : Math.floor((gris.r * .272) + (gris.g *.534) + (gris.b * .131))
+        }
+        var binario = {
+            'r' : (Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3) > (255/2)) ? 255 : 0,
+            'g' : (Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3) > (255/2)) ? 255 : 0,
+            'b' : (Math.floor((imageData.data[index+0] + imageData.data[index+1] + imageData.data[index+2])/3) > (255/2)) ? 255 : 0
         }
 
 
@@ -303,6 +320,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             return negativo;
         else if (filtro === 'sepia')
             return sepia;
+        else if (filtro === 'binario')
+            return binario;
         else 
             return ninguno;
     }
