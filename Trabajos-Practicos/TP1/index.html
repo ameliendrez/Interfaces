@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <div class="sidebar-left  infoAdiccional oculto col-md-1">
+        <div class="sidebar-left infoAdiccional oculto col-md-1">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 blanco colores oculto"></div>
             </div>                    
@@ -115,13 +115,20 @@
             </div>
 
             <div class="row">
-                <div id="sepia" class="col-md-10 col-md-offset-1 filtros oculto"></div>
+                <div class="col-md-12 filtros oculto">
+                    <canvas class="filtrosCanvas" id="negativo"></canvas>
+                </div>
             </div>
             <div class="row">
-                <div id="negativo" class="col-md-10 col-md-offset-1 filtros oculto"></div>
+                <div class="col-md-12 filtros oculto">
+                    <canvas class="filtrosCanvas" id="escalaGrises"></canvas>
+                </div>
             </div>
+
             <div class="row">
-                <div id="escala-grises" class="col-md-10 col-md-offset-1 filtros oculto"></div>
+                <div class="col-md-12 filtros oculto">
+                    <canvas class="filtrosCanvas" id="sepia"></canvas>
+                </div>
             </div>
         </div>
 
