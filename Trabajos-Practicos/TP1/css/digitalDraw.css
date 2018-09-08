@@ -77,6 +77,11 @@ canvas{
     box-shadow: 1px 1px 9px 6px #b7bd79;
 }
 
+#infoAdicional{
+    height: 400px;
+    overflow-y: scroll;
+}
+
 .editor-canvas{
     padding-right:0;
 }

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var btnUpload = document.getElementById("addImage");
     var paginaBlanco = document.getElementById("nuevoProyecto");
 
-    var infoAdicional = document.getElementById('infoAdiccional');
+    var infoAdicional = document.getElementById('infoAdicional');
     var posicionCanvas = document.getElementById('editor-canvas');
     var lienzo = document.getElementById('lienzo');
     var ctxLienzo = lienzo.getContext('2d');
@@ -289,6 +289,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             'b' : Math.floor(imageData.data[index+0] - 60)
         };
 
+        var azul = {
+            'r' : Math.floor(imageData.data[index+0] - 100),
+            'g' : Math.floor(imageData.data[index+0] - 25),
+            'b' : Math.floor(imageData.data[index+0] + 100)
+        };
+
         var rojo = {
             'r' : Math.floor(imageData.data[index+0] + 100),
             'g' : Math.floor(imageData.data[index+1] -60),
@@ -327,10 +333,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
 
-        if(filtro === 'verde')
+        if(filtro === 'filtroVerde')
             return verde;
-        else if (filtro === 'rojo')
+        else if (filtro === 'filtroRojo')
             return rojo;
+        else if (filtro === 'filtroAzul')
+        return azul;
         else if (filtro === 'escalaGrises')
             return gris;
         else if (filtro === 'negativo')
@@ -351,6 +359,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         pasteFiltro (img, 'negativo');
         pasteFiltro (img, 'escalaGrises');
         pasteFiltro (img, 'binario');
+        pasteFiltro (img, 'filtroRojo');
+        pasteFiltro (img, 'filtroVerde');
+        pasteFiltro (img, 'filtroAzul');
     }
 
     function prepareFiltros() {
