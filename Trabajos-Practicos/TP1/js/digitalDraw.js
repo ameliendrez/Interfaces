@@ -1,40 +1,97 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-    var subir = document.getElementById("subirImagen");
     var descargar = document.getElementById("descargarProyecto");
-    var paginaBlanco = document.getElementById("nuevoProyecto");
-    var seleccionarLapiz = document.getElementById("seleccionar-lapiz");
-    var seleccionarBorrador = document.getElementById("seleccionar-borrar");
-    var mostrarSeleccionarColor = document.getElementById("ver-colores");
-    var mostrarFiltros = document.getElementById("ver-filtros");
+    var subir = document.getElementById("subirImagen");
     var btnUpload = document.getElementById("addImage");
-    var colores = document.getElementsByClassName("colores");
-    var infoAdicional = document.getElementsByClassName('infoAdiccional');
-    var posicionCanvas = document.getElementsByClassName('editor-canvas');
+    var paginaBlanco = document.getElementById("nuevoProyecto");
+
+    var infoAdicional = document.getElementById('infoAdiccional');
+    var posicionCanvas = document.getElementById('editor-canvas');
     var lienzo = document.getElementById('lienzo');
     var ctxLienzo = lienzo.getContext('2d');
-    var pintando = false;
-    var posicionCursor;
-    var filtros = document.getElementsByClassName('filtros');
-    var selectorFiltro = document.getElementsByClassName('filtrosCanvas');
     var imagen = new Image();
 
+    var seleccionarLapiz = document.getElementById("seleccionar-lapiz");
+    var seleccionarBorrador = document.getElementById("seleccionar-borrar");
+    var mostrarConfig = document.getElementById("ver-config");
+    var mostrarFiltros = document.getElementById("ver-filtros");
+
+    var configFiltros = document.getElementById("config-filtros");
+    var selectorFiltro = document.getElementsByClassName('filtrosCanvas');
+
+    var config = document.getElementById("config");
+    var selectorTamanioLapiz = document.getElementById('tamanio-lapiz');
+    var colores = document.getElementsByClassName("colores");
+    var tamanio = 5;
+    var pintando = false;
+    var posicionCursor = {
+        x : -1,
+        y : -1
+    };
+
+
+
+    
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    
     preparePreventDefault();
     prepareColoresClick();
     prepareSelectoresFiltro();
-    prepareCanvas();
+    prepareFiltros();
+
+
+  
+    mostrarFiltros.onclick = function () {
+        if(mostrarConfig.classList.contains('active')){
+            mostrarConfig.classList.remove('active');
+            if(infoAdicional.classList.contains('oculto'))
+                mostrarFiltroColores();
+        }
+        else
+            toggleFiltroColores();
+
+        this.classList.toggle('active');
+        configFiltros.classList.remove('oculto');
+        config.classList.add('oculto');
+    }
+
+    mostrarConfig.onclick = function () {
+        mostrarConfiguracion();
+    }
+
+    function mostrarConfiguracion() {
+        if (mostrarFiltros.classList.contains('active')){
+            mostrarFiltros.classList.remove('active');
+            if(infoAdicional.classList.contains('oculto'))
+                mostrarFiltroColores();
+        }
+        else
+            toggleFiltroColores();
+
+        mostrarConfig.classList.toggle('active');
+        configFiltros.classList.add('oculto');
+        config.classList.remove('oculto');
+    }
 
     subir.onclick = function (e) {
         btnUpload.click();
     }
 
+    selectorTamanioLapiz.onchange = function(){
+        tamanio = this.value;
+    }
+
     paginaBlanco.onclick = function(e) {
         imagen = new Image();
-        ocultarFiltros();
         ctx = lienzo.getContext('2d');
         width = lienzo.width;
         height = lienzo.height;
         modifyImage(ctx, width, height, 'vacio');
+        prepareFiltros();
     }
 
     descargar.onclick = function(e){
@@ -59,12 +116,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
             imagen.src = window.URL.createObjectURL(file);
             imagen.onload = function () {
                 myDrawImageMod(imagen);		
-                if(infoAdicional[0].classList.contains('oculto')){
+                changeFiltros(imagen);
+                if(infoAdicional.classList.contains('oculto')){
                     mostrarFiltroColores();
-                    mostrarFiltros.classList.add('activo');
+                    // mostrarFiltros.classList.add('active');
                 }
-                if(mostrarFiltros.classList.contains('activo'))
-                    mostrarFiltrosBasicos();	
+                // if(mostrarFiltros.classList.contains('active')){
+                //     // mostrar(filtros);	
+                // }
             }
         } 
         else {
@@ -72,36 +131,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 
-    mostrarSeleccionarColor.onclick = function (e) {
-        selectColor();
-    }
-
-    mostrarFiltros.onclick = function (e) {
-        if (seleccionarLapiz.classList.contains('active'))
-            seleccionarLapiz.classList.remove('active');
-        if (mostrarSeleccionarColor.classList.contains('activo')){
-            mostrarSeleccionarColor.classList.remove('activo');    
-            if(infoAdicional[0].classList.contains('oculto'))
-                toggleFiltrosColores();
-        }
-        else
-            toggleFiltrosColores();
-        mostrarFiltros.classList.add('activo');
-        ocultarColores();
-        mostrarFiltrosBasicos();
-    }
-
     seleccionarLapiz.onclick = function (e) {
-        this.classList.add('active');
-        mostrarFiltroColores();
-        mostrarColores();
-        ocultarFiltros();
+        this.classList.toggle('active');
+        if (seleccionarBorrador.classList.contains('active'))
+            seleccionarBorrador.classList.remove('active');
+
         for (let i = 0; i < colores.length; i++) {
             if(colores[i].classList.contains('negro')){
                 colores[i].classList.add('active');
                 break;
             }   
         }
+    }
+
+    seleccionarBorrador.onclick = function (e) {
+        this.classList.toggle('active');
+        if (seleccionarLapiz.classList.contains('active'))
+            seleccionarLapiz.classList.remove('active');
     }
 
     /**
@@ -166,11 +212,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 
-    /**
-     * Muestra el bloque destinado para mostrar filtros o colores para editar
-     */
-    function toggleFiltrosColores(){
-        if(infoAdicional[0].classList.contains('oculto'))
+    function toggleFiltroColores() {
+        if(infoAdicional.classList.contains('oculto'))
             mostrarFiltroColores();
         else
             ocultarFiltroColores();
@@ -180,77 +223,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
      * Muestra el bloque que contiene los colores o los filtros
      */
     function mostrarFiltroColores (){
-        posicionCanvas[0].classList.remove('col-md-offset-1');
-        infoAdicional[0].classList.remove('oculto');
+        posicionCanvas.classList.remove('offset-md-1');
+        infoAdicional.classList.remove('oculto');
     }
 
      /**
      * Oculta el bloque que contiene los colores o los filtros
      */
     function ocultarFiltroColores(){
-        posicionCanvas[0].classList.add('col-md-offset-1');
-        infoAdicional[0].classList.add('oculto');
-    }
-    
-    function mostrarColores() {
-        for(let i = 0; i< colores.length; i++){
-            if(colores[i].classList.contains('oculto')){
-                colores[i].classList.remove('oculto');
-            }
-        }
-    }
-
-    function ocultarColores() {
-        for(let i = 0; i< colores.length; i++){
-            if(!colores[i].classList.contains('oculto')){
-                colores[i].classList.add('oculto');
-            }
-        }
-    }
-
-    function mostrarFiltrosBasicos(){
-        if (imagen.src != '') {
-            for(let i = 0; i< filtros.length; i++){
-                if(filtros[i].classList.contains('oculto')){
-                    filtros[i].classList.remove('oculto');
-                }
-            }
-        }
-    }
-
-    function ocultarFiltros(){
-        for(let i = 0; i< filtros.length; i++){
-            if(!filtros[i].classList.contains('oculto')){
-                filtros[i].classList.add('oculto');
-            }
-        }
-    }
-
-    function selectColor(){
-        if (mostrarFiltros.classList.contains('activo')){
-            mostrarFiltros.classList.remove('activo');
-            if(infoAdicional[0].classList.contains('oculto'))
-                toggleFiltrosColores();
-        }
-        else
-            toggleFiltrosColores();
-        
-        mostrarSeleccionarColor.classList.add('activo');
-        mostrarColores();
-        ocultarFiltros();
+        posicionCanvas.classList.add('offset-md-1');
+        infoAdicional.classList.add('oculto');
     }
 
     function myDrawImageMod(image, ctx, width, height){
         ctx = lienzo.getContext("2d");
-
-        var img = image;
-
-        pasteFiltro (img, 'inicial');
-        pasteFiltro (img, 'sepia');
-        pasteFiltro (img, 'negativo');
-        pasteFiltro (img, 'escalaGrises');
-        pasteFiltro (img, 'binario');
-
         var width = lienzo.width;
         var height = lienzo.height;
         ctx.drawImage(image, 0, 0, width, height);
@@ -273,15 +259,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 
-    
-
     function modifyImage(ctx, width, height, filtro=null) {
-
         var imageData = ctx.getImageData(0, 0, width, height);
-    
         for (let x = 0; x < width; x++) {
             for (let y = 0; y < height; y++) {
-    
                 var variables = getFiltro(filtro, imageData, x, y);
                 r = (variables.r > 255) ? 255: (variables.r < 0) ? 0 : variables.r;
                 g = (variables.g > 255) ? 255: (variables.g < 0) ? 0 : variables.g;
@@ -364,53 +345,74 @@ document.addEventListener("DOMContentLoaded", function(event) {
             return ninguno;
     }
 
-    
-	function prepareCanvas(){
-        //canvasLimites=lienzo.getBoundingClientRect(); // obtenemos los limites del canvas
-		lienzo.addEventListener('mousedown',cambiarEstado,false);
-        lienzo.addEventListener('mouseup',cambiarEstado,false);
-		lienzo.addEventListener('mousemove',pintarLinea,false);
-		//lienzo.style.cursor="hand";
-		//borrador=document.getElementById("borrador");
-		//borrador.addEventListener('click',erase,false);
-	}
+    function changeFiltros(img){
+        pasteFiltro (img, 'inicial');
+        pasteFiltro (img, 'sepia');
+        pasteFiltro (img, 'negativo');
+        pasteFiltro (img, 'escalaGrises');
+        pasteFiltro (img, 'binario');
+    }
 
-	function cambiarEstado(){
-        if (seleccionarLapiz.classList.contains('active')){
-            pintando = true;
-            posicionCursor=obtenerCoordenadas(event);
+    function prepareFiltros() {
+        img = new Image();
+        img.src = 'images/imagenInicial.jpg';
+        img.onload = function () {
+            changeFiltros(this);  
         }
-        else{
-            pintando = false;
-            posicionCursor.x = -1;
-            posicionCursor.y = -1;
-        }          
-	}
+    }
 
-	function pintarLinea(event){
-		if(pintando){
-            var color = getColorActivo();
-            var coordenadas=obtenerCoordenadas(event);
-			ctxLienzo.beginPath(); // comenzamos a dibujar
-			ctxLienzo.moveTo(posicionCursor.x, posicionCursor.y); // ubicamos el cursor en la posicion (10,10)
-            ctxLienzo.lineTo(coordenadas.x,coordenadas.y);
-            ctxLienzo.closePath();
-			posicionCursor.x = coordenadas.x;
-			posicionCursor.y = coordenadas.y;
-            ctxLienzo.lineCap = 'round';
-            ctxLienzo.lineJoin = 'round';
-            ctxLienzo.lineWidth = 5;
-			ctxLienzo.strokeStyle = color; // color de la linea
-            ctxLienzo.stroke(); // dibujamos la linea
-		}
+    lienzo.onmousedown = function (e) {
+        if(seleccionarLapiz.classList.contains('active') || seleccionarBorrador.classList.contains('active'))
+            pintando = true;
+    }
+
+    lienzo.onmouseup = function () {
+        pintando = false;
+        posicionCursor.x = -1;
+        posicionCursor.y = -1;
+    }
+
+    lienzo.onmousemove = function (e) {
+        if (pintando){
+            if (seleccionarBorrador.classList.contains('active'))
+                pintar(e, 'blanco');
+            else
+                pintar(e);
+        }; 
+    }
+
+    function pintar(e, color=null) {
+        var coordenadas ={};
+        coordenadas.x = e.layerX - 20;
+        coordenadas.y = e.layerY;
+        var color = getColorActivo(color);
+
+        ctxLienzo.lineCap = 'round';
+        ctxLienzo.lineWidth = tamanio;
+        ctxLienzo.strokeStyle = color; // color de la linea
+
+        ctxLienzo.beginPath(); // comenzamos a dibujar
+        if (posicionCursor.x != -1)
+            ctxLienzo.moveTo (posicionCursor.x, posicionCursor.y);
+        else
+            ctxLienzo.moveTo (coordenadas.x, coordenadas.y);
+
+        ctxLienzo.lineTo(coordenadas.x, coordenadas.y);
+        ctxLienzo.stroke();
+
+        posicionCursor.x = coordenadas.x;
+        posicionCursor.y = coordenadas.y;
     }
     
-    function getColorActivo() {
-        var color = 'negro';
-        for (let i = 0; i < colores.length; i++) {
-            if(colores[i].classList.contains('active')){
-                color = colores[i].id;
-            }   
+
+    
+    function getColorActivo(color=null) {
+        if (color === null) {
+            for (let i = 0; i < colores.length; i++) {
+                if(colores[i].classList.contains('active')){
+                    color = colores[i].id;
+                }   
+            }
         }
 
         var coloresHash = {
@@ -426,40 +428,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             'marron' : '#692803',
             'blanco' : '#ffffff'
         }
-
         return coloresHash[color];
     }
-
-	function obtenerCoordenadas(event){
-
-		var posX = event.layerX - lienzo.offsetLeft;
-        var posY = event.layerY - lienzo.offsetTop;
-
-        
-            //     var x = event.layerX+offsetx;
-    //     var y = event.layerY+offsety;
-
-		// if (event.pageX || event.pageY) {
-		// 	posX = event.pageX- canvasLimites.left;
-		// 	posY = event.pageY- canvasLimites.top;
-		// }else{
-		// 	posX = event.layerX-lienzo.offsetLeft;//event.clientX -lienzo.offsetLeft;// - canvasLimites.left;
-		// 	posY = event.layerY-lienzo.offsetLeft//event.clientY - lienzo.offsetTop;// canvasLimites.top;
-        // }        
-
-
-		return {x:posX,
-			y:posY
-		};
-    }
-    
-
-	function erase(){
-		contexto.clearRect(0, 0, lienzo.width, lienzo.height);
-	}
-
-
-
 });
 
 

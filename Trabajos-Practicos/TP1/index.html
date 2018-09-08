@@ -1,157 +1,156 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Digital Draw</title>
-    <link href="images/favicon.png" rel="shortcut icon" />
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <title>Digital Draw</title>
+        <link href="images/favicon.png" rel="shortcut icon" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="fontAwesome/css/all.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/digitalDraw.css" />
-</head>
-<body>
+        <link rel="stylesheet" type="text/css" media="screen" href="fontAwesome/css/all.css" />
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" media="screen" href="css/digitalDraw.css" />
+    </head>
+    <body>
 
 
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="row header">
-                <div class="logo col-md-offset-1 col-md-4">
-                    <img class="img-responsive" src="images/logo.png" alt="Digital Draw Logo">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="row header">
+                    <div class="logo offset-md-1 col-md-4">
+                        <img class="img-fluid" src="images/logo.png" alt="Digital Draw Logo">
+                    </div>
+
+                    <div class="accionesHeader col-md-5">
+                        <a class="accionesArchivos" id="descargarProyecto" href="#" data-toggle="tooltip" title="Descargar Imagen">
+                            <span class="far fa-save"></span>
+                        </a>
+
+                        <form class="imageUpload">
+                            <input id="addImage" type="file" accept="image/*" >
+                        </form>
+
+                        <a class="accionesArchivos" id="subirImagen" href="#" data-toggle="tooltip" title="Subir Imagen">
+                            <span class="far fa-file-image"></span>
+                        </a>
+
+                        <a class="accionesArchivos" id="nuevoProyecto" href="#" data-toggle="tooltip" title="Borrar Lienzo">
+                            <span class="far fa-file"></span>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="accionesHeader col-md-5">
-                    <a class="accionesArchivos" id="descargarProyecto" href="#">
-                        <span class="far fa-save"></span>
-                    </a>
-
-                    <form class="imageUpload">
-                        <input id="addImage" type="file" accept="image/*" >
-                    </form>
-
-                    <a class="accionesArchivos" id="subirImagen" href="#">
-                        <span class="far fa-file-image"></span>
-                    </a>
-
-                    <a class="accionesArchivos" id="nuevoProyecto" href="#">
-                        <span class="far fa-file"></span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="sidebar-left col-md-1 col-md-offset-1">
-            <div class="row">
-                <div class="col-md-12 accionesDibujar">
-                    <a id="seleccionar-lapiz" href="#">
-                        <span class="fa fa-pencil-alt"></span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 accionesDibujar">
-                    <a id="seleccionar-borrar" href="#">
-                        <!-- <form>
-                            <input type="range">
-                        </form> -->
-                        <span class="fa fa-eraser"></span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 accionesDibujar">
-                    <a id="ver-colores" href="#">
-                        <span class="fa fa-palette"></span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 accionesDibujar">
-                    <a id="ver-filtros" href="#">
-                        <span class="fa fa-filter"></span>
-                    </a>
-                </div>
             </div>
         </div>
 
-        <div class="sidebar-left infoAdiccional oculto col-md-1">
-            <div class="row">
-                <div id="blanco" class="col-md-10 col-md-offset-1 blanco colores oculto"></div>
-            </div>                    
-            <div class="row">
-                <div id="negro" class="col-md-10 col-md-offset-1 negro colores oculto"></div>
-            </div>                  
-            <div class="row">
-                <div id="marron" class="col-md-10 col-md-offset-1 marron colores oculto"></div>
-            </div>            
-            <div class="row">
-                <div id="rojo" class="col-md-10 col-md-offset-1 rojo colores oculto"></div>
-            </div>   
-            <div class="row">
-                <div id="naranja" class="col-md-10 col-md-offset-1 naranja colores oculto"></div>
-            </div>
-            <div class="row">
-                <div id="amarillo" class="col-md-10 col-md-offset-1 amarillo colores oculto"></div>
-            </div>
-            <div class="row">
-                <div id="verde" class="col-md-10 col-md-offset-1 verde colores oculto"></div>
-            </div>
-            <div class="row">
-                <div id="celeste" class="col-md-10 col-md-offset-1 celeste colores oculto"></div>
-            </div>
-            <div class="row">
-                <div id="azul" class="col-md-10 col-md-offset-1 azul colores oculto"></div>
-            </div>
-            <div class="row">
-                <div id="rosa" class="col-md-10 col-md-offset-1 rosa colores oculto"></div>
-            </div>
-            <div class="row">
-                <div id="violeta" class="col-md-10 col-md-offset-1 violeta colores oculto"></div>
+        <div class="row">
+            <div class="sidebar-left col-md-1 offset-md-1">
+                <div class="row">
+                    <div class="col-md-12 accionesDibujar">
+                        <a class="configuracion" id="seleccionar-lapiz" href="#" data-toggle="tooltip" title="Lapiz">
+                            <span class="fa fa-pencil-alt"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 accionesDibujar">
+                        <a class="configuracion" id="seleccionar-borrar" href="#" data-toggle="tooltip" title="Goma de Borrar">
+                            <!-- <form>
+                                <input type="range">
+                            </form> -->
+                            <span class="fa fa-eraser"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 accionesDibujar">
+                        <a class="configuracion" id="ver-config" href="#" data-toggle="tooltip" title="Configuracion - Color">
+                                <span class="fa fa-cog"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 accionesDibujar">
+                        <a class="configuracion" id="ver-filtros" href="#" data-toggle="tooltip" title="Filtros">
+                            <span class="fa fa-filter"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12 filtros oculto">
-                    <canvas class="filtrosCanvas" id="inicial"></canvas>
+            <div class="sidebar-left oculto col-md-1" id="infoAdiccional">
+                <div class="row oculto" id="config">
+                    <div class="col-md-6 col-tamanio">
+                        <span class="fa fa-plus tamanio"></span>
+                        <input type="range" class="custom-range" value="0" min="5" max="30" id="tamanio-lapiz" orient="vertical" />
+                        <span class="fa fa-minus tamanio"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div id="blanco" class="col-md-4 offset-md-1 blanco colores"></div>
+                    
+                            <div id="negro" class="col-md-4 offset-md-1 negro colores"></div>
+                    
+                            <div id="marron" class="col-md-4 offset-md-1 marron colores"></div>
+                    
+                            <div id="rojo" class="col-md-4 offset-md-1 rojo colores"></div>
+                        
+                            <div id="naranja" class="col-md-4 offset-md-1 naranja colores"></div>
+                        
+                            <div id="amarillo" class="col-md-4 offset-md-1 amarillo colores"></div>
+                    
+                            <div id="verde" class="col-md-4 offset-md-1 verde colores"></div>
+                    
+                            <div id="celeste" class="col-md-4 offset-md-1 celeste colores"></div>
+                        
+                            <div id="azul" class="col-md-4 offset-md-1 azul colores"></div>
+                    
+                            <div id="rosa" class="col-md-4 offset-md-1 rosa colores"></div>
+                    
+                            <div id="violeta" class="col-md-4 offset-md-1 violeta colores"></div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="row" id="config-filtros">
+                    <div class="col-md-12 filtros">
+                        <canvas width="210" class="filtrosCanvas" id="inicial"></canvas>
+                    </div>
+                
+                    <div class="col-md-12 filtros">
+                        <canvas width="210" class="filtrosCanvas" id="negativo"></canvas>
+                    </div>
+                
+                    <div class="col-md-12 filtros">
+                        <canvas width="210" class="filtrosCanvas" id="escalaGrises"></canvas>
+                    </div>
+                
+                    <div class="col-md-12 filtros">
+                        <canvas width="210" class="filtrosCanvas" id="sepia"></canvas>
+                    </div>
+                
+                    <div class="col-md-12 filtros">
+                        <canvas width="210" class="filtrosCanvas" id="binario"></canvas>
+                    </div>
+
+                </div>
+
+                
             </div>
-            <div class="row">
-                <div class="col-md-12 filtros oculto">
-                    <canvas class="filtrosCanvas" id="negativo"></canvas>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 filtros oculto">
-                    <canvas class="filtrosCanvas" id="escalaGrises"></canvas>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 filtros oculto">
-                    <canvas class="filtrosCanvas" id="sepia"></canvas>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 filtros oculto">
-                    <canvas class="filtrosCanvas" id="binario"></canvas>
-                </div>
+
+
+            <div class='col-md-8 offset-md-1' id="editor-canvas">
+                <canvas height="400" width="900" id="lienzo"></canvas>
             </div>
         </div>
 
-
-        <div class='editor-canvas col-md-8 col-md-offset-1'>
-            <canvas id="lienzo"></canvas>
-        </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="js/digitalDraw.js"></script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="js/digitalDraw.js"></script>
+    </body>
 </html>

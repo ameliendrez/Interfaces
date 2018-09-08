@@ -3,6 +3,29 @@ body{
     padding-top: 10px; 
 }
 
+input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 3px;
+    height: 200px;
+    padding: 0 5px;
+    background-color: black;
+}
+
+#tamanio-lapiz{
+    margin-left: 2px;
+}
+
+.col-tamanio{
+    margin-top: 70px;
+}
+
+
+.oculto{
+    display: none;
+}
+
 .row.header{
     margin-bottom: 20px;
     background-color: white; 
@@ -14,6 +37,18 @@ body{
     font-size:50px;
     color:black;
     text-shadow:2px 2px 4px #b3adad;
+}
+
+.tamanio{
+    font-size: 20px;
+}
+
+.configuracion:hover>.fa, .configuracion:hover>.far {
+    color: #f10202;
+}
+
+.configuracion.active>.fa, .configuracion.active>.far {
+    color: #f10202;
 }
 
 .accionesArchivos{
@@ -29,16 +64,10 @@ body{
     margin-top: 40px;
 }
 
-#lienzo{
-    height: 400px;
-    width: 900px;
-}
-
 canvas{
-    width: 100%;
-    border: solid 1px #16cf0a;
+    border: solid 1px #16cf0a; 
     background-color: white;
-    box-shadow: 1px 1px 9px 6px #b7bd79;
+    box-shadow: 1px 1px 9px 6px #b7bd79; 
 }
 
 .sidebar-left{
@@ -62,7 +91,7 @@ canvas{
     padding: 5px;
 }
 
-.infoAdiccional{
+#infoAdiccional{
     margin-left: 2px;
 }
 
@@ -74,10 +103,6 @@ canvas{
     height: 30px;
     border: 1px solid black;
     margin-top: 5px;
-}
-
-.colores.oculto{
-    display: none;
 }
 
 .colores:hover, .colores.active{
@@ -172,11 +197,6 @@ canvas{
 
 .blanco:hover, .blanco.active{
     border: #ffffff;
-}
-
-
-.filtros.oculto {
-    display: none;
 }
 
 .filtrosCanvas{
