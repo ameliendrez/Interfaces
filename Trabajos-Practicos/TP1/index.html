@@ -46,27 +46,24 @@
         <div class="row">
             <div class="sidebar-left col-md-1 offset-md-1">
                 <div class="row">
-                    <div class="col-md-12 accionesDibujar">
-                        <a class="configuracion" id="seleccionar-lapiz" href="#" data-toggle="tooltip" title="Lapiz">
+                    <div class="col-md-12 accionesDibujar" data-toggle="tooltip" title="Lapiz">
+                        <a class="configuracion" id="seleccionar-lapiz" href="#">
                             <span class="fa fa-pencil-alt"></span>
                         </a>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12 accionesDibujar">
-                        <a class="configuracion" id="seleccionar-borrar" href="#" data-toggle="tooltip" title="Goma de Borrar">
-                            <!-- <form>
-                                <input type="range">
-                            </form> -->
+                    <div class="col-md-12 accionesDibujar" data-toggle="tooltip" title="Goma de Borrar">
+                        <a class="configuracion" id="seleccionar-borrar" href="#">
                             <span class="fa fa-eraser"></span>
                         </a>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12 accionesDibujar">
-                        <a class="configuracion" id="ver-config" href="#" data-toggle="tooltip" title="Configuracion - Color">
+                    <div class="col-md-12 accionesDibujar" data-toggle="tooltip" title="Tamaño - Color">
+                        <a class="configuracion" id="ver-config" href="#">
                                 <span class="fa fa-cog"></span>
                         </a>
                     </div>
@@ -81,79 +78,85 @@
                 </div>
             </div>
 
-            <div class="sidebar-left oculto col-md-1" id="infoAdicional">
+            <div class="sidebar-left oculto col-md-1" id="configAdicional">
                 <div class="row oculto" id="config">
                     <div class="col-md-6 col-tamanio">
                         <span class="fa fa-plus tamanio"></span>
-                        <input type="range" class="custom-range" value="0" min="5" max="30" id="tamanio-lapiz" orient="vertical" />
+                        <input type="range" class="custom-range" value="0" min="5" max="30" id="tamanio-lapiz" orient="vertical"  data-toggle="tooltip" title="Tamaño del trazo"/>
                         <span class="fa fa-minus tamanio"></span>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row">
-                            <div id="blanco" class="col-md-4 offset-md-1 blanco colores"></div>
+                            <div id="blanco" class="col-md-4 offset-md-1 blanco colores"  data-toggle="tooltip" title="Blanco"></div>
                     
-                            <div id="negro" class="col-md-4 offset-md-1 negro colores"></div>
+                            <div id="negro" class="col-md-4 offset-md-1 negro colores"  data-toggle="tooltip" title="Negro"></div>
                     
-                            <div id="marron" class="col-md-4 offset-md-1 marron colores"></div>
+                            <div id="marron" class="col-md-4 offset-md-1 marron colores"  data-toggle="tooltip" title="Marron"></div>
                     
-                            <div id="rojo" class="col-md-4 offset-md-1 rojo colores"></div>
+                            <div id="rojo" class="col-md-4 offset-md-1 rojo colores"  data-toggle="tooltip" title="Rojo"></div>
                         
-                            <div id="naranja" class="col-md-4 offset-md-1 naranja colores"></div>
+                            <div id="naranja" class="col-md-4 offset-md-1 naranja colores"  data-toggle="tooltip" title="Naranja"></div>
                         
-                            <div id="amarillo" class="col-md-4 offset-md-1 amarillo colores"></div>
+                            <div id="amarillo" class="col-md-4 offset-md-1 amarillo colores"  data-toggle="tooltip" title="Amarillo"></div>
                     
-                            <div id="verde" class="col-md-4 offset-md-1 verde colores"></div>
+                            <div id="verde" class="col-md-4 offset-md-1 verde colores"  data-toggle="tooltip" title="Verde"></div>
                     
-                            <div id="celeste" class="col-md-4 offset-md-1 celeste colores"></div>
+                            <div id="celeste" class="col-md-4 offset-md-1 celeste colores"  data-toggle="tooltip" title="Celeste"></div>
                         
-                            <div id="azul" class="col-md-4 offset-md-1 azul colores"></div>
+                            <div id="azul" class="col-md-4 offset-md-1 azul colores"  data-toggle="tooltip" title="Azul"></div>
                     
-                            <div id="rosa" class="col-md-4 offset-md-1 rosa colores"></div>
+                            <div id="rosa" class="col-md-4 offset-md-1 rosa colores"  data-toggle="tooltip" title="Rosa"></div>
                     
-                            <div id="violeta" class="col-md-4 offset-md-1 violeta colores"></div>
+                            <div id="violeta" class="col-md-4 offset-md-1 violeta colores"  data-toggle="tooltip" title="Violeta"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row" id="config-filtros">
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Imagen Inicial">
                         <canvas width="200" class="filtrosCanvas" id="inicial"></canvas>
                     </div>
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Filtro Rojo">
                         <canvas width="200" class="filtrosCanvas" id="filtroRojo"></canvas>
                     </div>
 
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Filtro Verde">
                         <canvas width="200" class="filtrosCanvas" id="filtroVerde"></canvas>
                     </div>
 
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Filtro Azul">
                         <canvas width="200" class="filtrosCanvas" id="filtroAzul"></canvas>
                     </div>
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Negativo">
                         <canvas width="200" class="filtrosCanvas" id="negativo"></canvas>
                     </div>
                 
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Escala de Grises">
                         <canvas width="200" class="filtrosCanvas" id="escalaGrises"></canvas>
                     </div>
                 
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Sepia">
                         <canvas width="200" class="filtrosCanvas" id="sepia"></canvas>
                     </div>
                 
-                    <div class="col-md-12 filtros">
+                    <div class="col-md-12 filtros"  data-toggle="tooltip" title="Binario">
                         <canvas width="200" class="filtrosCanvas" id="binario"></canvas>
                     </div>
                 </div>
-
-                
             </div>
 
 
             <div class='col-md-8 offset-md-1' id="editor-canvas">
                 <canvas height="400" width="900" id="lienzo"></canvas>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=" offset-md-6 col-md-5 oculto" id="filtrosEspeciales">
+                <button class="btn btn-info" id="bordes" data-toggle="tooltip" title="Deteccion de bordes">BORDES</button>
+           
+                <button class="btn btn-info" id="blur"  data-toggle="tooltip" title="Blur">BLUR</button>
             </div>
         </div>
 

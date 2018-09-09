@@ -77,7 +77,7 @@ canvas{
     box-shadow: 1px 1px 9px 6px #b7bd79;
 }
 
-#infoAdicional{
+#configAdicional{
     height: 400px;
     overflow-y: scroll;
 }

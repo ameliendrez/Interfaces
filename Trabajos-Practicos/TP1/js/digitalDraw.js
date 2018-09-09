@@ -1,156 +1,125 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+    
 
+    // SELECTORES PRINCIPALES Y VARIABLES GLOBALES NECESARIAS //
+
+    // BARRA DE HERRAMIENTAS DEL HEADER //
     var descargar = document.getElementById("descargarProyecto");
     var subir = document.getElementById("subirImagen");
     var btnUpload = document.getElementById("addImage");
     var paginaBlanco = document.getElementById("nuevoProyecto");
 
-    var infoAdicional = document.getElementById('infoAdicional');
+    // CANVAS //
     var posicionCanvas = document.getElementById('editor-canvas');
     var lienzo = document.getElementById('lienzo');
     var ctxLienzo = lienzo.getContext('2d');
-    var imagen = new Image();
+    var configAdicional = document.getElementById('configAdicional');
 
+    // BARRA DE HERRAMIENTAS LATERAL //
     var seleccionarLapiz = document.getElementById("seleccionar-lapiz");
     var seleccionarBorrador = document.getElementById("seleccionar-borrar");
     var mostrarConfig = document.getElementById("ver-config");
     var mostrarFiltros = document.getElementById("ver-filtros");
 
+    // FILTROS //
     var configFiltros = document.getElementById("config-filtros");
     var selectorFiltro = document.getElementsByClassName('filtrosCanvas');
-
+    var filtrosObligatorios = document.getElementById('filtrosEspeciales');
+    var bordes = document.getElementById('bordes');
+    var blur = document.getElementById('blur');
+    
+    // EDITOR LAPIZ //
     var config = document.getElementById("config");
     var selectorTamanioLapiz = document.getElementById('tamanio-lapiz');
     var colores = document.getElementsByClassName("colores");
+
+    // VARIABLES GLOBALES //
     var tamanio = 5;
     var pintando = false;
-    var posicionCursor = {
-        x : -1,
-        y : -1
-    };
+    var posicionCursor = { x : -1, y : -1 };
+    var imagen = new Image();
 
 
-
-    
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
-
-    
-    preparePreventDefault();
-    prepareColoresClick();
-    prepareSelectoresFiltro();
-    prepareFiltros();
-
-
+    initFunciones();
   
-    mostrarFiltros.onclick = function () {
-        if(mostrarConfig.classList.contains('active')){
-            mostrarConfig.classList.remove('active');
-            if(infoAdicional.classList.contains('oculto'))
-                mostrarFiltroColores();
-        }
-        else
-            toggleFiltroColores();
 
-        this.classList.toggle('active');
-        configFiltros.classList.remove('oculto');
-        config.classList.add('oculto');
-    }
 
-    mostrarConfig.onclick = function () {
-        mostrarConfiguracion();
-    }
-
-    function mostrarConfiguracion() {
-        if (mostrarFiltros.classList.contains('active')){
-            mostrarFiltros.classList.remove('active');
-            if(infoAdicional.classList.contains('oculto'))
-                mostrarFiltroColores();
-        }
-        else
-            toggleFiltroColores();
-
-        mostrarConfig.classList.toggle('active');
-        configFiltros.classList.add('oculto');
-        config.classList.remove('oculto');
-    }
-
-    subir.onclick = function (e) {
-        btnUpload.click();
-    }
-
-    selectorTamanioLapiz.onchange = function(){
-        tamanio = this.value;
-    }
-
-    paginaBlanco.onclick = function(e) {
-        imagen = new Image();
-        ctx = lienzo.getContext('2d');
-        width = lienzo.width;
-        height = lienzo.height;
-        modifyImage(ctx, width, height, 'vacio');
+    function initFunciones() {
+        preparePreventDefault();
+        prepareColoresClick();
+        prepareSelectoresFiltro();
         prepareFiltros();
+
+        $(function () {$('[data-toggle="tooltip"]').tooltip()});
+
+        paginaBlanco.onclick = function(e) {
+            deleteLienzo();
+        }
+
+        subir.onclick = function (e) {
+            btnUpload.click();
+        }
+
+        btnUpload.onchange = function (e) {
+            uploadImage(e);
+        }
+    
+        descargar.onclick = function(e){
+            downloadImage(this);
+        }
+    
+        seleccionarLapiz.onclick = function (e) {
+            getLapiz(this);
+        }
+
+        lienzo.onmousedown = function (e) {
+            if(seleccionarLapiz.classList.contains('active') || seleccionarBorrador.classList.contains('active'))
+                pintando = true;
+        }
+    
+        lienzo.onmouseup = function () {
+            pintando = false;
+            posicionCursor.x = -1;
+            posicionCursor.y = -1;
+        }
+    
+        lienzo.onmousemove = function (e) {
+            if (pintando){
+                if (seleccionarBorrador.classList.contains('active'))
+                    pintar(e, 'blanco');
+                else
+                    pintar(e);
+            }; 
+        }
+
+        seleccionarBorrador.onclick = function (e) {
+            getEraser(this);
+        }
+
+        mostrarConfig.onclick = function () {
+            mostrarConfiguracion();
+        }
+
+        selectorTamanioLapiz.onchange = function(){
+            tamanio = this.value;
+        }
+
+        mostrarFiltros.onclick = function () {
+            showFiltros(this);
+        }
+
+        bordes.onclick = function() {
+            deteccionBordes(ctxLienzo);
+        }
+    
+        blur.onclick = function() {
+            realizarBlur(ctxLienzo);
+        }
     }
 
-    descargar.onclick = function(e){
-        let nombreArchivo = prompt("Seleccione nombre del archivo","");
-        if (nombreArchivo === null){
-            return false;
-        }
-        else if (nombreArchivo === ""){
-            this.download = "My Digital Draw.png";
-            this.href = lienzo.toDataURL("image/png");
-        }
-        else{
-            this.download = nombreArchivo+".png";
-            this.href = lienzo.toDataURL("image/png");
-        }
-    }
 
-    btnUpload.onchange = function (e) {
-        var files = e.target.files; // FileList object
-        var file = files[0];
-        if(file.type.match('image.*')) {
-            imagen.src = window.URL.createObjectURL(file);
-            imagen.onload = function () {
-                myDrawImageMod(imagen);		
-                changeFiltros(imagen);
-                if(infoAdicional.classList.contains('oculto')){
-                    mostrarFiltroColores();
-                    // mostrarFiltros.classList.add('active');
-                }
-                // if(mostrarFiltros.classList.contains('active')){
-                //     // mostrar(filtros);	
-                // }
-            }
-        } 
-        else {
-            console.log("no es una imagen");
-        }
-    }
 
-    seleccionarLapiz.onclick = function (e) {
-        this.classList.toggle('active');
-        if (seleccionarBorrador.classList.contains('active'))
-            seleccionarBorrador.classList.remove('active');
-
-        for (let i = 0; i < colores.length; i++) {
-            if(colores[i].classList.contains('negro')){
-                colores[i].classList.add('active');
-                break;
-            }   
-        }
-    }
-
-    seleccionarBorrador.onclick = function (e) {
-        this.classList.toggle('active');
-        if (seleccionarLapiz.classList.contains('active'))
-            seleccionarLapiz.classList.remove('active');
-    }
-
-    /**
+     /**
      * Previene la accion de los tags 'a'
      */
     function preparePreventDefault(){
@@ -162,9 +131,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
     
-    /**
-     * Prepara la accion de click de un color especifico
-     */
     function prepareColoresClick() {
         for (let i = 0; i < colores.length; i++) {
             colores[i].onclick = function(e){
@@ -174,16 +140,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 
-    /**
-     * Remueve la clase active de los colores
-     */
-    function removeColorActive() {
-        for (let i = 0; i < colores.length; i++) {
-            if(colores[i].classList.contains('active')){
-                colores[i].classList.remove('active');
-            }
-        }
-    }
 
     function prepareSelectoresFiltro(){
         for (let i = 0; i < selectorFiltro.length; i++) {
@@ -204,6 +160,135 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
 
+    function prepareFiltros() {
+        img = new Image();
+        img.src = 'images/imagenInicial.jpg';
+        img.onload = function () {
+            changeFiltros(this);  
+        }
+    }
+
+    function deleteLienzo() {
+        imagen = new Image();
+        ctx = lienzo.getContext('2d');
+        width = lienzo.width;
+        height = lienzo.height;
+        modifyImage(ctx, width, height, 'vacio');
+        prepareFiltros();
+    }
+
+    function uploadImage(e) {
+        var files = e.target.files; // FileList object
+        var file = files[0];
+        if(file.type.match('image.*')) {
+            imagen.src = window.URL.createObjectURL(file);
+            imagen.onload = function () {
+                if(imagen.height > lienzo.height){
+                    let resize = (lienzo.height/imagen.height) * 100;
+                    imagen.width = (resize * imagen.width) / 100;
+                    imagen.height = (resize * imagen.height) / 100;
+                }
+                if(imagen.width > lienzo.width && imagen.width > imagen.height){
+                    let resize = (lienzo.width/imagen.width) * 100;
+                    imagen.width = (resize * imagen.width) / 100;
+                    imagen.height = (resize * imagen.height) / 100;
+                }
+                myDrawImageMod(imagen, ctxLienzo, imagen.width, imagen.height);		
+                changeFiltros(imagen);
+                if(configAdicional.classList.contains('oculto')){
+                    mostrarFiltroColores();
+                    showFiltros();
+                }
+            }
+        } 
+        else {
+            console.log("no es una imagen");
+        }
+    }
+    
+    function downloadImage(e) {
+        let nombreArchivo = prompt("Seleccione nombre del archivo","");
+        if (nombreArchivo === null){
+            return false;
+        }
+        else if (nombreArchivo === ""){
+            e.download = "My Digital Draw.png";
+            e.href = lienzo.toDataURL("image/png");
+        }
+        else{
+            e.download = nombreArchivo+".png";
+            e.href = lienzo.toDataURL("image/png");
+        }
+    }
+
+    function getLapiz(e) {
+        e.classList.toggle('active');
+        if (seleccionarBorrador.classList.contains('active'))
+            seleccionarBorrador.classList.remove('active');
+
+        for (let i = 0; i < colores.length; i++) {
+            if(colores[i].classList.contains('negro')){
+                colores[i].classList.add('active');
+                break;
+            }   
+        }
+    }
+
+    function getEraser(e) {
+        e.classList.toggle('active');
+        if (seleccionarLapiz.classList.contains('active'))
+            seleccionarLapiz.classList.remove('active');
+    }
+
+
+    function mostrarConfiguracion() {
+        showConfig();
+    }
+
+    function showConfig() {
+        if (mostrarFiltros.classList.contains('active')){
+            mostrarFiltros.classList.remove('active');
+            if(configAdicional.classList.contains('oculto'))
+                mostrarFiltroColores();
+        }
+        else
+            toggleFiltroColores();
+
+        mostrarConfig.classList.toggle('active');
+        configFiltros.classList.add('oculto');
+        filtrosObligatorios.classList.add('oculto');
+        config.classList.remove('oculto');
+    }
+
+    function showFiltros(e) {
+        if(mostrarConfig.classList.contains('active')){
+            mostrarConfig.classList.remove('active');
+            if(configAdicional.classList.contains('oculto'))
+                mostrarFiltroColores();
+        }
+        else
+            toggleFiltroColores();
+
+        e.classList.toggle('active');
+        configFiltros.classList.remove('oculto');
+        filtrosObligatorios.classList.remove('oculto');
+        config.classList.add('oculto');
+    }
+
+
+    /**
+     * Remueve la clase active de los colores
+     */
+    function removeColorActive() {
+        for (let i = 0; i < colores.length; i++) {
+            if(colores[i].classList.contains('active')){
+                colores[i].classList.remove('active');
+            }
+        }
+    }
+
+    
+
     function removeFiltroActive(){
         for (let i = 0; i < selectorFiltro.length; i++) {
             if(selectorFiltro[i].classList.contains('active')){
@@ -213,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function toggleFiltroColores() {
-        if(infoAdicional.classList.contains('oculto'))
+        if(configAdicional.classList.contains('oculto'))
             mostrarFiltroColores();
         else
             ocultarFiltroColores();
@@ -224,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
      */
     function mostrarFiltroColores (){
         posicionCanvas.classList.remove('offset-md-1');
-        infoAdicional.classList.remove('oculto');
+        configAdicional.classList.remove('oculto');
     }
 
      /**
@@ -232,13 +317,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
      */
     function ocultarFiltroColores(){
         posicionCanvas.classList.add('offset-md-1');
-        infoAdicional.classList.add('oculto');
+        configAdicional.classList.add('oculto');
     }
 
-    function myDrawImageMod(image, ctx, width, height){
-        ctx = lienzo.getContext("2d");
-        var width = lienzo.width;
-        var height = lienzo.height;
+    function myDrawImageMod(image, ctx=null, width=null, height=null){
+        if (ctx === null){
+            ctx = lienzo.getContext("2d");
+            width = image.width;
+            height = image.height;
+        }
         ctx.drawImage(image, 0, 0, width, height);
     }
 
@@ -273,32 +360,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
         ctx.putImageData(imageData, 0, 0);
     }
 
-    function setPixel(imageData, x, y, r, g, b, a) {
-        index = (x + y * imageData.width) * 4;			
+    function setPixel(imageData, x, y, r, g, b, a=255, width=null) {
+        if (width === null)
+            index = (x + y * imageData.width) * 4;	
+        else 
+            index = (y * width + x)*4;
         imageData.data[index+0] = r;
         imageData.data[index+1] = g;
         imageData.data[index+2] = b;
+        imageData.data[index+3] = a;
     }
 
     function getFiltro(filtro, imageData, x, y) {
         index = (x + y * imageData.width) * 4;			
-
+        
         var verde = {
-            'r' : Math.floor(imageData.data[index+0] - 100),
-            'g' : Math.floor(imageData.data[index+0] + 25),
-            'b' : Math.floor(imageData.data[index+0] - 60)
+            'r' : Math.floor(imageData.data[index+0] - 30),
+            'g' : Math.floor(imageData.data[index+1] + 80),
+            'b' : Math.floor(imageData.data[index+2] - 30)
         };
 
         var azul = {
-            'r' : Math.floor(imageData.data[index+0] - 100),
-            'g' : Math.floor(imageData.data[index+0] - 25),
-            'b' : Math.floor(imageData.data[index+0] + 100)
+            'r' : Math.floor(imageData.data[index+0] - 30),
+            'g' : Math.floor(imageData.data[index+1] - 30),
+            'b' : Math.floor(imageData.data[index+2] + 80)
         };
 
         var rojo = {
-            'r' : Math.floor(imageData.data[index+0] + 100),
-            'g' : Math.floor(imageData.data[index+1] -60),
-            'b' : Math.floor(imageData.data[index+2] -60)
+            'r' : Math.floor(imageData.data[index+0] + 80),
+            'g' : Math.floor(imageData.data[index+1] -30),
+            'b' : Math.floor(imageData.data[index+2] -30)
         };
         var ninguno = {
             'r' : imageData.data[index+0],
@@ -353,7 +444,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             return ninguno;
     }
 
-    function changeFiltros(img){
+    function changeFiltros(imagen){
+        var img = new Image();
+        img = imagen;
         pasteFiltro (img, 'inicial');
         pasteFiltro (img, 'sepia');
         pasteFiltro (img, 'negativo');
@@ -362,34 +455,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         pasteFiltro (img, 'filtroRojo');
         pasteFiltro (img, 'filtroVerde');
         pasteFiltro (img, 'filtroAzul');
-    }
-
-    function prepareFiltros() {
-        img = new Image();
-        img.src = 'images/imagenInicial.jpg';
-        img.onload = function () {
-            changeFiltros(this);  
-        }
-    }
-
-    lienzo.onmousedown = function (e) {
-        if(seleccionarLapiz.classList.contains('active') || seleccionarBorrador.classList.contains('active'))
-            pintando = true;
-    }
-
-    lienzo.onmouseup = function () {
-        pintando = false;
-        posicionCursor.x = -1;
-        posicionCursor.y = -1;
-    }
-
-    lienzo.onmousemove = function (e) {
-        if (pintando){
-            if (seleccionarBorrador.classList.contains('active'))
-                pintar(e, 'blanco');
-            else
-                pintar(e);
-        }; 
     }
 
     function pintar(e, color=null) {
@@ -440,6 +505,76 @@ document.addEventListener("DOMContentLoaded", function(event) {
             'blanco' : '#ffffff'
         }
         return coloresHash[color];
+    }
+
+    function deteccionBordes(ctx) {
+        var matriz = [[-1,-1,-1],[-1, 8,-1],[-1,-1,-1]];
+        document.getElementById('escalaGrises').click();
+        var image = ctx.getImageData(0, 0, lienzo.width, lienzo.height)
+        var imgData = convolucion(image, matriz);
+        ctx.putImageData(imgData, 0, 0);
+    }
+      
+    function realizarBlur() {
+        var image = ctxLienzo.getImageData(0, 0, lienzo.width, lienzo.height)
+        var radio = 1;
+      
+        var matriz = [];
+        var dimension = radio*2 + 1;
+        var vol = dimension*dimension;
+      
+        for (var i = 0; i < dimension; i++) {
+          matriz[i] = [];
+          for (var j = 0; j < dimension; j++) {
+            matriz[i][j] = 1/vol;
+          }
+        }
+      
+        var imgData = convolucion(image, matriz);
+        ctxLienzo.putImageData(imgData, 0, 0);
+    }
+    
+    function convolucion(imagen, matriz) {
+        var width = imagen.width;
+        var height = imagen.height;
+        var imgRetorno = ctxLienzo.createImageData(width, height);
+
+        for (var y = 0; y < height; y++) {
+            for (var x = 0; x < width; x++) {
+                setRGB(imagen, width, height, matriz, imgRetorno, x, y)
+            }
+        }
+        return imgRetorno;
+    };
+
+    function setRGB(imagen, width, height, matriz, imgRetorno, x, y) {
+        var r = 0, g = 0, b = 0;
+        var dimension = matriz.length;
+        var radio = Math.floor(dimension/2);
+        for (var matrizY = 0; matrizY < dimension; matrizY++) {
+            for (var matrizX = 0; matrizX < dimension; matrizX++) {
+                var variables = getRGB(y, matrizY, x, matrizX, radio, imagen, width, height, matriz);
+                r += variables.r;
+                g += variables.g;
+                b += variables.b;
+            }
+        }
+        setPixel(imgRetorno, x, y, r, g, b, 255, width);
+    }
+
+    function getRGB(y, matrizY, x, matrizX, radio, imagen, width, height, matriz) {
+        var imageData = imagen.data;
+        var difY = y + matrizY - radio;
+        var difX = x + matrizX - radio;
+        var variables = {'r' : 0, 'g' : 0, 'b' : 0}
+        if (difY >= 0 && difY < height && difX >= 0 && difX < width) {
+            var index = (difY * width + difX)*4;
+            var valor = matriz[matrizY][matrizX];
+            variables.r = imageData[index] * valor;
+            variables.g = imageData[index+1] * valor;
+            variables.b = imageData[index+2] * valor;
+        }
+        return variables;
     }
 });
 
