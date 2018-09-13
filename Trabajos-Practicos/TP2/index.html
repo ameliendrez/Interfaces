@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <title>Digital Draw</title>
+
+    </head>
+    <body>
+    
+        <canvas id="tablero" width="900" height="387" style="border: black solid 3px;"></canvas>
+      
+        <script src="js/Ficha.js"></script>
+        <script src="js/Tablero.js"></script>
+    </body>
+    <script>
+        var canvas = document.getElementById('tablero');
+        var ctx = canvas.getContext('2d');
+        var tablero = new Tablero(ctx);
+        tablero.dibujarTablero();
+
+        canvas.onmousedown = function (e) {
+            
+            var x = e.layerX - e.currentTarget.offsetLeft;
+            var y = e.layerY - e.currentTarget.offsetTop;            
+            tablero.isClicked(x, y);
+            
+        }
+    </script>
+</html>
