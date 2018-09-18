@@ -30,12 +30,10 @@ class Ficha{
     }
 
     remove() {
-      
         this.ctx.beginPath();
         this.ctx.arc(this.posX, this.posY, this.radio, 0, 2 * Math.PI);
         this.ctx.clip();
         this.ctx.clearRect(this.posX - this.radio - 1,this.posY - this.radio - 1, this.radio * 2 + 2, this.radio * 2 + 2);
-         
     }
 }
 	// isClicked (x, y) // En un circulo
