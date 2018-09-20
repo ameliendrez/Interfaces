@@ -5,15 +5,22 @@ class Tablero{
         this.J2 = 'BB';
         this.ctx = ctx;
         this.fichas = [];
+        //this.casilleros = [];
         this.matriz = [];
+        this.limiteY = 93;
+        this.ranurasX = [];
+        this.ranurasY = [];
+        this.radio = 25;
+        this.mtmp = [];
+
     }
 
     dibujarTablero() {
 
-        ctx.fillStyle="#FF0000";
+        this.ctx.fillStyle="#213aef";
 		// //margen izquierdo, margen arriba, ancho, alto del dibujo!
-        ctx.fillRect(145,10,600,400);
-        var diferenciaX = Math.floor((691 - 100)/7);
+        this.ctx.fillRect(250,95,600,400);
+        var diferenciaX = Math.floor((691 - 100)/6);
         var diferenciaY = Math.floor((340 - 10)/5);
 
         // var fichaJ1 = new Ficha (50, 100, 10, 'yellow', 'J1');
@@ -26,22 +33,27 @@ class Tablero{
         // this.fichas.push(fichaJ2);
 
 
-        var fx = 110;
-        
-        for (var x = 0; x < 7; x++){
-            fx += diferenciaX;
-            var fy = 45;
-            for (var y = 0; y < 6; y++) {
-                var ficha = new Ficha (fx, fy, 25, 'yellow', 'vacio');
+        var fxInit = 300;
+        var fy = 130;
+        for (let y = 0; y < 7; y++) {
+            var fx = fxInit;
+            this.mtmp[fy+'-fila'] = [];
+            for (let x = 0; x < 6; x++) {
+                var ficha = new Ficha (fx, fy, 25, 'white', 'vacio');
                 ficha.setContext(this.ctx);
                 ficha.dibujar();
-                this.matriz[[fx][fy]] = 0;
-                fy += diferenciaY;
-            }
+                this.matriz.push({"x":fx, "y":fy, "id":0});
+                this.mtmp[fy+'-fila'][fx+'-columna'] = 0;
+                if (y === 0)
+                    this.ranurasX.push(fx);
+                fx += diferenciaX;
+            } 
+            this.ranurasY.push(fy);
+            fy += diferenciaY;           
         }
     }
 
-    isClicked(x, y) {       
+    isClickedFicha(x, y) {       
         for (var i=0; i<this.fichas.length; i++) {
             if (this.fichas[i].isClicked(x, y)) {
                 console.log('clickeado' + this.fichas[i].getNombre());
@@ -52,5 +64,54 @@ class Tablero{
         }
     }
 
+    puedeInsertarFicha(x, y) {
+
+        if (y < this.limiteY)
+            return this.buscarRanura(x);
+        return false;
+    } 
+
+    buscarRanura(x) {
+        
+        if (x > 250 && x < 850) {
+            for(var i = 0; i < 7; i++) {
+                if (this.ranurasX[i] > x - this.radio && this.ranurasX[i] < x + this.radio){
+
+                    this.insertarFicha(this.ranurasX[i]);
+                    return true;
+                }                    
+            };
+        }
+        return false;
+    }
+
+    insertarFicha(x) {
+        var posTmpY = 0;
+        console.log(this.mtmp);
+
+
+        for (let y = 0; y < this.ranurasY.length-1; y++) {
+
+            var tmpy = this.ranurasY[y];
+            console.log('tmpy ' + tmpy);
+            
+            //console.log(this.mtmp[tmp][x]);
+            
+            if (this.mtmp[tmpy+'-fila'][x+'-columna'] === 0){
+
+                posTmpY = tmpy;
+                console.log(this.mtmp[tmpy+'-fila'][x+'-columna']);
+                
+            }
+            
+
+        }
+        
+        this.mtmp[posTmpY+'-fila'][x+'-columna'] = 1;
+        var ficha = new Ficha (x, posTmpY, 25, 'red', 'j1');
+        ficha.setContext(this.ctx);
+        ficha.dibujar();
+
+    }
 
 }

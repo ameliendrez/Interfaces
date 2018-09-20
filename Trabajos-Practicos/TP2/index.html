@@ -20,13 +20,9 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <canvas id="tablero" width="900" height="410"></canvas>
-
-
+            <div class="col-md-8 offset-md-1">
+                <canvas id="tablero" width="1100" height="500" style="border: solid 1px #cccccc"></canvas>
             </div>
-
-
         </div>
     
       
@@ -37,19 +33,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script src="js/Ficha.js"></script>
         <script src="js/Tablero.js"></script>
+        <script src="js/fourInLine.js"></script>
     </body>
-    <script>
-        var canvas = document.getElementById('tablero');
-        var ctx = canvas.getContext('2d');
-        var tablero = new Tablero(ctx);
-        tablero.dibujarTablero();
-
-        canvas.onmousedown = function (e) {
-            
-            var x = e.layerX - e.currentTarget.offsetLeft;
-            var y = e.layerY - e.currentTarget.offsetTop;            
-            tablero.isClicked(x, y);
-            
-        }
-    </script>
 </html>
