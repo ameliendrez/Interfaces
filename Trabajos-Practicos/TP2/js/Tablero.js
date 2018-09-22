@@ -1,49 +1,33 @@
 class Tablero{
 
     constructor(ctx){
-        this.J1 = 'AA';
-        this.J2 = 'BB';
         this.ctx = ctx;
-        this.fichas = [];
-        //this.casilleros = [];
-        this.matriz = [];
-        this.limiteY = 93;
+        this.ranuras = [];
         this.ranurasX = [];
         this.ranurasY = [];
+        this.limiteY = 93;
         this.radio = 25;
-        this.mtmp = [];
-
     }
 
+    /**
+     * Dibuja el tablero y los casilleros para el juego
+     */
     dibujarTablero() {
-
         this.ctx.fillStyle="#213aef";
-		// //margen izquierdo, margen arriba, ancho, alto del dibujo!
         this.ctx.fillRect(250,95,600,400);
         var diferenciaX = Math.floor((691 - 100)/6);
         var diferenciaY = Math.floor((340 - 10)/5);
-
-        // var fichaJ1 = new Ficha (50, 100, 10, 'yellow', 'J1');
-        // fichaJ1.setContext(this.ctx);
-        // fichaJ1.dibujar();
-        // this.fichas.push(fichaJ1);
-        // var fichaJ2 = new Ficha (850, 100, 10, 'red', 'J2');
-        // fichaJ2.setContext(this.ctx);
-        // fichaJ2.dibujar();
-        // this.fichas.push(fichaJ2);
-
 
         var fxInit = 300;
         var fy = 130;
         for (let y = 0; y < 7; y++) {
             var fx = fxInit;
-            this.mtmp[fy+'-fila'] = [];
+            this.ranuras[fy+'-fila'] = [];
             for (let x = 0; x < 6; x++) {
                 var ficha = new Ficha (fx, fy, 25, 'white', 'vacio');
                 ficha.setContext(this.ctx);
                 ficha.dibujar();
-                this.matriz.push({"x":fx, "y":fy, "id":0});
-                this.mtmp[fy+'-fila'][fx+'-columna'] = 0;
+                this.ranuras[fy+'-fila'][fx+'-columna'] = 0;
                 if (y === 0)
                     this.ranurasX.push(fx);
                 fx += diferenciaX;
@@ -53,31 +37,38 @@ class Tablero{
         }
     }
 
-    isClickedFicha(x, y) {       
-        for (var i=0; i<this.fichas.length; i++) {
-            if (this.fichas[i].isClicked(x, y)) {
-                console.log('clickeado' + this.fichas[i].getNombre());
-                //this.fichas[i].remove();
-                this.fichas.splice(i,1);                        
-                break;
-            }                
-        }
-    }
-
-    puedeInsertarFicha(x, y) {
-
+    /**
+     * 
+     * Funcion booleana que intenta insertar una ficha y devuelve el resultado (booleana)
+     * 
+     * @param {*} x 
+     * @param {*} y 
+     * @param {*} turno 
+     * @param {*} jugador 
+     */
+    pudoInsertarFicha(x, y, turno, jugador) {
         if (y < this.limiteY)
-            return this.buscarRanura(x);
+            return this.buscarRanura(x, turno, jugador);
         return false;
     } 
 
-    buscarRanura(x) {
-        
+
+    /**
+     * 
+     * Indica si se esta intentando insertar una ficha en una ranura permitida o no
+     * En caso de encontrar la ranura, inserta la ficha
+     * 
+     * @param {*} x 
+     * @param {*} turno 
+     * @param {*} jugador 
+     * 
+     * Retorna si pudo o no
+     */
+    buscarRanura(x, turno, jugador) {
         if (x > 250 && x < 850) {
             for(var i = 0; i < 7; i++) {
                 if (this.ranurasX[i] > x - this.radio && this.ranurasX[i] < x + this.radio){
-
-                    this.insertarFicha(this.ranurasX[i]);
+                    this.insertarFicha(this.ranurasX[i], turno, jugador);
                     return true;
                 }                    
             };
@@ -85,33 +76,103 @@ class Tablero{
         return false;
     }
 
-    insertarFicha(x) {
-        var posTmpY = 0;
-        console.log(this.mtmp);
-
+    /**
+     * 
+     * Inserta la ficha en una ranura, en el caso de que no este la columna completa
+     * 
+     * @param {*} x 
+     * @param {*} turno
+     * @param {*} jugador 
+     * 
+     * Retorna si pudo o no
+     */
+    insertarFicha(x, turno, jugador) {
+        var posTmpY = -1;
+        var puedeInsertar = false;
+        var color = (turno === 1) ? 'red': 'yellow';
 
         for (let y = 0; y < this.ranurasY.length-1; y++) {
-
             var tmpy = this.ranurasY[y];
-            console.log('tmpy ' + tmpy);
-            
-            //console.log(this.mtmp[tmp][x]);
-            
-            if (this.mtmp[tmpy+'-fila'][x+'-columna'] === 0){
-
+            if (this.ranuras[tmpy+'-fila'][x+'-columna'] === 0){
                 posTmpY = tmpy;
-                console.log(this.mtmp[tmpy+'-fila'][x+'-columna']);
-                
+                puedeInsertar = true;
             }
-            
-
         }
+        if (posTmpY !== -1) {
+            this.ranuras[posTmpY+'-fila'][x+'-columna'] = turno;
+            var ficha = new Ficha (x, posTmpY, 25, color, jugador);
+            ficha.setContext(this.ctx);
+            ficha.dibujar();
+        }
+        return puedeInsertar;  
+    }
+
+    comprobarVertical() {
+        var contador = 0;
+        var jugador = -1;
+        var hayGanador = false;
+
+        for (let columna = 0; columna < this.ranurasX.length; columna++) {
+            contador = 0;
+            for (let fila = 0; fila < this.ranurasY.length; fila++) {
+
+                var valor = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+                if (valor === 0) {
+                    contador = 0;
+                    jugador = -1;
+                }
+                else if (valor !== jugador){
+                    jugador = valor;
+                    contador = 1;
+                }
+                else
+                    contador++;
+                
+                if (contador === 4){
+                    hayGanador = true;
+                    return hayGanador;
+                }
+            }
+        }
+
+        return hayGanador;
+    }
+
+    comprobarHorizontal() {
+        var contador = 0;
+        var jugador = -1;
+        var hayGanador = false;
         
-        this.mtmp[posTmpY+'-fila'][x+'-columna'] = 1;
-        var ficha = new Ficha (x, posTmpY, 25, 'red', 'j1');
-        ficha.setContext(this.ctx);
-        ficha.dibujar();
+        for (let fila = 0; fila < this.ranurasY.length; fila++) {
+            contador = 0;
+
+            for (let columna = 0; columna < this.ranurasX.length; columna++) {
+
+                var valor = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+                if (valor === 0) {
+                    contador = 0;
+                    jugador = -1;
+                }
+                else if (valor !== jugador){
+                    jugador = valor;
+                    contador = 1;
+                }
+                else
+                    contador++;
+                
+                if (contador === 4){
+                    hayGanador = true;
+                    return hayGanador;
+                }
+            }
+        }
+
+        return hayGanador;
+    }
+
+    comprobarDiagonal(){
 
     }
+
 
 }
