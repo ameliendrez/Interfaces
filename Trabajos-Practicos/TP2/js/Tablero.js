@@ -13,10 +13,12 @@ class Tablero{
      * Dibuja el tablero y los casilleros para el juego
      */
     dibujarTablero() {
+        this.ctx.fillStyle = '#5f9d9f';
+        this.ctx.fillRect(0,0,1100,550);
         this.ctx.fillStyle="#213aef";
-        this.ctx.fillRect(250,95,600,400);
-        var diferenciaX = Math.floor((691 - 100)/6);
-        var diferenciaY = Math.floor((340 - 10)/5);
+        this.ctx.fillRect(250,95,600,460);
+        var diferenciaX = 95;
+        var diferenciaY = 65;
 
         var fxInit = 300;
         var fy = 130;
@@ -26,10 +28,9 @@ class Tablero{
             for (let x = 0; x < 6; x++) {
                 var ficha = new Ficha (fx, fy, 25, 'white', 'vacio');
                 ficha.setContext(this.ctx);
-                ficha.dibujar();
+                ficha.dibujar();    
                 this.ranuras[fy+'-fila'][fx+'-columna'] = 0;
-                if (y === 0)
-                    this.ranurasX.push(fx);
+                this.ranurasX.push(fx);
                 fx += diferenciaX;
             } 
             this.ranurasY.push(fy);
@@ -46,9 +47,9 @@ class Tablero{
      * @param {*} turno 
      * @param {*} jugador 
      */
-    pudoInsertarFicha(x, y, turno, jugador) {
+    pudoInsertarFicha(x, y, turno, jugador, fichaActual) {
         if (y < this.limiteY)
-            return this.buscarRanura(x, turno, jugador);
+            return this.buscarRanura(x, turno, jugador, fichaActual);
         return false;
     } 
 
@@ -64,11 +65,11 @@ class Tablero{
      * 
      * Retorna si pudo o no
      */
-    buscarRanura(x, turno, jugador) {
+    buscarRanura(x, turno, jugador, fichaActual) {
         if (x > 250 && x < 850) {
             for(var i = 0; i < 7; i++) {
                 if (this.ranurasX[i] > x - this.radio && this.ranurasX[i] < x + this.radio){
-                    this.insertarFicha(this.ranurasX[i], turno, jugador);
+                    this.insertarFicha(this.ranurasX[i], turno, jugador, fichaActual);
                     return true;
                 }                    
             };
@@ -86,12 +87,12 @@ class Tablero{
      * 
      * Retorna si pudo o no
      */
-    insertarFicha(x, turno, jugador) {
+    insertarFicha(x, turno, jugador, fichaActual) {
         var posTmpY = -1;
         var puedeInsertar = false;
         var color = (turno === 1) ? 'red': 'yellow';
 
-        for (let y = 0; y < this.ranurasY.length-1; y++) {
+        for (let y = 0; y < this.ranurasY.length; y++) {
             var tmpy = this.ranurasY[y];
             if (this.ranuras[tmpy+'-fila'][x+'-columna'] === 0){
                 posTmpY = tmpy;
@@ -100,9 +101,11 @@ class Tablero{
         }
         if (posTmpY !== -1) {
             this.ranuras[posTmpY+'-fila'][x+'-columna'] = turno;
-            var ficha = new Ficha (x, posTmpY, 25, color, jugador);
-            ficha.setContext(this.ctx);
-            ficha.dibujar();
+            fichaActual.x = x;
+            fichaActual.y = posTmpY;
+            // var ficha = new Ficha (x, posTmpY, 25, color, jugador);
+            // ficha.setContext(this.ctx);
+            // ficha.dibujar();
         }
         return puedeInsertar;  
     }

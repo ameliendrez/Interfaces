@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     juego.prepareJuego();
     initEvents();
 
-
-
     function initEvents() {
         canvas.onmousedown = function (e) {
             var x = e.layerX - e.currentTarget.offsetLeft;
@@ -17,8 +15,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
         canvas.onmouseup = function (e) {
             var x = e.layerX - e.currentTarget.offsetLeft;
             var y = e.layerY - e.currentTarget.offsetTop;
-            juego.insertarFicha(x,y);            
+            if (juego.hayFichaClickeada())
+                juego.insertarFicha(x,y);    
         };
+
+        canvas.onmousemove = function (e) {
+            var x = e.layerX - e.currentTarget.offsetLeft;
+            var y = e.layerY - e.currentTarget.offsetTop;   
+            if (juego.hayFichaClickeada())
+                juego.moveFicha(x, y);
+        }
         
     }
 });
