@@ -15,8 +15,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         canvas.onmouseup = function (e) {
             var x = e.layerX - e.currentTarget.offsetLeft;
             var y = e.layerY - e.currentTarget.offsetTop;
-            if (juego.hayFichaClickeada())
+            if (juego.hayFichaClickeada()){
                 juego.insertarFicha(x,y);    
+            }
         };
 
         canvas.onmousemove = function (e) {

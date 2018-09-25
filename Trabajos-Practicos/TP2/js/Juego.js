@@ -40,7 +40,7 @@ class Juego{
         for (var fila = 0; fila < 7; fila++) {
             var tmpX = xTmpInit;
             for(var columna = 0; columna < 3; columna++) {
-                var ficha = new Ficha (tmpX, tmpY, radio, 'yellow', 'J1');
+                var ficha = new Ficha (tmpX, tmpY, radio, 'yellow', 'J1', 1);
                 ficha.setContext(this.ctx);
                 //ficha.dibujar();
                 this.fichas.push(ficha);
@@ -66,7 +66,7 @@ class Juego{
                 this.fichaClickeada = true;
                 this.fichas.splice(i,1);     
                 this.posInicialX = this.fichaActual.x;
-                this.posInicialY = this.fichaActual.x;    
+                this.posInicialY = this.fichaActual.y;    
                 return true;
             }                
         }
@@ -76,15 +76,18 @@ class Juego{
         var jugador = (this.turno === 1) ? this.j1:this.j2;
 
         if(this.tablero.pudoInsertarFicha(x, y, this.turno, jugador, this.fichaActual)){
-            this.prepareJuego();
             this.turno = (this.turno === 1) ? 2:1;
             if (this.hayGanador()) {
-                               
+                this.tablero.pintarFichasGanador();
             }
         }
         else{
-            // Volver a poner la ficha en su lugar
+            this.fichaActual.x = this.posInicialX;
+            this.fichaActual.y = this.posInicialY;
+            this.fichas.push(this.fichaActual);
         }
+        this.resetFichaClickeada();
+        this.prepareJuego();
     }
 
     hayGanador(){
@@ -94,13 +97,12 @@ class Juego{
 
         if(this.tablero.comprobarVertical()) {
             hayGanador = true;
-            console.log('hay ganador vertical'); 
+
             // Pintar la Vertical ganadora y bloquear el juego
 
         }
         else if (this.tablero.comprobarHorizontal()){
             hayGanador = true;
-            console.log('hay ganador horizontal'); 
             // Pintar la horizontal ganadora y bloquear el juego
         }
         // else if (this.tablero.comprobarDiagonal()) {

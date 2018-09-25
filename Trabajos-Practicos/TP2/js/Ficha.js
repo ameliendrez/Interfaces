@@ -1,14 +1,27 @@
 class Ficha{
-    constructor(x, y, radio, color, nombre){
+    constructor(x, y, radio, color, nombre, jugador){
         this.x = x;
         this.y = y;
         this.radio = radio;
         this.color = color;
         this.nombre = nombre;
+        this.jugador = jugador;
+    }
+
+    getJugador(){
+        return this.jugador;
     }
 
     setContext(ctx){
         this.ctx = ctx;
+    }
+
+    setX(x) {
+        this.x = x;
+    }
+
+    setY(y) {
+        this.y = y;
     }
 
     dibujar(){
@@ -29,16 +42,10 @@ class Ficha{
         return this.nombre;
     }
 
-    remove() {
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radio, 0, 2 * Math.PI);
-        this.ctx.clip();
-        this.ctx.clearRect(this.x - this.radio - 1,this.y - this.radio - 1, this.radio * 2 + 2, this.radio * 2 + 2);
+    setColor(color){
+        this.color = color;
     }
+
+
 }
-	// isClicked (x, y) // En un circulo
-		// nx = x- x.layerX
-		// ny = y - y.layerY
-		// d = Math.sqrt (nx*nx + ny*ny)
-		// return d < this.radio)
-		// d = Math.sqrt()
+	

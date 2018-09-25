@@ -7,6 +7,30 @@ class Tablero{
         this.ranurasY = [];
         this.limiteY = 93;
         this.radio = 25;
+        this.initRanuras();
+        this.inicioRanuraGanadora = {'x':-1, 'y':-1};
+        this.finalRanuraGanadora = {'x':-1, 'y':-1};
+        this.direccionGanador = '';
+    }
+
+    initRanuras() {
+        var diferenciaX = 95;
+        var diferenciaY = 65;
+        var fxInit = 300;
+        var fy = 130;
+        for (let y = 0; y < 7; y++) {
+            var fx = fxInit;
+            this.ranuras[fy+'-fila'] = [];
+            for (let x = 0; x < 6; x++) {
+                var ficha = new Ficha (fx, fy, 25, 'white', 'ranura', 0);
+                ficha.setContext(this.ctx);  
+                this.ranuras[fy+'-fila'][fx+'-columna'] = ficha;
+                this.ranurasX.push(fx);
+                fx += diferenciaX;
+            } 
+            this.ranurasY.push(fy);
+            fy += diferenciaY;           
+        }
     }
 
     /**
@@ -17,24 +41,12 @@ class Tablero{
         this.ctx.fillRect(0,0,1100,550);
         this.ctx.fillStyle="#213aef";
         this.ctx.fillRect(250,95,600,460);
-        var diferenciaX = 95;
-        var diferenciaY = 65;
 
-        var fxInit = 300;
-        var fy = 130;
-        for (let y = 0; y < 7; y++) {
-            var fx = fxInit;
-            this.ranuras[fy+'-fila'] = [];
-            for (let x = 0; x < 6; x++) {
-                var ficha = new Ficha (fx, fy, 25, 'white', 'vacio');
-                ficha.setContext(this.ctx);
-                ficha.dibujar();    
-                this.ranuras[fy+'-fila'][fx+'-columna'] = 0;
-                this.ranurasX.push(fx);
-                fx += diferenciaX;
-            } 
-            this.ranurasY.push(fy);
-            fy += diferenciaY;           
+        for (let columna = 0; columna < this.ranurasX.length; columna++) {
+            for (let fila = 0; fila < this.ranurasY.length; fila++) {
+               var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+                ficha.dibujar();
+            }   
         }
     }
 
@@ -69,8 +81,7 @@ class Tablero{
         if (x > 250 && x < 850) {
             for(var i = 0; i < 7; i++) {
                 if (this.ranurasX[i] > x - this.radio && this.ranurasX[i] < x + this.radio){
-                    this.insertarFicha(this.ranurasX[i], turno, jugador, fichaActual);
-                    return true;
+                    return this.insertarFicha(this.ranurasX[i], turno, jugador, fichaActual);
                 }                    
             };
         }
@@ -89,37 +100,34 @@ class Tablero{
      */
     insertarFicha(x, turno, jugador, fichaActual) {
         var posTmpY = -1;
-        var puedeInsertar = false;
-        var color = (turno === 1) ? 'red': 'yellow';
+        var pudoInsertar = false;        
 
         for (let y = 0; y < this.ranurasY.length; y++) {
             var tmpy = this.ranurasY[y];
-            if (this.ranuras[tmpy+'-fila'][x+'-columna'] === 0){
+            if (this.ranuras[tmpy+'-fila'][x+'-columna'].getJugador() === 0){
                 posTmpY = tmpy;
-                puedeInsertar = true;
+                pudoInsertar = true;
             }
         }
         if (posTmpY !== -1) {
-            this.ranuras[posTmpY+'-fila'][x+'-columna'] = turno;
-            fichaActual.x = x;
-            fichaActual.y = posTmpY;
-            // var ficha = new Ficha (x, posTmpY, 25, color, jugador);
-            // ficha.setContext(this.ctx);
-            // ficha.dibujar();
-        }
-        return puedeInsertar;  
+            fichaActual.setX(x);
+            fichaActual.setY(posTmpY);
+            this.ranuras[posTmpY+'-fila'][x+'-columna'] = fichaActual;
+        }        
+        return pudoInsertar;  
     }
 
     comprobarVertical() {
         var contador = 0;
         var jugador = -1;
         var hayGanador = false;
-
-        for (let columna = 0; columna < this.ranurasX.length; columna++) {
+        
+        for (let columna = 0; columna < 6; columna++) {
             contador = 0;
-            for (let fila = 0; fila < this.ranurasY.length; fila++) {
+            for (let fila = 0; fila < 7; fila++) {
+                var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+                var valor = ficha.getJugador();
 
-                var valor = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
                 if (valor === 0) {
                     contador = 0;
                     jugador = -1;
@@ -127,17 +135,24 @@ class Tablero{
                 else if (valor !== jugador){
                     jugador = valor;
                     contador = 1;
+                    this.inicioRanuraGanadora.x = columna;
+                    this.inicioRanuraGanadora.y = fila;
                 }
                 else
                     contador++;
                 
-                if (contador === 4){
-                    hayGanador = true;
+                if (contador === 4){                    
+                    hayGanador = true; 
+                    this.direccionGanador = 'vertical';
+                    this.finalRanuraGanadora.x = columna;
+                    this.finalRanuraGanadora.y = fila;                  
                     return hayGanador;
-                }
+                }                
             }
         }
 
+        this.finalRanuraGanadora.x = -1;
+        this.finalRanuraGanadora.y = -1;
         return hayGanador;
     }
 
@@ -150,8 +165,9 @@ class Tablero{
             contador = 0;
 
             for (let columna = 0; columna < this.ranurasX.length; columna++) {
+                var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+                var valor = ficha.getJugador();
 
-                var valor = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
                 if (valor === 0) {
                     contador = 0;
                     jugador = -1;
@@ -159,16 +175,23 @@ class Tablero{
                 else if (valor !== jugador){
                     jugador = valor;
                     contador = 1;
+                    this.inicioRanuraGanadora.x = columna;
+                    this.inicioRanuraGanadora.y = fila;
                 }
                 else
                     contador++;
                 
                 if (contador === 4){
                     hayGanador = true;
+                    this.direccionGanador = 'horizontal';
+                    this.finalRanuraGanadora.x = columna;
+                    this.finalRanuraGanadora.y = fila;
                     return hayGanador;
                 }
             }
         }
+        this.finalRanuraGanadora.x = -1;
+        this.finalRanuraGanadora.y = -1;
 
         return hayGanador;
     }
@@ -177,5 +200,23 @@ class Tablero{
 
     }
 
-
+    pintarFichasGanador(){
+        if (this.direccionGanador === 'vertical'){
+            
+            var columna = this.inicioRanuraGanadora.x;
+            for(var fila = this.inicioRanuraGanadora.y; fila <= this.finalRanuraGanadora.y; fila++) {
+               var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+               ficha.setColor('green');
+               ficha.dibujar();
+            }
+        }
+        else if (this.direccionGanador === 'horizontal'){
+            var fila = this.inicioRanuraGanadora.y;
+            for(var columna = this.inicioRanuraGanadora.x; columna <= this.finalRanuraGanadora.x; columna++) {
+                var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+                ficha.setColor('green');
+                ficha.dibujar();                
+            }
+        }
+    }
 }
