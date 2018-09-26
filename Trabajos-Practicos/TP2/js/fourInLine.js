@@ -1,9 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
     var canvas = document.getElementById('tablero');
+    var iniciarJuego = document.getElementById('iniciar-juego');
     var juego = new Juego(canvas);
-    juego.prepareJuego();
-    initEvents();
+
+    iniciarJuego.onclick = function() {
+        juego = new Juego(canvas);
+        juego.prepareJuego();
+        initEvents();
+    }
 
     function initEvents() {
         canvas.onmousedown = function (e) {

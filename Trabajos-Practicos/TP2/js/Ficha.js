@@ -1,15 +1,18 @@
 class Ficha{
-    constructor(x, y, radio, color, nombre, jugador){
+    constructor(x, y, color, jugador){
         this.x = x;
         this.y = y;
-        this.radio = radio;
+        this.radio = 25;
         this.color = color;
-        this.nombre = nombre;
         this.jugador = jugador;
+        this.estado = '';
     }
 
     getJugador(){
-        return this.jugador;
+        if (this.jugador === 0)
+            return this.jugador;
+        else 
+            return this.jugador.getNroJugador();
     }
 
     setContext(ctx){
@@ -39,11 +42,19 @@ class Ficha{
     }
 
     getNombre() {
-        return this.nombre;
+        return this.jugador.getNombre();
     }
 
     setColor(color){
         this.color = color;
+    }
+
+    setEstado(estado) {
+        this.estado = estado;
+    }
+
+    getEstado() {
+        return this.estado;
     }
 
 

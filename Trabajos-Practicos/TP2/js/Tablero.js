@@ -6,23 +6,23 @@ class Tablero{
         this.ranurasX = [];
         this.ranurasY = [];
         this.limiteY = 93;
-        this.radio = 25;
-        this.initRanuras();
         this.inicioRanuraGanadora = {'x':-1, 'y':-1};
         this.finalRanuraGanadora = {'x':-1, 'y':-1};
         this.direccionGanador = '';
+        this.initRanuras();
+
     }
 
     initRanuras() {
         var diferenciaX = 95;
         var diferenciaY = 65;
-        var fxInit = 300;
+        var fxInit = 320;
         var fy = 130;
         for (let y = 0; y < 7; y++) {
             var fx = fxInit;
             this.ranuras[fy+'-fila'] = [];
             for (let x = 0; x < 6; x++) {
-                var ficha = new Ficha (fx, fy, 25, 'white', 'ranura', 0);
+                var ficha = new Ficha (fx, fy, 'white', 0);
                 ficha.setContext(this.ctx);  
                 this.ranuras[fy+'-fila'][fx+'-columna'] = ficha;
                 this.ranurasX.push(fx);
@@ -40,7 +40,7 @@ class Tablero{
         this.ctx.fillStyle = '#5f9d9f';
         this.ctx.fillRect(0,0,1100,550);
         this.ctx.fillStyle="#213aef";
-        this.ctx.fillRect(250,95,600,460);
+        this.ctx.fillRect(260,95,600,460);
 
         for (let columna = 0; columna < this.ranurasX.length; columna++) {
             for (let fila = 0; fila < this.ranurasY.length; fila++) {
@@ -59,9 +59,9 @@ class Tablero{
      * @param {*} turno 
      * @param {*} jugador 
      */
-    pudoInsertarFicha(x, y, turno, jugador, fichaActual) {
+    pudoInsertarFicha(x, y, fichaActual) {
         if (y < this.limiteY)
-            return this.buscarRanura(x, turno, jugador, fichaActual);
+            return this.buscarRanura(x, fichaActual);
         return false;
     } 
 
@@ -77,11 +77,11 @@ class Tablero{
      * 
      * Retorna si pudo o no
      */
-    buscarRanura(x, turno, jugador, fichaActual) {
+    buscarRanura(x, fichaActual) {
         if (x > 250 && x < 850) {
             for(var i = 0; i < 7; i++) {
-                if (this.ranurasX[i] > x - this.radio && this.ranurasX[i] < x + this.radio){
-                    return this.insertarFicha(this.ranurasX[i], turno, jugador, fichaActual);
+                if (this.ranurasX[i] > x - 25 && this.ranurasX[i] < x + 25){
+                    return this.insertarFicha(this.ranurasX[i], fichaActual);
                 }                    
             };
         }
@@ -98,7 +98,7 @@ class Tablero{
      * 
      * Retorna si pudo o no
      */
-    insertarFicha(x, turno, jugador, fichaActual) {
+    insertarFicha(x, fichaActual) {
         var posTmpY = -1;
         var pudoInsertar = false;        
 
@@ -112,6 +112,7 @@ class Tablero{
         if (posTmpY !== -1) {
             fichaActual.setX(x);
             fichaActual.setY(posTmpY);
+            fichaActual.setEstado('inactiva');
             this.ranuras[posTmpY+'-fila'][x+'-columna'] = fichaActual;
         }        
         return pudoInsertar;  

@@ -5,3 +5,18 @@
 body{
     background-color: cadetblue;
 }
+
+.header-acciones{
+    text-align: center;
+}
+
+#tablero{
+    cursor: pointer;
+    border: 1px solid #cccccc;
+    margin-left: 5px;
+}
+
+.jugadores.turno-actual {
+    box-shadow: 4px 4px #0df8ef;
+    color: #0df8ef;
+}
