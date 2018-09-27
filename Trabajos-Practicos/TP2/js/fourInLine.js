@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         juego = new Juego(canvas);
         juego.prepareJuego();
         initEvents();
+        document.getElementById('info-ganador').classList.add('oculto');
+        document.getElementById('info-empate').classList.add('oculto');
     }
 
     function initEvents() {

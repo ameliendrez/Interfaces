@@ -21,7 +21,7 @@ class Tablero{
             var fx = fxInit;
             this.ranuras[fy+'-fila'] = [];
             for (let x = 0; x < 6; x++) {
-                var ficha = new Ficha (fx, fy, 'white', 0);
+                var ficha = new Ficha (fx, fy, 'ranuras', 0);
                 ficha.setContext(this.ctx);  
                 this.ranuras[fy+'-fila'][fx+'-columna'] = ficha;
                 this.ranurasX.push(fx);

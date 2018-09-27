@@ -3,6 +3,19 @@
     margin-bottom: -6px;
 }
 
+.mensaje-ganador{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.info{
+    margin-bottom: 0px;
+}
+
+#info-ganador, #info-empate{
+    width: 100%;
+}
+
 h1, h2{
     font-family: 'Amethyst';
 }
@@ -25,6 +38,10 @@ body{
 }
 
 .jugadores.turno-actual {
-    box-shadow: 4px 4px #0df8ef;
-    color: #0df8ef;
+    box-shadow: 4px 4px #00c9d1; 
+    color: #00c9d1;
+}
+
+.oculto {
+    display: none;
 }

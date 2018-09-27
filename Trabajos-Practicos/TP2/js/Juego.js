@@ -12,6 +12,7 @@ class Juego{
         this.posInicialY;
         this.fichaClickeada = false;
         this.juegoFinalizado = false;
+        this.cantidadFichas = 42;
         this.drawFichasInit();
         this.initJuego();
     }
@@ -40,8 +41,8 @@ class Juego{
     }
 
     drawFichasInit(){
-        this.drawFichasJugador(50, 'Yellow', this.j1);
-        this.drawFichasJugador(920, 'Red', this.j2);
+        this.drawFichasJugador(50, 'j1', this.j1);
+        this.drawFichasJugador(920, 'j2', this.j2);
 
     }
 
@@ -95,16 +96,28 @@ class Juego{
             document.getElementById('J1').classList.remove('turno-actual');
             document.getElementById('J2').classList.remove('turno-actual');
         }
-
-
     }
 
     insertarFicha(x, y){
 
         if(this.tablero.pudoInsertarFicha(x, y, this.fichaActual)){
+            this.cantidadFichas--;
             if (this.hayGanador()) {
+                var mensajeGanador = document.getElementById('info-ganador');
+                if(this.turno === 1)
+                    mensajeGanador.innerHTML = 'Gano el JUGADOR 1';
+                else
+                    mensajeGanador.innerHTML = 'Gano el JUGADOR 2';
+
+                mensajeGanador.classList.remove('oculto');
+
                 this.tablero.pintarFichasGanador();
                 this.juegoFinalizado = true;
+            }
+            else if(this.cantidadFichas === 0){
+                this.juegoFinalizado = true;
+                var alerta = document.getElementById('info-empate');
+                alerta.classList.remove('oculto');
             }
             else
                 this.turno = (this.turno === 1) ? 2:1;

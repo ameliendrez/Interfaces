@@ -3,17 +3,21 @@ class Ficha{
         this.x = x;
         this.y = y;
         this.radio = 25;
-        this.color = color;
         this.jugador = jugador;
         this.estado = '';
         this.imagen = new Image();
-        this.setSrc();
+        this.getSrc(color)
     }
 
-    setSrc(){
-        this.imagen.src = 'images/ficha.png'
-    }
+    getSrc(color) {
+        if(color === 'j1')
+            this.imagen.src = 'images/rojo.png';
+        else if (color === 'j2')
+            this.imagen.src = 'images/verde.png';
+        else if (color === 'ranuras')
+            this.imagen.src = 'images/gris.png';
 
+    }
     getJugador(){
         if (this.jugador === 0)
             return this.jugador;
@@ -36,9 +40,11 @@ class Ficha{
     dibujar(){
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radio, 0, Math.PI*2);
-        this.ctx.fillStyle = this.color;
+        this.ctx.fillStyle = '#ffffff';
         this.ctx.fill();
         this.ctx.closePath();
+        
+        this.ctx.drawImage(this.imagen, this.x - this.radio - 6, this.y - this.radio - 6);
     }
 
     isClicked(x, y) {
