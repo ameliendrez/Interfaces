@@ -6,6 +6,12 @@ class Ficha{
         this.color = color;
         this.jugador = jugador;
         this.estado = '';
+        this.imagen = new Image();
+        this.setSrc();
+    }
+
+    setSrc(){
+        this.imagen.src = 'images/ficha.png'
     }
 
     getJugador(){

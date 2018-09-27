@@ -10,7 +10,6 @@ class Tablero{
         this.finalRanuraGanadora = {'x':-1, 'y':-1};
         this.direccionGanador = '';
         this.initRanuras();
-
     }
 
     initRanuras() {
@@ -39,6 +38,8 @@ class Tablero{
     dibujarTablero() {
         this.ctx.fillStyle = '#5f9d9f';
         this.ctx.fillRect(0,0,1100,550);
+        
+        
         this.ctx.fillStyle="#213aef";
         this.ctx.fillRect(260,95,600,460);
 
@@ -162,10 +163,10 @@ class Tablero{
         var jugador = -1;
         var hayGanador = false;
         
-        for (let fila = 0; fila < this.ranurasY.length; fila++) {
+        for (let fila = 0; fila < 7; fila++) {
             contador = 0;
 
-            for (let columna = 0; columna < this.ranurasX.length; columna++) {
+            for (let columna = 0; columna < 6; columna++) {
                 var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
                 var valor = ficha.getJugador();
 
@@ -198,7 +199,104 @@ class Tablero{
     }
 
     comprobarDiagonal(){
+        var hayGanador = false;
 
+        if (this.comprobarDiagonalDerecha() || this.comprobarDiagonalIzquierda())
+            hayGanador = true;
+
+        return hayGanador;
+    }
+
+    comprobarDiagonalDerecha() {
+        var hayGanador = false;
+        
+        for (let fila = 3; fila < 7; fila++) {
+            for (let columna = 0; columna < 3; columna++) {
+                
+                var valorTmpY = fila;
+                var valorTmpX = columna;
+                var pos1 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+                
+                valorTmpY--;
+                valorTmpX++;
+                var pos2 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+                
+                valorTmpY--;
+                valorTmpX++;
+                var pos3 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+                
+                valorTmpY--;
+                valorTmpX++;
+                var pos4 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+
+                var v1 = pos1.getJugador();
+                var v2 = pos2.getJugador();
+                var v3 = pos3.getJugador();
+                var v4 = pos4.getJugador();
+
+
+                if (v1 !== 0 && v1 === v2 && v2 === v3 && v3 === v4){
+                    hayGanador = true;
+                    this.direccionGanador = 'diagonalDerecha';
+                    this.inicioRanuraGanadora.x = columna;
+                    this.inicioRanuraGanadora.y = fila;
+                    this.finalRanuraGanadora.x = valorTmpX;
+                    this.finalRanuraGanadora.y = valorTmpY;
+                    return hayGanador;
+                }
+    
+            }
+        }
+        this.finalRanuraGanadora.x = -1;
+        this.finalRanuraGanadora.y = -1;
+        return hayGanador;
+    }
+
+    comprobarDiagonalIzquierda() {
+        var hayGanador = false;
+        
+        for (let fila = 6; fila > 2; fila--) {
+            for (let columna = 5; columna > 3; columna--) {
+                
+                var valorTmpY = fila;
+                var valorTmpX = columna;
+                var pos1 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+                
+                valorTmpY--;
+                valorTmpX--;
+                var pos2 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+                
+                valorTmpY--;
+                valorTmpX--;
+                var pos3 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+                
+                valorTmpY--;
+                valorTmpX--;
+                var pos4 = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'];
+
+                var v1 = pos1.getJugador();
+                var v2 = pos2.getJugador();
+                var v3 = pos3.getJugador();
+                var v4 = pos4.getJugador();
+
+
+                if (v1 !== 0 && v1 === v2 && v2 === v3 && v3 === v4){
+                    hayGanador = true;
+                    this.direccionGanador = 'diagonalIzquierda';
+                    this.inicioRanuraGanadora.x = columna;
+                    this.inicioRanuraGanadora.y = fila;
+                    this.finalRanuraGanadora.x = valorTmpX;
+                    this.finalRanuraGanadora.y = valorTmpY;
+                    console.log('diagonalIzquierda');
+                    
+                    return hayGanador;
+                }
+    
+            }
+        }
+        this.finalRanuraGanadora.x = -1;
+        this.finalRanuraGanadora.y = -1;
+        return hayGanador;
     }
 
     pintarFichasGanador(){
@@ -217,6 +315,32 @@ class Tablero{
                 var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
                 ficha.setColor('green');
                 ficha.dibujar();                
+            }
+        }
+
+        else if(this.direccionGanador === 'diagonalDerecha' || this.direccionGanador === 'diagonalIzquierda') {
+            var columna = this.inicioRanuraGanadora.x;
+            var fila = this.inicioRanuraGanadora.y;
+            var contadorFila = -1;
+            var contadorColumna = 0;
+            if(this.direccionGanador === 'diagonalDerecha')
+                contadorColumna = 1;
+            else 
+                contadorColumna = -1;
+
+            for (var i = 0; i < 4; i++) {
+                if(i===0){
+                    var ficha = this.ranuras[this.ranurasY[fila]+'-fila'][this.ranurasX[columna]+'-columna'];
+                    ficha.setColor('green');
+                    ficha.dibujar();   
+                }
+                else{
+                    var valorX = i*contadorColumna;
+                    var valorY = i*contadorFila;
+                    var ficha = this.ranuras[this.ranurasY[fila+valorY]+'-fila'][this.ranurasX[columna+valorX]+'-columna'];
+                    ficha.setColor('green');
+                    ficha.dibujar(); 
+                }
             }
         }
     }

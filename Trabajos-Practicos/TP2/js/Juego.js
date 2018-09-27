@@ -11,6 +11,7 @@ class Juego{
         this.posInicialX;
         this.posInicialY;
         this.fichaClickeada = false;
+        this.juegoFinalizado = false;
         this.drawFichasInit();
         this.initJuego();
     }
@@ -70,7 +71,7 @@ class Juego{
     isClickedFicha(x, y) {       
         for (var i=0; i<this.fichas.length; i++) {
                 var fichaTmp = this.fichas[i];
-            if (fichaTmp.isClicked(x, y) && fichaTmp.getJugador() === this.turno && fichaTmp.getEstado() !== 'inactiva') {
+            if (fichaTmp.isClicked(x, y) && fichaTmp.getJugador() === this.turno && fichaTmp.getEstado() !== 'inactiva' && !this.juegoFinalizado) {
                 this.fichaActual = fichaTmp;
                 this.fichaClickeada = true;
                 this.fichas.splice(i,1);     
@@ -103,7 +104,7 @@ class Juego{
         if(this.tablero.pudoInsertarFicha(x, y, this.fichaActual)){
             if (this.hayGanador()) {
                 this.tablero.pintarFichasGanador();
-                this.turno = 0;
+                this.juegoFinalizado = true;
             }
             else
                 this.turno = (this.turno === 1) ? 2:1;
@@ -119,25 +120,12 @@ class Juego{
     }
 
     hayGanador(){
-
         var hayGanador = false;
 
-
-        if(this.tablero.comprobarVertical()) {
+        if(this.tablero.comprobarVertical() || this.tablero.comprobarHorizontal() ||
+        this.tablero.comprobarHorizontal() || this.tablero.comprobarDiagonal()) 
             hayGanador = true;
-
-            // Pintar la Vertical ganadora y bloquear el juego
-
-        }
-        else if (this.tablero.comprobarHorizontal()){
-            hayGanador = true;
-            // Pintar la horizontal ganadora y bloquear el juego
-        }
-        // else if (this.tablero.comprobarDiagonal()) {
-        //     hayGanador = true;
-        //     //pintar diagonal ganadora;
-        // }
-
+        
         return hayGanador;
 
     }
