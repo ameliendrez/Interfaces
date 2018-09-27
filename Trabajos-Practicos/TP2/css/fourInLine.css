@@ -1,5 +1,10 @@
 .header-page{
     text-align: center;
+    margin-bottom: -6px;
+}
+
+h1, h2{
+    font-family: 'Amethyst';
 }
 
 body{
@@ -8,6 +13,10 @@ body{
 
 .header-acciones{
     text-align: center;
+}
+
+.header{
+    margin-top: 3px;
 }
 
 #tablero{
