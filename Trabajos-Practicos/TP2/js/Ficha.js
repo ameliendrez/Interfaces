@@ -16,13 +16,21 @@ class Ficha{
             this.imagen.src = 'images/violeta.png';
         else if (color === 'ranuras')
             this.imagen.src = 'images/gris.png';
-
     }
+
     getJugador(){
         if (this.jugador === 0)
             return this.jugador;
         else 
             return this.jugador.getNroJugador();
+    }
+
+    getNombre() {
+        return this.jugador.getNombre();
+    }
+
+    getEstado() {
+        return this.estado;
     }
 
     setContext(ctx){
@@ -37,26 +45,6 @@ class Ficha{
         this.y = y;
     }
 
-    dibujar(){
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radio, 0, Math.PI*2);
-        this.ctx.fillStyle = '#ffffff';
-        this.ctx.fill();
-        this.ctx.closePath();
-        
-        this.ctx.drawImage(this.imagen, this.x - this.radio - 6, this.y - this.radio - 6);
-    }
-
-    isClicked(x, y) {
-        var xLayer = x - this.x;
-        var yLayer = y - this.y;
-        return Math.sqrt(xLayer*xLayer + yLayer*yLayer) < this.radio;
-    }
-
-    getNombre() {
-        return this.jugador.getNombre();
-    }
-
     setColor(color){
         this.color = color;
     }
@@ -65,10 +53,19 @@ class Ficha{
         this.estado = estado;
     }
 
-    getEstado() {
-        return this.estado;
+    isClicked(x, y) {
+        var xLayer = x - this.x;
+        var yLayer = y - this.y;
+        return Math.sqrt(xLayer*xLayer + yLayer*yLayer) < this.radio;
     }
 
-
+    dibujar(){
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.radio, 0, Math.PI*2);
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.fill();
+        this.ctx.closePath();
+        this.ctx.drawImage(this.imagen, this.x - this.radio - 6, this.y - this.radio - 6);
+    }
 }
 	

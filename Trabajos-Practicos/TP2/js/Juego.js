@@ -17,33 +17,9 @@ class Juego{
         this.initJuego();
     }
 
-    initJuego() {
-        this.tablero.dibujarTablero();       
-    }
-
-    prepareJuego(){        
-        this.tablero.dibujarTablero();       
-        this.setFichas();
-        this.marcarTurnoActual();
-    }
-
-    setFichas() {
-        for (var i = 0; i < this.fichas.length; i++){
-            this.fichas[i].dibujar();
-        }
-    }
-
-    moveFicha(x, y) {
-        this.fichaActual.x = x;
-        this.fichaActual.y = y;
-        this.fichas.push(this.fichaActual);
-        this.prepareJuego();
-    }
-
     drawFichasInit(){
         this.drawFichasJugador(50, 'j1', this.j1);
         this.drawFichasJugador(920, 'j2', this.j2);
-
     }
 
     drawFichasJugador(xTmpInit, color, jugador) {
@@ -60,26 +36,19 @@ class Juego{
         } 
     }
 
-    resetFichaClickeada() {
-        this.fichaActual = null;
-        this.fichaClickeada = false;
+    initJuego() {
+        this.tablero.dibujarTablero();       
     }
 
-    hayFichaClickeada() {
-        return this.fichaClickeada;
+    prepareJuego(){        
+        this.tablero.dibujarTablero();       
+        this.setFichas();
+        this.marcarTurnoActual();
     }
 
-    isClickedFicha(x, y) {       
-        for (var i=0; i<this.fichas.length; i++) {
-                var fichaTmp = this.fichas[i];
-            if (fichaTmp.isClicked(x, y) && fichaTmp.getJugador() === this.turno && fichaTmp.getEstado() !== 'inactiva' && !this.juegoFinalizado) {
-                this.fichaActual = fichaTmp;
-                this.fichaClickeada = true;
-                this.fichas.splice(i,1);     
-                this.posInicialX = this.fichaActual.x;
-                this.posInicialY = this.fichaActual.y;    
-                return true;
-            }                
+    setFichas() {
+        for (var i = 0; i < this.fichas.length; i++){
+            this.fichas[i].dibujar();
         }
     }
 
@@ -98,6 +67,36 @@ class Juego{
         }
     }
 
+    isClickedFicha(x, y) {       
+        for (var i=0; i<this.fichas.length; i++) {
+                var fichaTmp = this.fichas[i];
+            if (fichaTmp.isClicked(x, y) && fichaTmp.getJugador() === this.turno && fichaTmp.getEstado() !== 'inactiva' && !this.juegoFinalizado) {
+                this.fichaActual = fichaTmp;
+                this.fichaClickeada = true;
+                this.fichas.splice(i,1);     
+                this.posInicialX = this.fichaActual.x;
+                this.posInicialY = this.fichaActual.y;    
+                return true;
+            }                
+        }
+    }
+
+    hayFichaClickeada() {
+        return this.fichaClickeada;
+    }
+
+    moveFicha(x, y) {
+        this.fichaActual.x = x;
+        this.fichaActual.y = y;
+        this.fichas.push(this.fichaActual);
+        this.prepareJuego();
+    }
+
+    resetFichaClickeada() {
+        this.fichaActual = null;
+        this.fichaClickeada = false;
+    }
+
     insertarFicha(x, y){
 
         if(this.tablero.pudoInsertarFicha(x, y, this.fichaActual)){
@@ -108,10 +107,7 @@ class Juego{
                     mensajeGanador.innerHTML = 'Gano el JUGADOR 1';
                 else
                     mensajeGanador.innerHTML = 'Gano el JUGADOR 2';
-
                 mensajeGanador.classList.remove('oculto');
-
-                this.tablero.pintarFichasGanador();
                 this.juegoFinalizado = true;
             }
             else if(this.cantidadFichas === 0){
@@ -121,7 +117,6 @@ class Juego{
             }
             else
                 this.turno = (this.turno === 1) ? 2:1;
-
         }
         else{
             this.fichaActual.x = this.posInicialX;
@@ -134,13 +129,9 @@ class Juego{
 
     hayGanador(){
         var hayGanador = false;
-
         if(this.tablero.comprobarVertical() || this.tablero.comprobarHorizontal() ||
         this.tablero.comprobarHorizontal() || this.tablero.comprobarDiagonal()) 
             hayGanador = true;
-        
         return hayGanador;
-
     }
-
 }

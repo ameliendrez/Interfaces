@@ -1,11 +1,27 @@
+body{
+    background-color: cadetblue;
+}
+
+h1, h2{
+    font-family: 'Amethyst';
+}
+
+.header{
+    margin-top: 3px;
+}
+
 .header-page{
     text-align: center;
     margin-bottom: -6px;
 }
 
-.mensaje-ganador{
+.header-acciones{
     text-align: center;
-    margin-top: 5px;
+}
+
+.jugadores.turno-actual {
+    box-shadow: 4px 4px #00c9d1; 
+    color: #00c9d1;
 }
 
 .info{
@@ -16,20 +32,9 @@
     width: 100%;
 }
 
-h1, h2{
-    font-family: 'Amethyst';
-}
-
-body{
-    background-color: cadetblue;
-}
-
-.header-acciones{
+.mensaje-ganador{
     text-align: center;
-}
-
-.header{
-    margin-top: 3px;
+    margin-top: 5px;
 }
 
 #tablero{
@@ -37,10 +42,7 @@ body{
     margin-left: 5px;
 }
 
-.jugadores.turno-actual {
-    box-shadow: 4px 4px #00c9d1; 
-    color: #00c9d1;
-}
+
 
 .oculto {
     display: none;
