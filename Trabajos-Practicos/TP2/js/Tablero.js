@@ -199,7 +199,7 @@ class Tablero{
     comprobarDiagonalIzquierda() {
         var hayGanador = false;
         for (let fila = 6; fila > 2; fila--) {
-            for (let columna = 5; columna > 3; columna--) {
+            for (let columna = 5; columna > 2; columna--) {
                 var valorTmpY = fila;
                 var valorTmpX = columna;
                 var valor = this.ranuras[this.ranurasY[valorTmpY]+'-fila'][this.ranurasX[valorTmpX]+'-columna'].getJugador();
