@@ -13,7 +13,7 @@ class Ficha{
         if(color === 'j1')
             this.imagen.src = 'images/rojo.png';
         else if (color === 'j2')
-            this.imagen.src = 'images/verde.png';
+            this.imagen.src = 'images/violeta.png';
         else if (color === 'ranuras')
             this.imagen.src = 'images/gris.png';
 
