@@ -6,7 +6,7 @@
 
 Para la visualización de los archivos correspondientes al Trabajo Practico nº3, se puede:
 
-1. Realizar la descarga de las carpetas y visualizarlas.
+1. Realizar la descarga de las carpetas y visualizarlas desde el [Github](https://github.com/ameliendrez/Interfaces/tree/master/Trabajos-Practicos/TP3).
 2. Acceder al [Drive](https://drive.google.com/drive/folders/1DFrxd9y-Y9ByJ1cTZcjpqF3Bm0cRgiQ7?usp=sharing) que contiene la misma estructura
 3. Acceder a los siguientes links:
 
