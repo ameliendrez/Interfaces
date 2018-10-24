@@ -1,8 +1,8 @@
-#TRABAJO PRACTICO Nº3  
+#  TRABAJO PRACTICO Nº3  
 
-##UX-UI-IxD
+##  UX-UI-IxD
 
-####Meliendrez Agustín - Rampoldi Santiago
+####  Meliendrez Agustín - Rampoldi Santiago
 
 Para la visualización de los archivos correspondientes al Trabajo Practico nº3, se puede:
 
