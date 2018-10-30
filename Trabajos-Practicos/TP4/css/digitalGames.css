@@ -1,3 +1,26 @@
+@keyframes parallax-background {
+    from {
+        background-position: 0px 0px;
+    }
+
+    to {
+        background-position: 0px 780px;
+    }
+}
+
+@keyframes move-left {
+    100% {
+        transform: translateX(-350px);
+    }
+}
+
+@keyframes move-right {
+    100% {
+        transform: translateX(350px);
+    }
+}
+
+
 #paralax-background-content{
     float: left;
     width: 1000px;
@@ -13,12 +36,24 @@
     animation: parallax-background linear 4s infinite;
 }
 
-@keyframes parallax-background {
-    from {
-        background-position: 0px 0px;
-    }
+#nave {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-image: url("../images/nave.png");
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+    transition: 0.5;
+}
 
-    to {
-        background-position: 0px 780px;
-    }
+#nave.izquierda {
+    /* transform: translate(-350px,0); */
+    animation: move-left ease 0.5s;
+    animation-fill-mode: both;
+}
+
+#nave.derecha {
+    /* transform: translate(350px,0); */
+    animation: move-right ease 0.5s;
+    animation-fill-mode: both;
 }
