@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var jugar = document.getElementById('jugar');
     var jugando = false;
     var nave = document.createElement('div');
+    var posX = 0;
+    var posY = 0;
 
 
     jugar.onclick = function () {
@@ -33,20 +35,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(jugando){
             var posicion = nave.getBoundingClientRect();
 
-            console.log('nave izquierda : ' + posicion.left);
-            console.log('nave derecha : ' + posicion.right);
             
             nave.classList.remove('izquierda');
             nave.classList.remove('derecha');
-            console.log('izquierda : ' + posicion.left);
-            console.log('derecha : ' + posicion.right);
-
             
             nave.style.left = posicion.left;
             nave.style.bottom = posicion.bottom
 
-            console.log('nave izquierda : ' + posicion.left);
-            console.log('nave derecha : ' + posicion.right);
 
         }
     });
