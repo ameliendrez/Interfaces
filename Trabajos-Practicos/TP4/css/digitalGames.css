@@ -1,0 +1,24 @@
+#paralax-background-content{
+    float: left;
+    width: 1000px;
+    height: 640px;
+    background-image: url(../images/desertBackground.png);
+    background-size: 1000px auto;
+    background-repeat: repeat-y;
+    background-position: 0px 0px;
+}
+
+
+#paralax-background-content.playing{
+    animation: parallax-background linear 4s infinite;
+}
+
+@keyframes parallax-background {
+    from {
+        background-position: 0px 0px;
+    }
+
+    to {
+        background-position: 0px 780px;
+    }
+}
