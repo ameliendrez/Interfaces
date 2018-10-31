@@ -3,9 +3,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var jugar = document.getElementById('jugar');
     var jugando = false;
     var nave = document.createElement('div');
-    var posX = 0;
-    var posY = 0;
-
+    var posX = 480;
+    var posY = 50;
+    var movimiento = 5;
+    var limiteIzquierdo = 100;
+    var limiteDerecho = 850;
+    var limiteSuperior = 550;
+    var limiteInferior = 15;
+    
 
     jugar.onclick = function () {
         var paralaxBackground = document.getElementById('paralax-background-content');
@@ -14,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         nave.width = '20px';
         nave.height = '20px';
         nave.top = 0;
-        nave.style.bottom = '50px';
-        nave.style.left = '480px';
+        nave.style.bottom = posY+'px';
+        nave.style.left = posX+'px';
         nave.right = 0;
 
         paralaxBackground.append(nave);
@@ -24,25 +29,82 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     document.addEventListener("keydown", function (e) {
         if(jugando){
-            if(e.keyCode === 37)
-                nave.classList.add('izquierda');
-            else if (e.keyCode === 39)
-                nave.classList.add('derecha');
+            if(e.code === "ArrowLeft"){
+                if(posX - movimiento > limiteIzquierdo){
+                    posX -= movimiento;
+                    nave.classList.add('izquierda');
+                }
+            }
+            else if (e.code === "ArrowRight"){
+                if(posX + movimiento< limiteDerecho){
+                    posX += movimiento;
+                    nave.classList.add('derecha');
+                }
+            }
+            else if (e.code === "ArrowUp") {
+                if(posY + movimiento < limiteSuperior){
+                    posY += movimiento;
+                    nave.classList.add('arriba');
+                }
+            }
+            else if(e.code === "ArrowDown"){
+                if(posY - movimiento > limiteInferior){
+                    posY -= movimiento;
+                    
+                    nave.classList.add('abajo');
+                }
+            }
+
+            nave.getBoundingClientRect();
+            nave.style.left = posX+'px';
+            nave.style.bottom = posY+'px';
+
+
+        }
+    });
+
+    document.addEventListener("keypress", function (e) {
+        if(jugando){
+            if(e.code === "ArrowLeft"){
+                if(posX - movimiento > limiteIzquierdo){
+                    posX -= movimiento;
+                    nave.classList.add('izquierda');
+                }
+            }
+            else if (e.code === "ArrowRight"){
+                if(posX + movimiento< limiteDerecho){
+                    posX += movimiento;
+                    nave.classList.add('derecha');
+                }
+            }
+            else if (e.code === "ArrowUp") {
+                if(posY + movimiento < limiteSuperior){
+                    posY += movimiento;
+                    nave.classList.add('arriba');
+                }
+            }
+            else if(e.code === "ArrowDown"){
+                if(posY - movimiento > limiteInferior){
+                    posY -= movimiento;
+                    
+                    nave.classList.add('abajo');
+                }
+            }
+
+            nave.style.left = posX+'px';
+            nave.style.bottom = posY+'px';
+
+
         }
     });
 
     document.addEventListener("keyup", function (e) {
         if(jugando){
-            var posicion = nave.getBoundingClientRect();
-
             
             nave.classList.remove('izquierda');
             nave.classList.remove('derecha');
-            
-            nave.style.left = posicion.left;
-            nave.style.bottom = posicion.bottom
-
-
+            nave.classList.remove('abajo');
+            nave.classList.remove('arriba');
         }
     });
 
