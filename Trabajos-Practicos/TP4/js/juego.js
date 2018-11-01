@@ -2,7 +2,7 @@ class Juego{
     constructor(){
         this.background = document.getElementById('paralax-background-content');
         this.naveJugador = new Nave(true); // True indica si la nave es jugador humano
-        this.animaciones = new Animacion(this.background);
+        this.animaciones = new Animacion(this.background, this.naveJugador.getNave());
         this.jugando = false;
         this.limiteIzquierdo = 100;
         this.limiteDerecho = 850;
@@ -31,20 +31,26 @@ class Juego{
         let juego = this;
             this.intervaloMovimiento = setInterval(function () {
                 document.addEventListener("keydown", function (e) {
+                    
                     var posicion = juego.naveJugador.getPosicionNave();
                     var movimiento = juego.naveJugador.getMovimiento();
                     var direccion = e.code;
-                    if(juego.movimientoValido(direccion, posicion, movimiento))
+
+                    if(juego.movimientoValido(direccion, posicion, movimiento)){
+                        juego.animaciones.agregarMovimientoNave(direccion);
                         juego.naveJugador.moverNave(direccion);
+                    }
                     
                         // thisClass.gameOver();
                     if(juego.jugando)
                         clearInterval(juego.intervaloMovimiento);
                 });
-        }, 5);
+        }, 20);
 
-        document.addEventListener("keydown", function (e) {
+        document.addEventListener("keyup", function (e) {
             clearInterval(juego.intervaloMovimiento);
+            juego.animaciones.eliminarMovimientoNave();
+
         });
     }
 

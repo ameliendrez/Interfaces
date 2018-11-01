@@ -8,15 +8,28 @@
     }
 }
 
-@keyframes move-left {
-    100% {
-        transform: rotate(-25deg)
+@keyframes movingShip{
+    25%{
+        transform: skewY(10deg);
+    }
+    50%{
+        transform: initial;
+    }
+    75%{
+        transform: skewY(-10deg);
+    }
+    100%{
+        transform: initial;
     }
 }
 
-@keyframes move-right {
-    100% {
-        transform: rotate(25deg)
+@keyframes destroyShip{
+    25% {
+        transform: rotate(180deg) scale3D(0.7, 0.7, 159);
+    }
+    
+    50% {
+        transform: rotate(360deg) scale3D(0.1, 0.1, 2);
     }
 }
 
@@ -43,17 +56,25 @@
     background-image: url("../images/nave.png");
     background-size: 60px 60px;
     background-repeat: no-repeat;
-    transition: 0.1s
+    transition: 0.2s;
+}
+
+#nave.volando{
+    animation: movingShip linear 2s infinite;
 }
 
 #nave.izquierda {
-    animation: move-left ease-out 0.2s;
-    animation-fill-mode: forwards;
-
+    transform: skewY(-10deg);
 }
 
 #nave.derecha {
-    animation: move-right ease-out 0.2s;
-    animation-fill-mode: forwards;
+    transform: skewY(10deg);
+}
 
+#nave.arriba{
+    transform: rotateX(40deg) scaleX(1);
+}
+
+#nave.abajo{
+    transform: rotateX(-40deg) scaleX(1);
 }

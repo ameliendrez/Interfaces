@@ -3,13 +3,14 @@ class Nave{
         this.nave = document.createElement('div');
         this.posX = 480;
         this.posY = 50;
-        this.movimientoJugador = 1;
+        this.movimientoJugador = 4;
         this.esHumano = esHumano;
     }
 
     setPosicionInicial(){
         if(this.esHumano) {
             this.nave.id = 'nave';
+            this.nave.classList.add('volando');
             this.nave.width = '20px';
             this.nave.height = '20px';
             this.nave.style.bottom = this.posY+'px';
