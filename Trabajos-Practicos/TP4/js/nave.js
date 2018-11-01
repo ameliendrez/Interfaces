@@ -1,9 +1,9 @@
 class Nave{
-    constructor(esHumano = false){
+    constructor(posX, posY, esHumano = false){
         this.nave = document.createElement('div');
-        this.posX = 480;
-        this.posY = 50;
-        this.movimientoJugador = 4;
+        this.posX = posX;
+        this.posY = posY;
+        this.movimientoJugador = 2;
         this.esHumano = esHumano;
     }
 
@@ -11,11 +11,16 @@ class Nave{
         if(this.esHumano) {
             this.nave.id = 'nave';
             this.nave.classList.add('volando');
-            this.nave.width = '20px';
-            this.nave.height = '20px';
-            this.nave.style.bottom = this.posY+'px';
-            this.nave.style.left = this.posX+'px';
         }
+        else{
+            //this.nave.id = 'enemigo';
+            this.nave.classList.add('enemigo');
+        }
+
+        this.nave.width = '20px';
+        this.nave.height = '20px';
+        this.nave.style.bottom = this.posY+'px';
+        this.nave.style.left = this.posX+'px';
     }
 
     moverNave(direccion){        

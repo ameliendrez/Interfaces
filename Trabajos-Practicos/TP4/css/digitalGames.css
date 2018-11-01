@@ -10,13 +10,13 @@
 
 @keyframes movingShip{
     25%{
-        transform: skewY(10deg);
+        transform: skewY(5deg);
     }
     50%{
         transform: initial;
     }
     75%{
-        transform: skewY(-10deg);
+        transform: skewY(-5deg);
     }
     100%{
         transform: initial;
@@ -50,7 +50,7 @@
 }
 
 #nave {
-    position: absolute;
+    position: relative;
     width: 60px;
     height: 60px;
     background-image: url("../images/nave.png");
@@ -59,16 +59,34 @@
     transition: 0.2s;
 }
 
+.enemigo{
+    position: relative;
+    width: 70px;
+    height: 90px;
+    background-image: url("../images/enemigos.png");
+    background-size: 290px 100px;
+    background-repeat: no-repeat;
+    transition: 0.2s;
+    animation: flyingEnemy 1s steps(4) infinite;
+}
+
+@keyframes flyingEnemy{
+    100% {
+        background-position: -290px 0px;
+    }
+    
+}
+
 #nave.volando{
     animation: movingShip linear 2s infinite;
 }
 
 #nave.izquierda {
-    transform: skewY(-10deg);
+    transform: skewY(-5deg);
 }
 
 #nave.derecha {
-    transform: skewY(10deg);
+    transform: skewY(5deg);
 }
 
 #nave.arriba{
