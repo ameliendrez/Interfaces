@@ -43,7 +43,7 @@
     background-image: url("../images/nave.png");
     background-size: 60px 60px;
     background-repeat: no-repeat;
-    transition: 0.2s
+    transition: 0.1s
 }
 
 #nave.izquierda {
