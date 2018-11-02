@@ -36,7 +36,6 @@ class Animacion{
         this.nave.classList.remove('arriba');        
         this.nave.classList.remove('abajo');
         this.nave.classList.add('volando');
-
     }
 
 

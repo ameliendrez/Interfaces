@@ -3,17 +3,16 @@ class Nave{
         this.nave = document.createElement('div');
         this.posX = posX;
         this.posY = posY;
-        this.movimientoJugador = 2;
+        this.movimientoJugador =15;
         this.esHumano = esHumano;
     }
 
-    setPosicionInicial(){
+    setPosicionInicial(id=false){
         if(this.esHumano) {
             this.nave.id = 'nave';
             this.nave.classList.add('volando');
         }
         else{
-            //this.nave.id = 'enemigo';
             this.nave.classList.add('enemigo');
         }
 
@@ -24,7 +23,8 @@ class Nave{
     }
 
     moverNave(direccion){        
-        if(direccion === "ArrowLeft")
+        if(this.esHumano){
+            if(direccion === "ArrowLeft")
             this.posX -= this.movimientoJugador;
         else if (direccion === "ArrowRight")
             this.posX += this.movimientoJugador;
@@ -36,6 +36,7 @@ class Nave{
 
         this.nave.style.left = this.posX+'px';
         this.nave.style.bottom = this.posY+'px';
+        }   
     }
 
     getNave(){

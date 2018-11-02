@@ -67,10 +67,16 @@
     background-size: 290px 100px;
     background-repeat: no-repeat;
     transition: 0.2s;
-    animation: flyingEnemy 1s steps(4) infinite;
+    animation: flyingEnemy 1s steps(4) infinite, moveEnemy linear 5s 1;
 }
 
-@keyframes flyingEnemy{
+@-webkit-keyframes moveEnemy{
+    100%{
+        transform: translate(70px, 1400px);
+    }
+}
+
+@-webkit-keyframes flyingEnemy{
     100% {
         background-position: -290px 0px;
     }
