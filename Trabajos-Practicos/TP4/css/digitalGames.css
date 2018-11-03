@@ -34,6 +34,7 @@
 }
 
 #paralax-background-content{
+    margin: 100px 0 0 100px;
     float: left;
     width: 1000px;
     height: 640px;
@@ -41,7 +42,8 @@
     background-size: 1000px auto;
     background-repeat: repeat-y;
     background-position: 0px 0px;
-    overflow: hidden;
+    /* overflow: hidden; */
+    position: absolute;
 }
 
 
@@ -49,8 +51,8 @@
     animation: parallax-background linear 4s infinite;
 }
 
-#nave {
-    position: relative;
+#naveJugador {
+    position: absolute;
     width: 60px;
     height: 60px;
     background-image: url("../images/nave.png");
@@ -60,7 +62,7 @@
 }
 
 .enemigo{
-    position: relative;
+    position: absolute;
     width: 70px;
     height: 90px;
     background-image: url("../images/enemigos.png");

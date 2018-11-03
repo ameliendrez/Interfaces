@@ -1,23 +1,26 @@
 class Juego{
     constructor(){
         this.background = document.getElementById('paralax-background-content');
-        this.naveJugador = new Nave(480, -470, true); // True indica si la nave es jugador humano
+        this.naveJugador = new Nave(480, 20, true); // True indica si la nave es jugador humano
         this.navesEnemigas = [];
         this.animaciones = new Animacion(this.background, this.naveJugador.getNave());
         this.jugando = false;
         this.limiteIzquierdo = 100;
         this.limiteDerecho = 850;
-        this.limiteSuperior = 15;
-        this.limiteInferior = -470;
-        this.intervaloMovimiento = null;
-        this.intervaloCreacionNavesEnemigas = null;
+        this.limiteSuperior = 550;
+        this.limiteInferior = 0;
+        this.intervalo = null;
         this.cantidadNavesEnemigas = 5;
+        this.movimientos = {'ArrowDown':false, 'ArrowUp':false, 'ArrowLeft':false, 'ArrowRigth':false};
+        this.movimientoActual = '';
+        this.contadorEnemigosCreados = 1;
     }
 
     jugar() {
         this.jugando = true;
         this.iniciarAnimacionFondo();
         this.agregarNaveJugador();
+        this.setMovimientosJugador();
         this.iniciarJuego();
     }
 
@@ -26,79 +29,88 @@ class Juego{
     }
 
     agregarNaveJugador(){
-        this.naveJugador.setPosicionInicial();
+        this.naveJugador.setPosicionInicial('naveJugador');
         this.background.append(this.naveJugador.getNave());
     }
 
     iniciarJuego(){
-        let juego = this;
-        this.intervaloMovimiento = setInterval(function () {
-            juego.getMovimientoJugador();
-            clearInterval(juego.intervaloMovimiento);
-        }, 20);
-
+        this.intervalo = setInterval(() => {
+            this.movimientoValido();
+        }, 10);
         this.agregarNavesEnemigas();
+    }
 
+    setMovimientosJugador(){
+        var juego = this;
+        document.addEventListener("keydown", function (e) {
+            var direccion = e.code;
+            juego.movimientos[direccion] = true;
+            juego.movimientoActual = direccion;
+        });
         document.addEventListener("keyup", function (e) {
-            clearInterval(juego.intervaloMovimiento);
+            juego.movimientos[direccion] = false;
+            juego.movimientoActual = '';
             juego.animaciones.eliminarMovimientoNave();
         });
     }
 
-    getMovimientoJugador(){
-        var juego = this;
-        document.addEventListener("keydown", function (e) {
-            var posicion = juego.naveJugador.getPosicionNave();
-            var movimiento = juego.naveJugador.getMovimiento();
-            var direccion = e.code;
-
-            if(juego.movimientoValido(direccion, posicion, movimiento)){
-                juego.animaciones.agregarMovimientoNave(direccion);
-                juego.naveJugador.moverNave(direccion);
-            }
-        });
-    }
-
     agregarNavesEnemigas(){
-        if(this.navesEnemigas.length > 0) 
-            this.navesEnemigas.splice(0, this.navesEnemigas.length);
-        
-        var juego = this;
-
-        this.creacionNavesEnemigas = setInterval(function () {
-            var posicionX = Math.random() * (juego.limiteDerecho - juego.limiteIzquierdo) + juego.limiteIzquierdo + 20;
-            var naveEnemiga = new Nave(posicionX, 850); // -5
-            naveEnemiga.setPosicionInicial();
-            juego.background.append(naveEnemiga.getNave());
-            juego.navesEnemigas.push(naveEnemiga);      
-
-            clearInterval(juego.intervaloCreacionNavesEnemigas);
-        }, 1000);
-
-
-        // for (let index = 0; index < this.cantidadNavesEnemigas; index++) {
-         
-        // }        
-        // clearInterval(this.intervaloCreacionNavesEnemigas);
-
+        this.creacionNavesEnemigas = setInterval(() => {
+            var idNaveEnemiga = this.crearEnemigo();
+            // console.log(naveEnemiga);
+            
+            this.comprobarColisiones(idNaveEnemiga);
+        }, 1000);  
     }
 
-    movimientoValido(direccion, posicion, movimiento){
-        var puedeMover = false;
-        if(direccion === "ArrowLeft" && (posicion.posX - movimiento) > this.limiteIzquierdo)
-            puedeMover = true;
-        else if (direccion === "ArrowRight" && (posicion.posX + movimiento) < this.limiteDerecho)
-            puedeMover = true;
-        
-        if (direccion === "ArrowUp" && (posicion.posY + movimiento) < this.limiteSuperior) 
-            puedeMover = true;
-        else if(direccion === "ArrowDown" && (posicion.posY - movimiento) > this.limiteInferior)
-            puedeMover = true;
-
-        return puedeMover;
+    comprobarColisiones(idNaveEnemiga){
+        this.intervaloEnemigo = setInterval(() => {
+            console.log(idNaveEnemiga);
+            var nave = document.getElementById(idNaveEnemiga);
+            nave.remove();
+            clearInterval(this.intervaloEnemigo);
+            // this.navesEnemigas[idNaveEnemiga] = null;
+            // this.background.removeChild('#'+idNaveEnemiga);
+//             var elem = document.getElementById("myDiv");
+// elem.remove();
+            // naveEnemiga.
+            // naveEnemiga.parentNode.removeChild(naveEnemiga);
+        },3000);
     }
 
+    crearEnemigo(){
+        var posicionX = Math.random() * (this.limiteDerecho - this.limiteIzquierdo) + this.limiteIzquierdo + 20;
+        var naveEnemiga = new Nave(posicionX, 700); // -5
+        var id = 'enemigo' + this.contadorEnemigosCreados;
+        this.contadorEnemigosCreados++;
 
+        naveEnemiga.setPosicionInicial(id);
+        this.background.append(naveEnemiga.getNave());
+        this.navesEnemigas[id] = naveEnemiga; 
+        return id;
+    }
 
+    movimientoValido(){
+        var posicion = this.naveJugador.getPosicionNave();
+        var movimiento = this.naveJugador.getMovimiento();
 
+        if(this.puedeMoverHorizontal(posicion, movimiento)){
+            this.animaciones.agregarMovimientoNave(this.movimientoActual);
+            this.naveJugador.moverNave(this.movimientoActual);
+        }
+        if(this.puedeMoverVertical(posicion, movimiento)){
+            this.animaciones.agregarMovimientoNave(this.movimientoActual);
+            this.naveJugador.moverNave(this.movimientoActual);
+        }
+    }
+
+    puedeMoverHorizontal(posicion, movimiento){
+        return ((this.movimientos.ArrowLeft && (posicion.posX - movimiento) > this.limiteIzquierdo) ||
+                (this.movimientos.ArrowRight && (posicion.posX + movimiento) < this.limiteDerecho));
+    }
+
+    puedeMoverVertical(posicion, movimiento){
+        return ((this.movimientos.ArrowUp && (posicion.posY + movimiento) < this.limiteSuperior) ||
+                (this.movimientos.ArrowDown && (posicion.posY - movimiento) > this.limiteInferior));
+    }
 }
