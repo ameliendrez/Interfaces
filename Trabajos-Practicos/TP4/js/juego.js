@@ -2,17 +2,20 @@ class Juego{
     constructor(){
         this.background = document.getElementById('paralax-background-content');
         this.naveJugador = new Nave(480, 20, true); // True indica si la nave es jugador humano
-        this.navesEnemigas = [];
         this.animaciones = new Animacion(this.background, this.naveJugador.getNave());
-        this.jugando = false;
         this.limiteIzquierdo = 100;
         this.limiteDerecho = 850;
-        this.limiteSuperior = 550;
+        this.limiteSuperior = 420;
         this.limiteInferior = 0;
-        this.intervalo = null;
-        this.cantidadNavesEnemigas = 5;
+        this.jugando = false;
+        this.iterador1 = 0;
+
         this.movimientos = {'ArrowDown':false, 'ArrowUp':false, 'ArrowLeft':false, 'ArrowRigth':false};
-        this.movimientoActual = '';
+        this.direccionActual = '';
+        this.intervalo = null;
+
+        this.navesEnemigas = [];
+        this.cantidadNavesEnemigas = 1;
         this.contadorEnemigosCreados = 1;
     }
 
@@ -22,6 +25,7 @@ class Juego{
         this.agregarNaveJugador();
         this.setMovimientosJugador();
         this.iniciarJuego();
+        this.chequearColisiones();
     }
 
     iniciarAnimacionFondo(){
@@ -35,8 +39,8 @@ class Juego{
 
     iniciarJuego(){
         this.intervalo = setInterval(() => {
-            this.movimientoValido();
-        }, 10);
+            this.moverNave();
+        }, 35);
         this.agregarNavesEnemigas();
     }
 
@@ -45,37 +49,78 @@ class Juego{
         document.addEventListener("keydown", function (e) {
             var direccion = e.code;
             juego.movimientos[direccion] = true;
-            juego.movimientoActual = direccion;
+            juego.direccionActual = direccion;
         });
         document.addEventListener("keyup", function (e) {
-            juego.movimientos[direccion] = false;
-            juego.movimientoActual = '';
+            juego.movimientos[e.code] = false;
+            juego.direccionActual = '';
             juego.animaciones.eliminarMovimientoNave();
         });
     }
 
     agregarNavesEnemigas(){
         this.creacionNavesEnemigas = setInterval(() => {
-            var idNaveEnemiga = this.crearEnemigo();
-            // console.log(naveEnemiga);
-            
-            this.comprobarColisiones(idNaveEnemiga);
-        }, 1000);  
+
+
+            //Segun el nivel, crear la cantidad de naves this.cantidadNavesEnemigas?
+
+            var idNaveEnemiga = this.crearEnemigo();            
+            this.quitarNaveEnemiga(idNaveEnemiga);
+
+
+        }, 500);  
     }
 
-    comprobarColisiones(idNaveEnemiga){
-        this.intervaloEnemigo = setInterval(() => {
-            console.log(idNaveEnemiga);
+    quitarNaveEnemiga(idNaveEnemiga){
+        var intervaloEnemigo = setInterval(() => {
             var nave = document.getElementById(idNaveEnemiga);
             nave.remove();
-            clearInterval(this.intervaloEnemigo);
-            // this.navesEnemigas[idNaveEnemiga] = null;
-            // this.background.removeChild('#'+idNaveEnemiga);
-//             var elem = document.getElementById("myDiv");
-// elem.remove();
-            // naveEnemiga.
-            // naveEnemiga.parentNode.removeChild(naveEnemiga);
-        },3000);
+            delete this.navesEnemigas[idNaveEnemiga]
+            clearInterval(intervaloEnemigo);
+        },3500);
+    }
+
+    chequearColisiones(){
+        this.detectorColisiones = setInterval(() => {
+            for (const naveEnemiga in this.navesEnemigas) {
+                var nave = this.navesEnemigas[naveEnemiga];
+                var hayColision = this.comprobarColision(nave);
+                if(hayColision){
+                    //finaliza juego
+                    this.animaciones.destruccionNaveJugador();
+
+                }
+            }
+
+        }, 50); 
+    }
+
+    getPosicion(nave){
+        return {
+            'x' : Math.round(nave.getPosicionNave().posX),
+            'y' : Math.round(nave.getNave().getBoundingClientRect().y)
+        }
+         
+    }
+
+    comprobarColision(naveEnemiga){
+        var posicionNaveEnemiga = this.getPosicion(naveEnemiga); //.getBoundingClientRect();
+        var posicionNaveJugador = this.getPosicion(this.naveJugador);
+        var hayColision = false;
+      
+        if(this.colisionAncho(posicionNaveEnemiga.x, posicionNaveJugador.x) &&
+        this.colisionAlto(posicionNaveEnemiga.y, posicionNaveJugador.y))
+            hayColision = true;
+        
+        return hayColision;
+    }
+
+    colisionAncho(posicionNaveEnemiga, posicionX){
+        return posicionX-80 < posicionNaveEnemiga && posicionNaveEnemiga <  posicionX+20;
+    }
+
+    colisionAlto(posicionNaveEnemiga, posicionY){
+        return posicionY-35 < posicionNaveEnemiga  && posicionNaveEnemiga < posicionY+35;
     }
 
     crearEnemigo(){
@@ -83,25 +128,32 @@ class Juego{
         var naveEnemiga = new Nave(posicionX, 700); // -5
         var id = 'enemigo' + this.contadorEnemigosCreados;
         this.contadorEnemigosCreados++;
-
         naveEnemiga.setPosicionInicial(id);
         this.background.append(naveEnemiga.getNave());
         this.navesEnemigas[id] = naveEnemiga; 
         return id;
     }
 
-    movimientoValido(){
+    moverNave(){
         var posicion = this.naveJugador.getPosicionNave();
         var movimiento = this.naveJugador.getMovimiento();
+        var puedeMover = this.puedeMover(posicion, movimiento);
 
-        if(this.puedeMoverHorizontal(posicion, movimiento)){
-            this.animaciones.agregarMovimientoNave(this.movimientoActual);
-            this.naveJugador.moverNave(this.movimientoActual);
-        }
-        if(this.puedeMoverVertical(posicion, movimiento)){
-            this.animaciones.agregarMovimientoNave(this.movimientoActual);
-            this.naveJugador.moverNave(this.movimientoActual);
-        }
+        if(puedeMover === 'horizontal')
+            this.naveJugador.moverHorizontal(this.direccionActual);
+        else if (puedeMover === 'vertical')
+            this.naveJugador.moverVertical(this.direccionActual);
+
+        this.animaciones.agregarMovimientoNave(this.direccionActual);        
+    }
+
+    puedeMover(posicion, movimiento){
+        var puedeMover = '';
+        if(this.puedeMoverHorizontal(posicion, movimiento))
+            puedeMover = 'horizontal';
+        else if(this.puedeMoverVertical(posicion, movimiento))
+            puedeMover = 'vertical';
+        return puedeMover;
     }
 
     puedeMoverHorizontal(posicion, movimiento){

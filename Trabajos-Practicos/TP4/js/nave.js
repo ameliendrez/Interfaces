@@ -3,8 +3,12 @@ class Nave{
         this.nave = document.createElement('div');
         this.posX = posX;
         this.posY = posY;
-        this.movimientoJugador = 1;
+        this.movimientoJugador = 15;
         this.esHumano = esHumano;
+    }
+
+    getNave(){
+        document.getElementById(this.id);
     }
 
     setPosicionInicial(id){
@@ -22,21 +26,25 @@ class Nave{
         this.nave.style.left = this.posX+'px';
     }
 
-    moverNave(direccion){        
-        if(this.esHumano){
-            if(direccion === "ArrowLeft")
+    moverHorizontal(direccion){
+        if(direccion === "ArrowLeft")
             this.posX -= this.movimientoJugador;
         else if (direccion === "ArrowRight")
             this.posX += this.movimientoJugador;
-        
+        this.moverNave();
+    }
+
+    moverVertical(direccion){                  
         if (direccion === "ArrowUp") 
             this.posY += this.movimientoJugador;
         else if(direccion === "ArrowDown")
             this.posY -= this.movimientoJugador;
+        this.moverNave();
+    }
 
+    moverNave(){
         this.nave.style.left = this.posX+'px';
         this.nave.style.bottom = this.posY+'px';
-        }   
     }
 
     getNave(){
@@ -52,6 +60,23 @@ class Nave{
 
     getMovimiento() {
         return this.movimientoJugador;
+    }
+
+    detectarColision(naveEnemiga){
+        // console.log('enemigo');
+        // var posicionEnemigo = naveEnemiga.getPosicionNave();
+
+        // console.log(posicionEnemigo.posX);
+        // console.log(posicionEnemigo.posY);
+
+        // console.log('jugador');
+        // console.log(this.posX);
+        // console.log(this.posY);
+        
+        
+        
+        
+        
     }
 
 }
