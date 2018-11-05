@@ -46,6 +46,12 @@
     }
 }
 
+@keyframes explodeShip{
+    100%{
+        background-position: -1000px 0px;
+    }
+}
+
 #paralax-background-content{
     margin: 100px 0 0 100px;
     /* float: left; */
@@ -86,7 +92,9 @@
 }
 
 #naveJugador.cayendo{
-    animation: destroyShip linear 2s 1;
+    background-image: url("../images/explosion.png");
+    background-size: 1000px 70px;
+    animation: destroyShip linear 2s 1, explodeShip 3s 1s steps(14) infinite;
 }
 
 .enemigo{
