@@ -50,7 +50,7 @@ class Juego{
             else
                 this.finalizarJuego();
         }, 35);
-        this.agregarNavesEnemigas();
+        // this.agregarNavesEnemigas();
     }
 
     finalizarJuego(){

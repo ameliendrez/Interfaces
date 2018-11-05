@@ -5,20 +5,135 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Digital Games</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="css/digitalGames.css" />
 </head>
 <body>
-    <div id="paralax-background-content">
 
-        <h1>TITULO</h1>
-        <button id="jugar">JUGAR</button>
+    <header>
+        <div class="row">
+            <div class="logo offset-md-1 col-md-4">
+                <div class='nombre-pagina'>
+                    <img class="img-fluid logo-pagina" name="logo" src="images/logo.png" alt="Digital Games Logo">
+                    <label for="logo"><h3>DIGITAL GAMES</h3></label>
+                </div>
+            </div>
 
+            <div class="logo offset-md-4 col-md-2">
+                <div class='sesion'>
+                    <label for="usuario">John Doe</label>
+                    <img name='usuario' class="img-fluid logo-usuario" src="images/usuario.png" alt="Usuario Logueado">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="juego">
+        <div class="row">
+            <div class="container-juego col-md-6">
+                <div id="paralax-background-content">
+                    <div class="row">
+                        <div class="menu principal offset-md-4 col-4">
+                            <div class="botonera">
+                                <div class="row">
+                                    <div class="offset-md-3 col-6">
+                                        <button class="btn btn-sm">JUGAR</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-3 col-6">
+                                        <button class="btn btn-sm">CONTROLES</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-3 col-6">
+                                        <button class="btn btn-sm">CONFIGURACION</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="info-juego oculto">
+                                <div class="row">
+                                    <div class="control-titulo offset-md-2 col-10">
+                                        <h3>CONTROLES</h3>
+                                    </div>
+                                </div>
+                                <div class="row info-adicional">
+                                    <div class="offset-md-3 col-6">
+                                        <img class="img-fluid controles-juego" name="logo" src="images/controles.png" alt="Controles del juego">
+                                    </div>
+                                </div>
+                                <div class="row info-adicional">
+                                    <div class="offset-md-1 col-10">
+                                        <P>Para el movimiento de la nave utilice las flechas de direccion.</P>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-3 col-6">
+                                        <button class="volver btn btn-sm">VOLVER</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="configuracion oculto">
+                                <div class="row">
+                                    <div class="control-titulo offset-md-2 col-10">
+                                        <h3>CONFIGURACION</h3>
+                                    </div>
+                                </div>
+                                <!-- <div class="row info-adicional">
+                                    <div class="offset-md-3 col-6">
+                                        <img class="img-fluid controles-juego" name="logo" src="images/controles.png" alt="Controles del juego">
+                                    </div>
+                                </div>
+                                <div class="row info-adicional">
+                                    <div class="offset-md-1 col-10">
+                                        <P>Para el movimiento de la nave utilice las flechas de direccion.</P>
+                                    </div>
+                                </div> -->
+                                <div class="row">
+                                    <div class="offset-md-3 col-6">
+                                        <button class="volver btn btn-sm">VOLVER</button>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                       
+    
+    
+    
+                        </div>
+                    </div>
+
+            
+                </div>
+
+            </div>
+            <div class="ranking offset-md-3 col-md-2">
+                <div >
+                    <h3>Ranking</h3>
+            
+                </div>
+
+            </div>
+      
+
+        </div>
     </div>
 
+
+
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/nave.js"></script>
     <script src="js/animacion.js"></script>
     <script src="js/juego.js"></script>
     <script src="js/digitalGames.js"></script>
-
 </body>
 </html>
