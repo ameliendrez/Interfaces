@@ -8,7 +8,9 @@ class Juego{
         this.limiteSuperior = 420;
         this.limiteInferior = 0;
         this.jugando = false;
-        this.iterador1 = 0;
+        this.resultado = {'perdio':false, 'gano':false};
+        this.partidasGanadas = 0;
+        this.partidasPerdidas = 0;
 
         this.movimientos = {'ArrowDown':false, 'ArrowUp':false, 'ArrowLeft':false, 'ArrowRigth':false};
         this.direccionActual = '';
@@ -37,11 +39,26 @@ class Juego{
         this.background.append(this.naveJugador.getNave());
     }
 
+    quitarNaveJugador(){
+        this.naveJugador.getNave().remove();
+    }
+
     iniciarJuego(){
         this.intervalo = setInterval(() => {
-            this.moverNave();
+            if(this.jugando)
+                this.moverNave();
+            else
+                this.finalizarJuego();
         }, 35);
         this.agregarNavesEnemigas();
+    }
+
+    finalizarJuego(){
+        var intervaloFinalizacion = setInterval(()=>{
+            this.animaciones.finalizarAnimacionFondo();
+            this.quitarNaveJugador();
+            clearInterval(intervaloFinalizacion);
+        },2000);
     }
 
     setMovimientosJugador(){
@@ -59,15 +76,17 @@ class Juego{
     }
 
     agregarNavesEnemigas(){
-        this.creacionNavesEnemigas = setInterval(() => {
+        var creacionNavesEnemigas = setInterval(() => {
 
 
             //Segun el nivel, crear la cantidad de naves this.cantidadNavesEnemigas?
-
-            var idNaveEnemiga = this.crearEnemigo();            
-            this.quitarNaveEnemiga(idNaveEnemiga);
-
-
+            if(this.jugando){
+                var idNaveEnemiga = this.crearEnemigo();            
+                this.quitarNaveEnemiga(idNaveEnemiga);
+            }
+            else
+               clearInterval(creacionNavesEnemigas); 
+     
         }, 500);  
     }
 
@@ -81,17 +100,17 @@ class Juego{
     }
 
     chequearColisiones(){
-        this.detectorColisiones = setInterval(() => {
+        var detectorColisiones = setInterval(() => {
             for (const naveEnemiga in this.navesEnemigas) {
                 var nave = this.navesEnemigas[naveEnemiga];
                 var hayColision = this.comprobarColision(nave);
                 if(hayColision){
-                    //finaliza juego
                     this.animaciones.destruccionNaveJugador();
-
+                    this.resultado.perdio = true;
+                    this.jugando = false;
+                    clearInterval(detectorColisiones);
                 }
             }
-
         }, 50); 
     }
 
@@ -100,11 +119,10 @@ class Juego{
             'x' : Math.round(nave.getPosicionNave().posX),
             'y' : Math.round(nave.getNave().getBoundingClientRect().y)
         }
-         
     }
 
     comprobarColision(naveEnemiga){
-        var posicionNaveEnemiga = this.getPosicion(naveEnemiga); //.getBoundingClientRect();
+        var posicionNaveEnemiga = this.getPosicion(naveEnemiga); 
         var posicionNaveJugador = this.getPosicion(this.naveJugador);
         var hayColision = false;
       

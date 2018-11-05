@@ -1,6 +1,8 @@
 class Nave{
     constructor(posX, posY, esHumano = false){
         this.nave = document.createElement('div');
+        this.posicionInicialX = posX;
+        this.posicionInicialY = posY;
         this.posX = posX;
         this.posY = posY;
         this.movimientoJugador = 15;
@@ -12,18 +14,15 @@ class Nave{
     }
 
     setPosicionInicial(id){
-        if(this.esHumano) {
-            this.nave.classList.add('volando');
-        }
-        else{
-            this.nave.classList.add('enemigo');
-        }
 
+        if(!this.esHumano) 
+            this.nave.classList.add('enemigo');
+        
         this.nave.id = id;
         this.nave.width = '20px';
         this.nave.height = '20px';
-        this.nave.style.bottom = this.posY+'px';
-        this.nave.style.left = this.posX+'px';
+        this.nave.style.bottom = this.posicionInicialY+'px';
+        this.nave.style.left = this.posicionInicialX+'px';
     }
 
     moverHorizontal(direccion){

@@ -33,31 +33,28 @@
     100% {
         background-position: -290px 0px;
     }
-    
 }
 
-@keyframes destroyShip{
+@keyframes downShip{
     25% {
-        transform: rotate(180deg) scale3D(0.7, 0.7, 159);
+        transform: scale3D(0.7, 0.7, 159);
     }
-    
-    50% {
-        transform: rotate(360deg) scale3D(0.1, 0.1, 2);
+    100% {
+        transform: scale3D(0, 0, 0);
     }
 }
 
 @keyframes explodeShip{
     100%{
-        background-position: -1000px 0px;
+        background-position: -935px 0px;
     }
 }
 
 #paralax-background-content{
     margin: 100px 0 0 100px;
-    /* float: left; */
     width: 1000px;
     height: 520px;
-    background-image: url("../images/desertBackground2.jpg");
+    background-image: url("../images/desertBackground.jpg");
     background-size: 1000px auto;
     background-repeat: repeat-y;
     background-position: 0px 0px;
@@ -93,8 +90,10 @@
 
 #naveJugador.cayendo{
     background-image: url("../images/explosion.png");
-    background-size: 1000px 70px;
-    animation: destroyShip linear 2s 1, explodeShip 3s 1s steps(14) infinite;
+    background-size: 935px 100px;
+    width: 65px;
+    height: 90px;
+    animation:  explodeShip 2s steps(14) 1, downShip linear 2s 1;
 }
 
 .enemigo{

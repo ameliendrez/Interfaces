@@ -17,12 +17,14 @@ class Animacion{
     }
 
     agregarMovimientoNave(direccion){
-        this.nave.classList.remove('volando');
 
         if(direccion === "ArrowLeft")
             this.nave.classList.add('izquierda');
         else if (direccion === "ArrowRight")
             this.nave.classList.add('derecha');
+        else if(direccion !== "ArrowUp" && direccion !== "ArrowDown"){
+            this.nave.classList.add('volando');
+        }
     }
 
     eliminarMovimientoNave(){
