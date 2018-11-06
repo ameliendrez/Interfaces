@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var musicaOff = document.getElementById('musica-off');
 
     var juego = new Juego();
+    juego.mostrarMenu();
 
     jugar.onclick = function () {
         menuPrincipal.classList.add('oculto');

@@ -50,6 +50,16 @@
     }
 }
 
+@keyframes mostrarMenu{
+    0% {
+        transform: scale3D(0, 0, 0);
+    }
+    100% {
+        transform: scale3D(0.9, 0.9, 159);
+    }
+}
+
+
 #paralax-background-content{
     margin: 0 0 0 60px;
     width: 900px;
@@ -201,5 +211,8 @@ h3{
     border-radius: 15px;
 }
 
+#menu.mostrar-menu{
+    animation: mostrarMenu linear 2s 1;
+}
 
 

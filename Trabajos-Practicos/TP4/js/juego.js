@@ -19,6 +19,7 @@ class Juego{
         this.navesEnemigas = [];
         this.cantidadNavesEnemigas = 1;
         this.contadorEnemigosCreados = 1;
+        this.menuPrincipal = document.getElementById('menu');
     }
 
     jugar() {
@@ -47,8 +48,10 @@ class Juego{
         this.intervalo = setInterval(() => {
             if(this.jugando)
                 this.moverNave();
-            else
+            else{
                 this.finalizarJuego();
+                clearInterval(this.intervalo);
+            }
         }, 35);
         this.agregarNavesEnemigas();
     }
@@ -57,8 +60,10 @@ class Juego{
         var intervaloFinalizacion = setInterval(()=>{
             this.animaciones.finalizarAnimacionFondo();
             this.quitarNaveJugador();
+            this.mostrarMenu();
             clearInterval(intervaloFinalizacion);
         },2000);
+        
     }
 
     setMovimientosJugador(){
@@ -182,5 +187,10 @@ class Juego{
     puedeMoverVertical(posicion, movimiento){
         return ((this.movimientos.ArrowUp && (posicion.posY + movimiento) < this.limiteSuperior) ||
                 (this.movimientos.ArrowDown && (posicion.posY - movimiento) > this.limiteInferior));
+    }
+
+    mostrarMenu(){
+        this.menuPrincipal.classList.remove('oculto');
+        this.menuPrincipal.classList.add('mostrar-menu');
     }
 }

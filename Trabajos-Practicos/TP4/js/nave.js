@@ -18,6 +18,7 @@ class Nave{
         if(!this.esHumano) 
             this.nave.classList.add('enemigo');
         
+        this.nave.classList.remove('cayendo');
         this.nave.id = id;
         this.nave.width = '20px';
         this.nave.height = '20px';
