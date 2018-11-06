@@ -4,7 +4,7 @@ class Juego{
         this.naveJugador = new Nave(480, 20, true); // True indica si la nave es jugador humano
         this.animaciones = new Animacion(this.background, this.naveJugador.getNave());
         this.limiteIzquierdo = 100;
-        this.limiteDerecho = 850;
+        this.limiteDerecho = 750;
         this.limiteSuperior = 420;
         this.limiteInferior = 0;
         this.jugando = false;
@@ -50,7 +50,7 @@ class Juego{
             else
                 this.finalizarJuego();
         }, 35);
-        // this.agregarNavesEnemigas();
+        this.agregarNavesEnemigas();
     }
 
     finalizarJuego(){
