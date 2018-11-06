@@ -3,14 +3,13 @@ class Juego{
         this.background = document.getElementById('paralax-background-content');
         this.naveJugador = new Nave(480, 20, true); // True indica si la nave es jugador humano
         this.animaciones = new Animacion(this.background, this.naveJugador.getNave());
+        this.puntaje = new Puntaje();
         this.limiteIzquierdo = 100;
         this.limiteDerecho = 750;
         this.limiteSuperior = 420;
         this.limiteInferior = 0;
         this.jugando = false;
         this.resultado = {'perdio':false, 'gano':false};
-        this.partidasGanadas = 0;
-        this.partidasPerdidas = 0;
 
         this.movimientos = {'ArrowDown':false, 'ArrowUp':false, 'ArrowLeft':false, 'ArrowRigth':false};
         this.direccionActual = '';
@@ -20,6 +19,8 @@ class Juego{
         this.cantidadNavesEnemigas = 1;
         this.contadorEnemigosCreados = 1;
         this.menuPrincipal = document.getElementById('menu');
+        this.puntaje.actualizarPuntajes();
+
     }
 
     jugar() {
@@ -29,6 +30,7 @@ class Juego{
         this.setMovimientosJugador();
         this.iniciarJuego();
         this.chequearColisiones();
+        this.chequearPuntaje();
     }
 
     iniciarAnimacionFondo(){
@@ -59,11 +61,11 @@ class Juego{
     finalizarJuego(){
         var intervaloFinalizacion = setInterval(()=>{
             this.animaciones.finalizarAnimacionFondo();
+            this.puntaje.actualizarPuntajes();
             this.quitarNaveJugador();
             this.mostrarMenu();
             clearInterval(intervaloFinalizacion);
         },2000);
-        
     }
 
     setMovimientosJugador(){
@@ -82,8 +84,6 @@ class Juego{
 
     agregarNavesEnemigas(){
         var creacionNavesEnemigas = setInterval(() => {
-
-
             //Segun el nivel, crear la cantidad de naves this.cantidadNavesEnemigas?
             if(this.jugando){
                 var idNaveEnemiga = this.crearEnemigo();            
@@ -192,5 +192,17 @@ class Juego{
     mostrarMenu(){
         this.menuPrincipal.classList.remove('oculto');
         this.menuPrincipal.classList.add('mostrar-menu');
+    }
+
+    chequearPuntaje(){
+        var intervaloPuntaje = setInterval(()=>{
+            if(this.jugando){
+                this.puntaje.sumarPuntaje();
+                this.puntaje.mostrarPuntajeActual();
+            }
+            else
+                clearInterval(intervaloPuntaje);
+
+        },3000);
     }
 }

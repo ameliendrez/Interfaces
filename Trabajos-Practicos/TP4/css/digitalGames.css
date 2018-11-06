@@ -215,4 +215,20 @@ h3{
     animation: mostrarMenu linear 2s 1;
 }
 
+.jugadores{
+    margin: 20px 0 0 20px;
+}
 
+.jugador-principal{
+    border: 2px solid aqua;
+    border-radius: 15px;
+}
+
+#puntaje-anterior{
+    margin-top: 90px;
+}
+
+.container-puntaje{
+    background-color: #288a2a;
+    width: 145px;
+}
