@@ -61,22 +61,4 @@ class Nave{
     getMovimiento() {
         return this.movimientoJugador;
     }
-
-    detectarColision(naveEnemiga){
-        // console.log('enemigo');
-        // var posicionEnemigo = naveEnemiga.getPosicionNave();
-
-        // console.log(posicionEnemigo.posX);
-        // console.log(posicionEnemigo.posY);
-
-        // console.log('jugador');
-        // console.log(this.posX);
-        // console.log(this.posY);
-        
-        
-        
-        
-        
-    }
-
 }

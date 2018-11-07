@@ -15,8 +15,8 @@ class Puntaje {
         return this.puntaje;
     }
 
-    sumarPuntaje(){
-        this.puntaje += 5;
+    sumarPuntaje(valorAumento = 5){
+        this.puntaje += valorAumento;
     }
 
     actualizarPuntajes(){

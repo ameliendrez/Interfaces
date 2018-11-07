@@ -141,7 +141,7 @@ body{
     height: auto;
 }
 
-.juego, #botonera, #info-controles, .btn{
+.juego, #botonera, .btn{
     margin-top: 30px;
 }
 
@@ -231,4 +231,29 @@ h3{
 .container-puntaje{
     background-color: #288a2a;
     width: 145px;
+}
+
+.disparos{
+    position: absolute;
+    width: 10px;
+    height: 40px;
+    background-image: url("../images/disparo.png");
+    background-size: 10px 30px;
+    background-repeat: no-repeat;
+    transition: 0.2s;
+    animation: disparar linear 2s infinite;
+}
+
+/* #info-controles{
+    margin-top: 10px;
+} */
+
+#info-controles .info-adicional{
+    margin-top: 6px;
+}
+
+@keyframes disparar {
+    100%{
+        transform: translate(0px, -600px);
+    }
 }
