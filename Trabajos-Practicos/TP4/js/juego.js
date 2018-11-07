@@ -239,7 +239,6 @@ class Juego{
     eliminarDisparo(idDisparo){
         var intervaloDisparo = setInterval(() => {
             var disparo = document.getElementById(idDisparo);
-            if(disparo.length > 0)
                 disparo.remove();
             delete this.disparos[idDisparo];
             clearInterval(intervaloDisparo);
