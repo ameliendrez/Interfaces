@@ -241,12 +241,9 @@ h3{
     background-size: 10px 30px;
     background-repeat: no-repeat;
     transition: 0.2s;
-    animation: disparar linear 2s infinite;
+    animation: disparar linear 2s 1;
 }
 
-/* #info-controles{
-    margin-top: 10px;
-} */
 
 #info-controles .info-adicional{
     margin-top: 6px;
