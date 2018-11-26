@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Digital Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="img/favicon.png" rel="shortcut icon" />
+  <link rel="stylesheet" type="text/css" media="screen" href="fontAwesome/css/all.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/tudaiGames.css" />
+
+</head>
+
+<body>
+
+  <header>
+    <div class="row">
+      <div class="logo align-self-start col-md-4">
+        <div class='container-logo'>
+          <a href="index.html"><img class="img-fluid logo-pagina" name="logo" src="img/logo.png" alt="Digital Games Logo"></a>
+          <label for="logo"><a href="index.html">
+              <h2>DIGITAL <br> GAMES</h2>
+            </a></label>
+        </div>
+      </div>
+
+      <div class="logo col align-self-end">
+        <div class='sesion'>
+          <div class="dropdown">
+            <label for="usuario">John Doe</label>
+            <img id="dLabel" name='usuario' class="img-fluid logo-usuario" src="img/usuario.png" alt="Usuario Logueado"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown-menu" aria-labelledby="dLabel">
+              <a class="dropdown-item" href="#">Mi perfil</a>
+              <a class="dropdown-item" href="#">Ayuda</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Log out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="containter">
+
+    <div class="row seccion-principal">
+      <div class="col-md-2">
+        <div class="filtros-container">
+          <div class="row filtrar-por">
+            <div class="filter-title offset-md-2">
+              <span>Ordenar por</span>
+            </div>
+            <div class="filter-body offset-md-2">
+              <div class="filtros-orden">
+                <a href="#">Fecha de publicacion descendente</a>
+              </div>
+              <div class="filtros-orden">
+                <a href="#">Fecha de publicacion ascendente</a>
+              </div>
+              <div class="filtros-orden">
+                <a href="#">Valoracion descendente</a>
+              </div>
+              <div class="filtros-orden">
+                <a href="#">Valoracion ascendente</a>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row filtro-avanzado">
+            <div class="filter-body offset-md-2">
+              <div class="filter-title">
+                <span>Avanzado</span>
+              </div>
+              <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                  <div class="card">
+                    <div id="headingOne">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                          aria-controls="collapseOne">
+                          <span class="fa fa-plus"></span>
+                          Categorias
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                      <div class="card-body">
+                        <table class="checkbox-category">
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Accion</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Aventura</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Carreras</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Deporte</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td>Estrategia</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Ingenio</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Multijugador</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Puzzle</td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> </td>
+                            <td> Tiros</td>
+                          </tr>
+                        </table>                    
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="card">
+                    <div id="headingTwo">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                          aria-expanded="false" aria-controls="collapseTwo">
+                          <span class="fa fa-plus"></span>
+                          Valoracion
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+                      <div class="card-body">
+                        <table class="checkbox-category">
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> 
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                            </td>                        
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> 
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+
+                            </td>                                
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> 
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> 
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                            </td>                               
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox" value=""></td>
+                            <td> </td>
+                            <td> 
+                              <span class="fa fa-star checked"></span>  
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="card">
+                    <div id="headingThree">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                          aria-expanded="false" aria-controls="collapseThree">
+                          <span class="fa fa-plus"></span>
+                          Rango de edad
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree">
+                      <div class="card-body">
+                          <div class="price-slider"> 
+                            <input value="0" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
+                            <input value="100" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="card">
+                    <div id="headingFour">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                          aria-expanded="false" aria-controls="collapseFour">
+                          <span class="fa fa-plus"></span>
+                          Precio
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour">
+                      <div class="card-body">
+                        
+                        <div class="price-slider"> 
+                          <input value="0" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
+                          <input value="100" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
+                        </div>
+
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-10">
+        <div class="row">
+          <div class="filtros-utilizados">
+            <p class="title-ultimos-jugados">Filtros utilizados:
+              <span class="filtro-edad alert alert-success">
+                <strong>Edad: </strong>Entre 9 y 12 años<span class="remove-filtro">x</span></span>
+            </p>
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="ultimos-jugados">
+            <p class="title-ultimos-jugados">ULTIMOS JUGADOS</p>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="recomendados">
+            <p class="title-juegos-recomendados">RECOMENDADOS PARA TI</p>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+            <div class="jugados-recomendados">
+              <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              <p>Lost Pyramid</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="card-deck sibling-fade">
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-accion">Accion</span>
+                <a href="spaceInvaders.html"><img class="card-img-top" src="img/spaceInvaders.jpg" alt="space invaders"></a>
+              </div>
+              <a href="spaceInvaders.html">
+                <div class="card-body">
+                  <h5 class="card-title">Space invaders</h5>
+                  <p class="card-text">$4,99</p>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star"></span>
+                </div>
+              </a>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-accion">Accion</span>
+                <a href="desertWar.html"><img class="card-img-top" src="img/desertWar.jpg" alt="desert war"></a>
+              </div>
+              <a href="desertWar.html">
+                <div class="card-body">
+                  <h5 class="card-title">Desert war</h5>
+                  <p class="card-text">$2,99</p>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                  <span class="fa fa-star checked"></span>
+                </div>
+              </a>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-deporte">Deporte</span>
+                <img class="card-img-top" src="img/TennisIsWar.jpg" alt="Tennis is war">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Tennis is war</h5>
+                <p class="card-text">$1,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-aventura">Aventura</span>
+                <img class="card-img-top" src="img/LostPyramid.jpg" alt="Lost pyramid">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Lost Pyramid</h5>
+                <p class="card-text">Free</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card-deck sibling-fade">
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-ingenio">Ingenio</span>
+                <img class="card-img-top" src="img/3D-darts.jpg" alt="3D Darts">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">3D Darts</h5>
+                <p class="card-text">$4,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-deporte">Deporte</span>
+                <img class="card-img-top" src="img/BadmingtonPro.jpg" alt="Badmington Pro">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Badmington Pro</h5>
+                <p class="card-text">Free</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-puzzle">Puzzle</span>
+                <img class="card-img-top" src="img/BuildABridge.jpg" alt="Build A Bridge">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Build A Bridge</h5>
+                <p class="card-text">$1,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-carreras">Carreras</span>
+                <img class="card-img-top" src="img/GrandPrix.jpg" alt="Grand Prix">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Grand Prix</h5>
+                <p class="card-text">Free</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card-deck sibling-fade">
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-aventura">Aventura</span>
+                <img class="card-img-top" src="img/Pokemon.jpg" alt="Pokemon">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Pokemon</h5>
+                <p class="card-text">$4,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-tiros">Tiros</span>
+                <img class="card-img-top" src="img/Sniper.jpg" alt="Sniper">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Sniper</h5>
+                <p class="card-text">$2,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-accion">Accion</span>
+                <img class="card-img-top" src="img/WholesomeCats.jpg" alt="Wholesome Cats">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Wholesome Cats</h5>
+                <p class="card-text">$1,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-auto card">
+              <div class="img-container">
+                <span class="game-tag tag-carreras">Carreras</span>
+                <img class="card-img-top" src="img/XtremeRacing.jpg" alt="Xtreme Racing">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Xtreme Racing</h5>
+                <p class="card-text">Free</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="sibling-fade card-deck ">
+            <div class="juegos col-md-3 card">
+              <div class="img-container">
+                <span class="game-tag tag-multijugador">Multijugador</span>
+                <img class="card-img-top" src="img/FourInARow.jpg" alt="Four in a row">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Four in a row</h5>
+                <p class="card-text last-row">$4,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-3 card">
+              <div class="img-container">
+                <span class="game-tag tag-accion">Accion</span>
+                <img class="card-img-top" src="img/Vex4.jpg" alt="Vex 4">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Vex 4</h5>
+                <p class="card-text last-row">$4,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+              </div>
+            </div>
+            <div class="juegos col-md-3 card">
+              <div class="img-container">
+                <span class="game-tag tag-estrategia">Estrategia</span>
+                <img class="card-img-top" src="img/WormaxIo.jpg" alt="Wormax io">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Wormax.io</h5>
+                <p class="card-text last-row">$2,99</p>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="js/tudaiGames.js"></script>
+</body>
+
+</html>

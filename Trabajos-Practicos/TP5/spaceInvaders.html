@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Digital Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="img/favicon.png" rel="shortcut icon" />
+  <link rel="stylesheet" type="text/css" media="screen" href="fontAwesome/css/all.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/tudaiGames.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/comments.css" />
+</head>
+
+<body>
+
+  <header>
+    <div class="row">
+      <div class="logo align-self-start col-md-4">
+        <div class='container-logo'>
+          <a href="index.html"><img class="img-fluid logo-pagina" name="logo" src="img/logo.png" alt="Digital Games Logo"></a>
+          <label for="logo"><a href="index.html">
+              <h2>DIGITAL <br> GAMES</h2>
+            </a></label>
+        </div>
+      </div>
+
+      <div class="logo col align-self-end">
+        <div class='sesion'>
+          <div class="dropdown">
+            <label for="usuario">John Doe</label>
+            <img id="dLabel" name='usuario' class="img-fluid logo-usuario" src="img/usuario.png" alt="Usuario Logueado"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown-menu" aria-labelledby="dLabel">
+              <a class="dropdown-item" href="#">Mi perfil</a>
+              <a class="dropdown-item" href="#">Ayuda</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Log out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row seccion-principal">
+      <div class="col-md-9">
+
+        <div class="row info-container">
+
+          <div class="col-md-7 game-info">
+            <div class="game-page-title">
+              <h1>Space Invaders</h1>
+            </div>
+            <div class="game-page-description">
+              <p><strong>Descripcion: </strong> Defiendete y escapa del ataque de los invasores espaciales mientras
+                recoges los power-ups. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Cupiditate dolores soluta alias sapiente. </p>
+              <p><strong>Categoria: </strong> Accion</p>
+              <p><strong>Valoracion: </strong>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+              </p>
+            </div>
+            <div class="game-page-play">
+              <a href="../TP4/index.html" class="btn btn-success">
+                <span>&nbsp;Jugar</span></a>
+            </div>
+          </div>
+
+          <div class="col-md-5 game-screenshots">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img class="d-block w-100" src="img/game1-screenshot1.jpg" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block w-100" src="img/game1-screenshot2.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block w-100" src="img/game1-screenshot3.jpg" alt="Third slide">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="seccion-comentarios">
+          <h5>Comentarios</h5>
+          <div class="comments"></div>
+        </div>
+
+
+      </div>
+
+      <div class="col-3 ranking-col">
+        <h3 class="ranking-title">Ranking</h3>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-mensual-tab" data-toggle="tab" href="#nav-mensual" role="tab"
+              aria-controls="nav-mensual" aria-selected="false">Mensual</a>
+            <a class="nav-item nav-link" id="nav-semanal-tab" data-toggle="tab" href="#nav-semanal" role="tab"
+              aria-controls="nav-semanal" aria-selected="true">Semanal</a>
+          </div>
+        </nav>
+
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show ranking active" id="nav-mensual" role="tabpanel" aria-labelledby="nav-mensual-tab">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Rayden <span class="align-right">123700</span></p>
+                </div>
+                <p class="puntuacion"></p>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Alber Einstein <span class="align-right">110700</span></p>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Freddie Mercury <span class="align-right">98700</span></p>
+                </div>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Charly Garcia <span class="align-right">97200</span></p>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Alan Turing <span class="align-right">92700</span></p>
+                </div>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Bill Gates <span class="align-right">88900</span></p>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Fernando Hierro <span class="align-right">88700</span></p>
+                </div>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Charly Garcia <span class="align-right">87930</span></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tab-pane fade ranking" id="nav-semanal" role="tabpanel" aria-labelledby="nav-semanal-tab">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Van Basten <span class="align-right">17700</span></p>
+                </div>
+                <p class="puntuacion"></p>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Nico Strella <span class="align-right">15200</span></p>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Agus Meliendrez <span class="align-right">12700</span></p>
+                </div>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Santi Rampoldi <span class="align-right">10100</span></p>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Kratos <span class="align-right">10000</span></p>
+                </div>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Lionel Messi <span class="align-right">9700</span></p>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="item-title">
+                  <p class="title">Joe Cole <span class="align-right">8800</span></p>
+                </div>
+              </li>
+              <li class="list-group-item light">
+                <div class="item-title">
+                  <p class="title">Thierry Henry <span class="align-right">8300</span></p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="js/tudaiGames.js"></script>
+  <script src="js/gamePage.js"></script>
+
+</body>
+
+</html>

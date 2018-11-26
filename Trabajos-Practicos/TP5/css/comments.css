@@ -1,0 +1,89 @@
+
+.panel {
+	position:relative;
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+	position:absolute;
+	top:11px;left:-16px;
+	right:100%;
+	width:0;
+	height:0;
+	display:block;
+	content:" ";
+	border-color:transparent;
+	border-style:solid solid outset;
+	pointer-events:none;
+}
+.panel>.panel-heading:after{
+	border-width:7px;
+	border-right-color:#f7f7f7;
+	margin-top:1px;
+	margin-left:2px;
+}
+.panel>.panel-heading:before{
+	border-right-color:#ddd;
+	border-width:8px;
+}
+
+.comments .card-header{
+    padding: .1rem .25rem;
+    height: 32px;
+}
+
+.single-comment{
+    padding-bottom: 2px;   
+    margin-bottom: 10px;    
+}
+
+.single-comment .col-1{
+    padding: 2px 0px 0 25px;
+}
+
+.seccion-comentarios {
+    background-color: #133B61;
+    padding: 6px;
+  }
+
+  .seccion-comentarios .card{
+      background-color: #0A152F;
+      height: 32px;
+  }
+  
+  .seccion-comentarios .card-body{
+    text-align: justify;
+  }
+
+
+
+  /* Animacion del corazon */
+
+  .heart {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 95%; /*110*/
+    top: 20%;  /*50*/
+    transform: translate(-50%, -50%);
+    background: url(../img/heart.png) no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+  }
+
+  .heart.clickeado {
+    background-position: -2240px 0;
+    transition: background 1s steps(28);
+    animation: fave-heart 1s steps(28);
+  }
+
+  .heart:hover {
+  background-position:right;
+  }
+
+  @keyframes fave-heart {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -2240px 0;
+    }
+  }
