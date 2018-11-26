@@ -14,21 +14,32 @@
 
     <header>
         <div class="row">
-            <div class="logo offset-md-1 col-md-4">
-                <div class='nombre-pagina'>
-                    <img class="img-fluid logo-pagina" name="logo" src="images/logo.png" alt="Digital Games Logo">
-                    <label for="logo"><h3>DIGITAL GAMES</h3></label>
-                </div>
+          <div class="logo align-self-start col-md-4">
+            <div class='container-logo'>
+              <a href="../TP5/index.html"><img class="img-fluid logo-pagina" name="logo" src="images/logo.png" alt="Digital Games Logo"></a>
+              <label for="logo"><a href="../TP5/index.html">
+                  <h2>DIGITAL <br> GAMES</h2>
+                </a></label>
             </div>
-
-            <div class="logo offset-md-4 col-md-2">
-                <div class='sesion'>
-                    <label for="usuario">John Doe</label>
-                    <img name='usuario' class="img-fluid logo-usuario" src="images/usuario.png" alt="Usuario Logueado">
+          </div>
+    
+          <div class="logo col align-self-end">
+            <div class='sesion'>
+              <div class="dropdown">
+                <label for="usuario">John Doe</label>
+                <img id="dLabel" name='usuario' class="img-fluid logo-usuario" src="images/usuario.png" alt="Usuario Logueado"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="dropdown-menu" aria-labelledby="dLabel">
+                  <a class="dropdown-item" href="#">Mi perfil</a>
+                  <a class="dropdown-item" href="#">Ayuda</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Log out</a>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </header>
+      </header>
 
     <div class="juego">
         <div class="row">

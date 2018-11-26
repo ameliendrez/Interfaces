@@ -267,7 +267,6 @@ class Juego{
 
     mostrarMenu(){
         this.menuPrincipal.classList.remove('oculto');
-        this.menuPrincipal.classList.add('mostrar-menu');
     }
 
     chequearPuntaje(){
