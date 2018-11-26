@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   $('.filtros-container .card .btn-link').on('click', function (e) {
     var btnAcordion = $(this).children('span.fa');
-    if (btnAcordion.hasClass('fa-plus')) {
+    var close = (btnAcordion.hasClass('fa-plus')) ? false:true;
+
+    $('.filtros-container .card .btn-link span.fa').removeClass('fa-minus');
+    $('.filtros-container .card .btn-link span.fa').addClass('fa-plus');
+    if (!close) {
       btnAcordion.removeClass('fa-plus');
       btnAcordion.addClass('fa-minus');
-    }
-    else {
-      btnAcordion.addClass('fa-plus');
-      btnAcordion.removeClass('fa-minus');
     }
   });
 
@@ -57,11 +57,8 @@ function updatePriceLabels() {
 
 function createInfiniteScroll() {
   win = $(window);			
-  win.on("scroll", function() {
-    console.log($(this).scrollTop);
-    
+  win.on("scroll", function() {    
     var windowHeight = win.scrollTop();
-
     if(windowHeight >= 150 && $('.seccion-2').hasClass('oculto'))
       createEfectScroll();  
   });
