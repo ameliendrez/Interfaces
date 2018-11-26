@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   createSticky($('.filtros-container'), 80);
   createSticky($('.filtros-utilizados'),80);
   updatePriceLabels();
+  createInfiniteScroll();
 });
 
 function createSticky(sticky, distancia) {
@@ -53,4 +54,26 @@ function updatePriceLabels() {
       sliders[0].style.background = sliders[1].style.background = ''; 
   } 
 } 
+
+function createInfiniteScroll() {
+  win = $(window);			
+  win.on("scroll", function() {
+    console.log($(this).scrollTop);
+    
+    var windowHeight = win.scrollTop();
+
+    if(windowHeight >= 150 && $('.seccion-2').hasClass('oculto'))
+      createEfectScroll();  
+  });
+}
+
+function createEfectScroll() {
+  $('.cargando').removeClass('oculto');
+
+  var temporizador = setTimeout(function(){ 
+    $('.cargando').addClass('oculto');
+    $('.seccion-2').removeClass('oculto');
+    clearTimeout(temporizador);
+  }, 6000);
+}
 
