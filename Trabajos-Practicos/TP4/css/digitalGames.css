@@ -50,6 +50,10 @@
     }
 }
 
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Lustria', serif;
+}
+
 header {
     margin: 15px 0 15px 0;
 }
@@ -57,42 +61,42 @@ header {
 label h2 {
     font-size: 1.5em;
     padding-top: 10px;
-  }
-  
-  .container-logo a {
+}
+
+.container-logo a {
     color: white;
     text-decoration: none;
-  }
-  
-  .container-logo {
+}
+
+.container-logo {
     margin-left: 13.7%;
-  }
-  
-  .container-logo label {
+}
+
+.container-logo label {
     position: absolute;
     top: -20%;
     left: 29%;
-  }
-  
-  .logo-pagina {
+}
+
+.logo-pagina {
     width: 50px;
     height: auto;
-  }
-  
-  .logo-usuario {
+}
+
+.logo-usuario {
     width: 40px;
     height: auto;
-  }
-  
-  #dLabel:hover {
+}
+
+#dLabel:hover {
     cursor: pointer;
-  }
-  
-  .sesion {
+}
+
+.sesion {
     float: right;
     margin-right: 8.5%;
     font-size: 20px;
-  }
+}
 
 
 #paralax-background-content{
@@ -159,9 +163,7 @@ header{
 html, body {
     max-width: 100%;
     overflow-x: hidden;
-}
-
-body{
+    font-family: 'Open-sans', sans-serif;
     background-color: #021A32;
     color: white;
 }
