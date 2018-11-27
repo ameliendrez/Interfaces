@@ -623,7 +623,7 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
   float: right;
   padding: 2px 5px;
   margin-top: 8px;
-  margin-right: 16px;
+  margin-right: 15px;
   background: #ddd;
   font-size: 17px;
   border: none;
@@ -639,7 +639,7 @@ input[type=text] {
   margin-top: 8px;
   font-size: 17px;
   border: none;
-  width: 90px;
+  width: 89px;
   margin-left: 13px;
 }
 
