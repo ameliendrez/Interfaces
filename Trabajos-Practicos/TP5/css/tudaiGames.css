@@ -604,3 +604,16 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
     transform: rotate(360deg);
   }
 }
+
+.seccion-2.mostrando{
+  animation: mostrarSeccion linear 0.5s 1;
+}
+
+@keyframes mostrarSeccion {
+  0% {
+    transform: scale3D(0, 0, 0);
+  }
+  100% {
+    transform: scale3D(0.9, 0.9, 159);
+  }
+}

@@ -141,6 +141,7 @@ function createEfectScroll() {
   var temporizador = setTimeout(function(){ 
     $('.cargando').addClass('oculto');
     $('.seccion-2').removeClass('oculto');
+    $('.seccion-2').addClass('mostrando');
     clearTimeout(temporizador);
   }, 6000);
 }
