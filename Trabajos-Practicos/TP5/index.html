@@ -73,6 +73,12 @@
               <div class="filter-title">
                 <span>Avanzado</span>
               </div>
+              <div class="search-container">
+                <form action="#">
+                  <input type="text" placeholder="Search.." name="search">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+              </div>
               <div class="accordion" id="accordion2">
                 <div class="accordion-group">
                   <div class="card">
@@ -262,8 +268,8 @@
                     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion2">
                       <div class="card-body">  
                         <div class="price-slider"> 
-                          <input id="price1" class="price-input" value="0" min="0" max="100" step="0.5" type="range"> 
-                          <input id="price2" class="price-input" value="100" min="0" max="100" step="0.5" type="range">                       
+                          <input id="price1" class="price-input" value="0" min="0" max="100" step="0.5" type="range" data-slider-handle="triangle"> 
+                          <input id="price2" class="price-input" value="100" min="0" max="100" step="0.5" type="range" data-slider-handle="triangle">                       
                         </div>
                         <div class="price-values">
                           <p><span id="precio-pre-desde">Desde</span><span id="precio-desde"> $0(Free)</span>
