@@ -101,7 +101,7 @@ label h2 {
 }
 
 .filtrar-por {
-  height: 32%;
+  height: 15%;
 }
 
 .price-values, .age-values{
@@ -273,8 +273,8 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
 
 .filtros-orden {
   width: 100%;
-  font-size: .7em;
-  margin-bottom: 7px;
+  font-size: 1rem;
+  margin-left: 12px;
 }
 
 .filtros-orden a{
@@ -283,12 +283,16 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
 
 .filtro-avanzado {
   height: 50%;
-  margin-top: 15px;
+  margin-top: 25px;
 }
 
 .filter-body .filter-title {
   height: 40px;
-  margin-bottom: -15px;
+  margin-bottom: -5px;
+}
+
+.filtro-fecha{
+  margin-bottom: 10px;
 }
 
 /* .filtro-avanzado .filter-body {
@@ -397,7 +401,7 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
 }
 
 .filter-title{
-  margin-bottom: -25px;
+  margin-bottom: -5px;
 }
 
 .card-img-top.img-game{

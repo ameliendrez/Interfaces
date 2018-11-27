@@ -12,6 +12,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   });
 
+  $('.filtro-orden').on('click', function (e) {
+    e.preventDefault();
+    var order = $(this).children('span');
+    if(order.hasClass('fa-sort')){
+      order.addClass('fa-sort-up');
+      order.removeClass('fa-sort');
+    }
+    else if(order.hasClass('fa-sort-up')){
+      order.addClass('fa-sort-down');
+      order.removeClass('fa-sort-up');
+    }
+    else{
+      order.addClass('fa-sort');
+      order.removeClass('fa-sort-down');
+    }
+  })
+
   $(".comments").on('click', '.heart', function (e) {
     var likes = $(this).parents('.col-11').children('.likes');
     var value = parseInt(likes.text());
