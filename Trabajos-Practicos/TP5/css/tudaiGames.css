@@ -153,6 +153,10 @@ label h2 {
   font-size: 1.3em;
 }
 
+.ultimos-jugados .card-title, .recomendados .card-title{
+  margin-bottom: -.7rem;
+}
+
 .juegos h3 {
   margin: 0 1rem 0 0;
 }
