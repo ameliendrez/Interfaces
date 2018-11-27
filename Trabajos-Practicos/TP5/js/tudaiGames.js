@@ -24,7 +24,41 @@ document.addEventListener("DOMContentLoaded", function (event) {
       value++;
     }
     likes.html(value);
-  })
+  });
+
+  $('.price-input').on('change', function () {
+    var preDesde = 'Desde $';
+    var preHasta = ', hasta $';
+    var preUnico = 'Juegos de $';  
+    var desdeSpan = $('#precio-desde');
+    var hastaSpan = $('#precio-hasta');
+    var preSpan = $('#precio-pre-desde');
+    var preHastaSpan = $('#precio-pre-hasta');
+    var priceSlider = $('.price-slider input');
+
+    var value1 = parseInt(priceSlider[0].value);
+    var value2 = parseInt(priceSlider[1].value);
+    
+    mostrarValores(preDesde, preHasta, preUnico, desdeSpan, hastaSpan, preSpan, preHastaSpan, value1, value2);
+  });
+
+  $('.age-input').on('change', function () {
+    var preDesde = 'Desde ';
+    var preHasta = ', hasta ';
+    var preUnico = 'Juegos para ';  
+    var post = ' años';
+    var desdeSpan = $('#age-desde');
+    var hastaSpan = $('#age-hasta');
+    var preSpan = $('#age-pre-desde');
+    var preHastaSpan = $('#age-pre-hasta');
+    var ageSlider = $('.age-slider input');
+    var value1 = parseInt(ageSlider[0].value);
+    var value2 = parseInt(ageSlider[1].value);
+    var mayor = '';
+    if(value1 === 20 || value2 === 20)
+      mayor = '+';
+    mostrarValores(preDesde, preHasta, preUnico, desdeSpan, hastaSpan, preSpan, preHastaSpan, value1, value2, post, mayor);
+  });
 
   createSticky($('header'), 8);
   createSticky($('.filtros-container'), 80);
@@ -44,23 +78,36 @@ function createSticky(sticky, distancia) {
   }
 };
 
-function updatePriceLabels() { 
-  //avoids slider overlap 
-  var sliders = document.querySelectorAll(".price-slider input"); 
-  var val1 = parseInt(sliders[0].value); 
-  var val2 = parseInt(sliders[1].value); 
+function mostrarValores(preDesde, preHasta, preUnico, desdeSpan, hastaSpan, preSpan, preHastaSpan, value1, value2, post='', mayor='') {
+  var firstValue = 0;
+  var secondValue = 0;
+
+  if(value1 == value2){
+    firstValue = value1;
+    preDesde = preUnico;
+    secondValue = '';
+    preHasta = '';
+  }
+  else if (value1 < value2){
+    firstValue = value1;
+    secondValue = value2;
+  }
+  else{
+    firstValue = value2;
+    secondValue = value1;
+  }
   
-  if (val1 >= val2) { sliders[0].value = val2 - 3; return; } 
-  if (val2 <= val1) { sliders[1].value = val1 + 3; return; } 
-  
-  //adds color when a range is selected 
-  if (val1 > 0 || val2 < 99) { 
-      sliders[0].style.background = sliders[1].style.background = "-webkit-gradient(linear, 0 0,100% 0, color-stop(0, white), color-stop(" + (val1 / 100) + ", white),color-stop(" + (val1 / 100) + ", #f0f0f0), color-stop(" + (val2 / 100) + ", #f0f0f0), color-stop(" + (val2 / 100) + ", white))"; 
-  } 
-  else { 
-      sliders[0].style.background = sliders[1].style.background = ''; 
-  } 
-} 
+
+  if (firstValue == 0)
+    firstValue = '0(Free)';
+
+  secondValue = mayor+secondValue+post;
+
+  desdeSpan.text(firstValue);
+  hastaSpan.text(secondValue);
+  preSpan.text(preDesde);
+  preHastaSpan.text(preHasta);
+}
 
 function createInfiniteScroll() {
   win = $(window);			

@@ -104,9 +104,14 @@ label h2 {
   height: 32%;
 }
 
+.price-values, .age-values{
+  font-size: 0.7rem;
+  text-align: center;
+}
+
 .ultimos-jugados, .recomendados {
   background-color: #133B61;
-  height: 100px;
+  height: 120px;
   width: 90%;
   margin-bottom: 15px;
 }
@@ -164,7 +169,7 @@ label h2 {
 .sibling-fade {
   width: 94.5%;
   visibility: hidden;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 
 .sibling-fade > * {
@@ -226,7 +231,7 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
 }
 
 .jugados-recomendados img {
-  height: 50px;
+  height: 70px;
 }
 
 .jugados-recomendados a{
@@ -451,7 +456,7 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
 
 /* Comienza el stilo del doble slider */
 
-.price-slider { 
+.price-slider, .age-slider { 
   position: relative; 
   width: 75%; 
   margin: 0 auto 20px; 
@@ -459,7 +464,7 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
   text-align: center; 
 } 
 
-.price-slider input { 
+.price-slider input, .age-slider input { 
   pointer-events: none; 
   position: absolute; 
   left: 0; 
@@ -472,7 +477,7 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
   border-radius: 8px; 
 } 
 
-.price-slider input::-webkit-slider-thumb { 
+.price-slider input::-webkit-slider-thumb, .age-slider input::-webkit-slider-thumb  { 
   pointer-events: all; 
   position: relative; 
   z-index: 1; 

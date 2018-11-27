@@ -240,11 +240,15 @@
                     </div>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion2">
                       <div class="card-body">
-                          <div class="price-slider"> 
-                            <input value="0" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
-                            <input value="100" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
+                          <div class="age-slider"> 
+                            <input id="age1" class="age-input" value="5" min="5" max="20" step="1" type="range"> 
+                            <input id="age2" class="age-input" value="20" min="5" max="20" step="1" type="range">         
+                          </div> 
+                          <div class="age-values">
+                            <p><span id="age-pre-desde">Desde</span><span id="age-desde"> 5</span>
+                            <span id="age-pre-hasta">, hasta</span><span id="age-hasta"> +20 años</span></p>
                           </div>
-                      </div>
+                      </div>                       
                     </div>
                   </div>
                 </div>
@@ -260,14 +264,16 @@
                       </h5>
                     </div>
                     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion2">
-                      <div class="card-body">
-                        
+                      <div class="card-body">  
                         <div class="price-slider"> 
-                          <input value="0" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
-                          <input value="100" min="0" max="100" step="0.5" type="range" oninput="updatePriceLabels()"> 
+                          <input id="price1" class="price-input" value="0" min="0" max="100" step="0.5" type="range"> 
+                          <input id="price2" class="price-input" value="100" min="0" max="100" step="0.5" type="range">                       
                         </div>
-
-  
+                        <div class="price-values">
+                          <p><span id="precio-pre-desde">Desde</span><span id="precio-desde"> $0(Free)</span>
+                          <span id="precio-pre-hasta">, hasta</span><span id="precio-hasta"> $100</span></p>
+                        </div>
+                    
                       </div>
                     </div>
                   </div>
