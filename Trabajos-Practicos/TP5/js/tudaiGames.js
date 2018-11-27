@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   createSticky($('header'), 8);
   createSticky($('.filtros-container'), 80);
   createSticky($('.filtros-utilizados'),80);
-  updatePriceLabels();
+  // updatePriceLabels();
   createInfiniteScroll();
 });
 
@@ -59,7 +59,7 @@ function createInfiniteScroll() {
   win = $(window);			
   win.on("scroll", function() {    
     var windowHeight = win.scrollTop();
-    if(windowHeight >= 150 && $('.seccion-2').hasClass('oculto'))
+    if(windowHeight >= 110 && $('.seccion-2').hasClass('oculto'))
       createEfectScroll();  
   });
 }

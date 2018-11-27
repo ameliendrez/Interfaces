@@ -25,14 +25,20 @@
 	border-width:8px;
 }
 
-.comments .card-header{
-    padding: .1rem .25rem;
-    height: 32px;
+.comments {
+  margin-right: 1%;
+}
+ .comments .card-header {
+  padding: .1rem .25rem;
+  height: 32px;
 }
 
-.single-comment{
-    padding-bottom: 2px;   
-    margin-bottom: 10px;    
+.comments h5 {
+  font-size: 1.4rem;
+}
+ .single-comment {
+  padding-bottom: 2px;
+  margin-bottom: 10px;
 }
 
 .single-comment .col-1{
@@ -52,6 +58,13 @@
   .seccion-comentarios .card-body{
     text-align: justify;
   }
+   .likes {
+    position: absolute;
+    float: right;
+    bottom: 62%;
+    left: 91%;
+    font-size: 1.3rem;
+  }
 
 
 
@@ -61,7 +74,7 @@
     width: 80px;
     height: 80px;
     position: absolute;
-    left: 95%; /*110*/
+    left: 96%; /*110*/
     top: 20%;  /*50*/
     transform: translate(-50%, -50%);
     background: url(../img/heart.png) no-repeat;

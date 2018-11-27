@@ -11,8 +11,9 @@ header {
 }
 
 .container {
-  max-width: 87%;
+  max-width: 100%;
   padding: 0;
+  margin: 0 0 0 5px;
 }
 
 header.fixed{
@@ -110,6 +111,9 @@ label h2 {
   margin-bottom: 15px;
 }
 
+.carousel {
+  width: 100%;
+}
 
 .filtros-utilizados {
   background-color: #133B61;
@@ -135,14 +139,13 @@ label h2 {
 
 .juegos {
   background-color: #133B61;
-  height: 290px;
-  width: 224px;
-  margin: 20px 40px 20px 0;
+  height: 260px;
+  margin: 10px 40px 20px 0;
 }
 
 .juegos h3, .card-title {
   font-weight: 550;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .juegos h3 {
@@ -161,6 +164,7 @@ label h2 {
 .sibling-fade {
   width: 94.5%;
   visibility: hidden;
+  margin-bottom: 25px;
 }
 
 .sibling-fade > * {
@@ -331,17 +335,23 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
     border-bottom-right-radius: 15px;
 }
 
+.nav-tabs, .tab-content, .ranking-title {
+  margin: 0 8% 0 8%;
+}
+
 .game-screenshots {
+  width: 40%;
   margin-top: 30px; /*Ubicacion del carousel de screenshots*/
 }
 
 .ranking-col {
   background-color: #133B61;
   height: 700px;
+  width: 18%;
 }
 
 .ranking-title {
-  padding-top: 5px;
+  padding: 5px 0;
 }
 
 .align-right {
