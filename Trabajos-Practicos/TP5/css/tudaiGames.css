@@ -195,7 +195,6 @@ label h2 {
     transition-delay: 0ms, 0ms;
     background-color: #28537b;
     box-shadow: 0 3px 20px 12px rgba(0, 0, 0, 0.4);
-
 }
 
 .card {
@@ -299,10 +298,6 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
   margin-bottom: 10px;
 }
 
-/* .filtro-avanzado .filter-body {
-  margin-top: -3em;
-} */
-
 #nav-mensual-tab, #nav-semanal-tab {
     width: 50%;
 }
@@ -389,7 +384,6 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
   position: absolute;
   padding: 5px;
   border-bottom-right-radius: 25px 15px;
-  /* 30px 20px; */
 }
 
 .img-container {
@@ -605,8 +599,8 @@ p.title-ultimos-jugados, p.title-juegos-recomendados {
   }
 }
 
-.seccion-2.mostrando{
-  animation: mostrarSeccion linear 0.5s 1;
+.mostrando{
+  animation: mostrarSeccion linear 0.55s 1;
 }
 
 @keyframes mostrarSeccion {
