@@ -143,6 +143,6 @@ function createEfectScroll() {
     $('.seccion-2').removeClass('oculto');
     $('.seccion-2').addClass('mostrando');
     clearTimeout(temporizador);
-  }, 6000);
+  }, 2000);
 }
 
