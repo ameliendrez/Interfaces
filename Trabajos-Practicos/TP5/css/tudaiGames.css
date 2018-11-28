@@ -740,3 +740,73 @@ input[type=range]:focus::-ms-fill-upper {
 input[type=range]{
   background-color: #133B61;
 }
+
+/* Ranking animation */
+
+#item-1{
+  animation: toPosition3 linear 5s 5s infinite;
+}
+
+@keyframes toPosition3 {
+  10%{
+    transform: translate(-10px, 10px);
+  }
+  15% {
+    transform: translate(-10px, 100px);
+  }
+  20%{
+    transform: translate(-10px, 146px)
+  }
+  22%{
+    transform: translate(0px, 146px)
+  }
+  50%{
+    transform: translate(0px, 146px)
+  }
+  55%{
+    transform: translate(10px, 146px);
+  }
+  60%{
+    transform: translate(10px, 100px);
+  }
+  65%{
+    transform: translate(10px, 10px);
+  }
+  70%{
+    transform: translate(0px, -1px);
+  }
+}
+
+#item-2{
+  animation: toPosition1 linear 5s 5s infinite;
+}
+
+@keyframes toPosition1 {
+  10%{
+    transform: translate(10px, -10px);
+  }
+  15% {
+    transform: translate(10px, -100px);
+  }
+  20%{
+    transform: translate(10px, -146px)
+  }
+  22%{
+    transform: translate(0px, -146px)
+  }
+  50%{
+    transform: translate(0px, -146px)
+  }
+  55%{
+    transform: translate(-10px, -146px);
+  }
+  60%{
+    transform: translate(-10px, -100px);
+  }
+  65%{
+    transform: translate(-10px, -10px);
+  }
+  70%{
+    transform: translate(0px, 0px);
+  }
+}

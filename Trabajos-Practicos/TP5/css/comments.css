@@ -37,11 +37,14 @@
   font-size: 1.4rem;
 }
 
- .single-comment {
+.single-comment.oculto{
+  display: none;
+}
+
+.single-comment {
   padding-bottom: 2px;
   margin-bottom: 10px;
-  animation: FadeIn .7s linear;
-  display: none;
+  animation: FadeIn 2s 0s linear;
 }
 
 .single-comment:nth-child(1) { animation-delay: .1s; }
